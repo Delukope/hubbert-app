@@ -25,6 +25,8 @@ export function ScanTheater({
   error,
   onRetry,
   boot = false,
+  jobId,
+  previewReady = false,
 }: {
   url?: string;
   percent?: number;
@@ -33,6 +35,8 @@ export function ScanTheater({
   error?: string | null;
   onRetry?: () => void;
   boot?: boolean;
+  jobId?: string;
+  previewReady?: boolean;
 }) {
   const [tick, setTick] = useState(0);
   const [reduced, setReduced] = useState(false);
@@ -72,7 +76,7 @@ export function ScanTheater({
       <div className="scan-theater__grid pointer-events-none absolute inset-0" aria-hidden />
       <div className="scan-theater__beam pointer-events-none absolute inset-0" aria-hidden />
 
-      <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:p-10">
+      <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(240px,0.9fr)] lg:p-10">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">
             {status === "error" ? "Avbrott" : boot || status === "boot" ? "Upplåsning" : "Live-scan"}
@@ -137,8 +141,29 @@ export function ScanTheater({
           )}
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-6">
-          <div className="relative grid h-44 w-44 place-items-center">
+        <div className="flex flex-col gap-6">
+          <div
+            className="relative overflow-hidden border border-line bg-black/40"
+            style={{ aspectRatio: "16 / 10" }}
+          >
+            {jobId ? (
+              <iframe
+                title={`Förhandsvisning av ${host}`}
+                src={`/api/analys/${jobId}/preview`}
+                sandbox=""
+                referrerPolicy="no-referrer"
+                className="h-full w-full bg-[#07050a]"
+              />
+            ) : (
+              <div className="grid h-full place-items-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                Hämtar yta
+              </div>
+            )}
+            <p className="pointer-events-none absolute bottom-2 left-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ion">
+              {previewReady ? "Sandlåda · inget JS" : "Väntar på HTML"}
+            </p>
+          </div>
+          <div className="relative mx-auto grid h-36 w-36 place-items-center">
             <svg viewBox="0 0 120 120" className="h-full w-full" aria-hidden>
               <circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" strokeOpacity="0.12" />
               <circle cx="60" cy="60" r="38" fill="none" stroke="currentColor" strokeOpacity="0.18" />

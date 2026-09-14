@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatSek, type PricePlan, type UnlockTier } from "@/lib/pricing";
@@ -20,11 +19,10 @@ export function UnlockCta({
   demo: boolean;
   costNote: string;
 }) {
-  const router = useRouter();
   const [pending, setPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function buy(tier: "snabb" | "djup", asDemo = false) {
+  async function buy(tier: "snabb" | "djup" | "tung", asDemo = false) {
     setError(null);
     setPending(tier + (asDemo ? "-demo" : ""));
     try {
@@ -43,7 +41,7 @@ export function UnlockCta({
         return;
       }
       if (data.demo) {
-        router.refresh();
+        window.location.reload();
         return;
       }
     } catch {
@@ -57,7 +55,7 @@ export function UnlockCta({
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         {plans.map((p) => {
-          const owned = current === p.id || current === "djup";
+          const owned = current === "tung" || current === p.id || (current === "djup" && p.id !== "tung");
           return (
             <div key={p.id} className="rounded-2xl border border-line bg-white/3 p-5">
               <p className="text-xs uppercase tracking-[0.16em] text-gold">{p.name}</p>

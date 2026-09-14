@@ -16,13 +16,15 @@ function sleep(ms: number) {
 
 function classify(status: number, code?: string): { retryable: boolean; fallback: string } {
   if (code === "blocked") return { retryable: false, fallback: "URL:en tillåts inte (privat, lokal eller metadata)." };
+  if (code === "csrf") return { retryable: false, fallback: "Begäran kom från fel origin." };
+  if (code === "rate_limited") return { retryable: true, fallback: "För många skanningar. Vänta och försök igen." };
   if (code === "invalid_url" || code === "invalid_json") return { retryable: false, fallback: "Ogiltig URL." };
   if (status === 404) return { retryable: true, fallback: "Analysjobbet hittades inte. Försök igen." };
   if (status === 429 || status >= 500) return { retryable: true, fallback: "Motorn är upptagen. Vi kan försöka igen." };
   return { retryable: status >= 500, fallback: "Kunde inte starta analysen." };
 }
 
-async function startScan(url: string): Promise<StartResult> {
+async function startScan(url: string, intent: "teaser" | "snabb" | "djup"): Promise<StartResult> {
   let last: StartResult = {
     ok: false,
     error: "Tillfällig nätverksstörning. Försök igen.",
@@ -35,7 +37,7 @@ async function startScan(url: string): Promise<StartResult> {
       const res = await fetch("/api/analys", {
         method: "POST",
         headers: { "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, intent, fax_number: "" }),
         signal: AbortSignal.timeout(18_000),
       });
       const text = await res.text();
@@ -97,6 +99,7 @@ export function UrlForm({
 }) {
   const router = useRouter();
   const [url, setUrl] = useState(initialUrl);
+  const [intent, setIntent] = useState<"teaser" | "snabb" | "djup">("teaser");
   const [error, setError] = useState<string | null>(null);
   const [retryable, setRetryable] = useState(false);
   const [pending, setPending] = useState(false);
@@ -105,7 +108,7 @@ export function UrlForm({
     setError(null);
     setRetryable(false);
     setPending(true);
-    const result = await startScan(target);
+    const result = await startScan(target, intent);
     if (result.ok) {
       router.push(`/analys/${result.id}`);
       return;
@@ -130,8 +133,44 @@ export function UrlForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="w-full">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+    <form onSubmit={onSubmit} className="relative w-full">
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          name="fax_number"
+          aria-hidden
+          className="absolute h-0 w-0 overflow-hidden opacity-0"
+        />
+        <fieldset className="mb-3 flex flex-wrap gap-2">
+          <legend className="sr-only">Analysnivå</legend>
+          {(
+            [
+              ["teaser", "Teaser"],
+              ["snabb", "Snabb"],
+              ["djup", "Djup"],
+            ] as const
+          ).map(([id, label]) => (
+            <label
+              key={id}
+              className={
+                intent === id
+                  ? "border border-ion bg-ion/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ion"
+                  : "border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted"
+              }
+            >
+              <input
+                type="radio"
+                name="intent"
+                value={id}
+                checked={intent === id}
+                onChange={() => setIntent(id)}
+                className="sr-only"
+              />
+              {label}
+            </label>
+          ))}
+        </fieldset>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
         <label className="sr-only" htmlFor="url">
           Webbplatsens URL
         </label>
@@ -165,7 +204,13 @@ export function UrlForm({
           ) : null}
         </div>
       ) : (
-        <p className="mt-3 text-sm text-muted">Gratis, utan inloggning. Teaser-betyg; full rapport från 199 kr.</p>
+        <p className="mt-3 text-sm text-muted">
+          {intent === "djup"
+            ? "Teaser körs först utan AI. Djupanalys (AI) startar efter betalning."
+            : intent === "snabb"
+              ? "Snabb analys: mer i rapporten efter betalning. Ingen dyr AI-körning."
+              : "Gratis teaser på sajten. Full rapport och PDF efter betalning."}
+        </p>
       )}
     </form>
   );

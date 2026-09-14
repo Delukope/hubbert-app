@@ -1,17 +1,29 @@
+import { after } from "next/server";
 import { z } from "zod";
 import { createCheckoutUrl, applyUnlock } from "@/lib/billing";
 import { demoUnlockAllowed, stripeReady } from "@/lib/pricing";
 import { readJob } from "@/lib/analyzer/store";
+import { runPaidEnrich } from "@/lib/analyzer/run";
+import { clientIp, mutationOriginOk } from "@/lib/security/origin";
+import { hitLimit, LIMITS } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
 const bodySchema = z.object({
   jobId: z.string().min(8).max(32),
-  tier: z.enum(["snabb", "djup"]),
+  tier: z.enum(["snabb", "djup", "tung"]),
   demo: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
+  if (!mutationOriginOk(request)) {
+    return Response.json({ error: "Ogiltig origin.", code: "csrf" }, { status: 403 });
+  }
+  const limited = hitLimit(`checkout:${clientIp(request)}`, LIMITS.checkout);
+  if (!limited.ok) {
+    return Response.json({ error: "För många betalningsförsök.", code: "rate_limited" }, { status: 429 });
+  }
+
   let json: unknown;
   try {
     json = await request.json();
@@ -31,6 +43,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "Demo-upplåsning är avstängd." }, { status: 403 });
     }
     await applyUnlock(jobId, tier);
+    after(() => runPaidEnrich(jobId).catch(() => undefined));
     return Response.json({ demo: true, unlocked: tier });
   }
 

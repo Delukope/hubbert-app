@@ -3,7 +3,7 @@
 Produkt på **[hubberty.se](https://hubberty.se)** (två t + y). UI-namn: **Hubbert**.  
 Ägare: **Konny Pettersson**.
 
-Sajtanalys (gratis teaser → betald full rapport + PDF), hemsidor och appar. Inte WordPress. Inte Divi.
+Sajtanalys (gratis teaser på sajten → betald full rapport + PDF), hemsidor och appar. Inte WordPress. Inte Divi.
 
 ## Stack
 
@@ -30,17 +30,30 @@ npm start
 
 ## Priser (placeholder)
 
-| Nivå | Default |
-| --- | --- |
-| Teaser | 0 kr |
-| Snabb analys | 199 kr (`PRICE_SNABB_SEK`) |
-| Djupanalys | 990 kr (`PRICE_DJUP_SEK`) |
+| Nivå | Default | När |
+| --- | --- | --- |
+| Teaser | 0 kr | På sajten. Ingen e-post med full rapport. |
+| Snabb analys | 199 kr | Begränsat djup, PDF efter betalning. Ingen dyr AI. |
+| Djupanalys | 990 kr | AI/PageSpeed **efter** betalning. |
+| Tung / stor sajt | 2490 kr | Om HTML/bilder/länkar är tunga. Betala innan vidare pass. |
 
-Stripe: `STRIPE_SECRET_KEY` + `STRIPE_PRICE_SNABB` / `STRIPE_PRICE_DJUP`. Utan nycklar: ingen fejkad betalning. Demo-upplåsning bara om `ALLOW_DEMO_UNLOCK=true`.
+Stripe: `STRIPE_SECRET_KEY` + price ids. Utan nycklar: ingen fejkad betalning. Demo-upplåsning bara om `ALLOW_DEMO_UNLOCK=true`.
+
+## Riskmodell (missbruk)
+
+Konkurrenter och bots kan annars tömma kassan: varje “gratis full rapport” kostar hämtning + ev. AI.
+
+- **Teaser** körs lokalt (heuristik). Ingen OpenAI. Rapporten redigeras i API:t; PDF är 403 tills `unlock` är betald.
+- **Djup / tung** flaggas `deepPending` / `sizeClass=heavy`. AI-pass (`lib/analyzer/enrich.ts`) körs först efter Stripe/demo-unlock.
+- **E-post:** ingen mailer är inkopplad. Policy i `lib/analyzer/notify.ts`: teaser + signerad betallänk, aldrig PDF/JSON.
+- **Takt:** 8 teaser/timme och 20/dag per IP, honeypot-fält, origin-check på POST, blocklista, tarpit för kända scraper-UA. Inte “AI-detektion” — bara billiga heuristiker (`lib/security/`).
+- Förhandsvisning av målsidan: sanerad HTML i sandlådad iframe (`sandbox=""`, inget JS i vår origin).
+
+Checklista: `lib/security/checklist.ts`.
 
 ## Routes
 
-`/`, `/projekt`, `/projekt/[slug]`, `/analys`, `/analys/[jobId]`, `/tjanster`, `/priser`, `/om`, `/integritet`, `/villkor`
+`/`, `/projekt`, `/projekt/[slug]`, `/analys`, `/analys/[jobId]`, `/tjanster`, `/priser`, `/om`, `/integritet`, `/villkor`, `/ai.txt`
 
 ## Portfölj
 

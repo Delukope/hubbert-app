@@ -95,9 +95,17 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
   return (
     <ScanTheater
       url={job?.url ?? url}
+      jobId={jobId}
+      previewReady={Boolean(job?.previewReady)}
       percent={job?.progress.percent ?? 8}
       step={job?.progress.step}
-      status={showError ? "error" : (job?.status ?? "running")}
+      status={
+        showError
+          ? "error"
+          : job?.status === "awaiting_payment"
+            ? "queued"
+            : (job?.status ?? "running")
+      }
       error={
         job?.status === "error"
           ? job.error

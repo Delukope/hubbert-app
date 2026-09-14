@@ -4,7 +4,9 @@ import { connection } from "next/server";
 import { ScanProgress } from "@/components/analyzer/scan-progress";
 import { ReportDashboard } from "@/components/report/report-dashboard";
 import { readJob } from "@/lib/analyzer/store";
+import { redactJob } from "@/lib/analyzer/access";
 import { fulfillStripeSession } from "@/lib/billing";
+import { costNote, demoUnlockAllowed, quotePlans, stripeReady } from "@/lib/pricing";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -44,13 +46,26 @@ export default async function JobPage({
   }
   const job = await readJob(jobId);
   if (!job) notFound();
+  const view = redactJob(job);
+  const heavy = view.sizeClass === "heavy";
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      {job.status === "complete" && job.report ? (
-        <ReportDashboard job={job} />
+      {view.status === "complete" && view.report ? (
+        <ReportDashboard
+          job={view}
+          billing={{
+            plans: quotePlans(heavy),
+            stripe: stripeReady(),
+            demo: demoUnlockAllowed(),
+            costNote,
+            heavy,
+            heavyReasons: view.heavyReasons ?? [],
+            deepPending: Boolean(view.deepPending),
+          }}
+        />
       ) : (
-        <ScanProgress jobId={job.id} url={job.url} />
+        <ScanProgress jobId={view.id} url={view.url} />
       )}
     </div>
   );

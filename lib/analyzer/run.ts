@@ -15,16 +15,43 @@ import {
   templatedSummary,
 } from "./scores";
 import { buildDemoReport } from "./demo";
-import { enrichReport } from "./enrich";
+import { enrichReport, type EnrichMode } from "./enrich";
 import { patchJob, readJob } from "./store";
+import { writePreviewHtml } from "./preview-store";
+import { sanitizePreviewHtml } from "./sanitize-preview";
+import { classifySize } from "./size";
 import type { ScanIssue, ScanReport } from "./types";
 
 const STUCK_MS = 90_000;
+
+function enrichModeFor(job: { unlock?: string; sizeClass?: string }): EnrichMode {
+  if (job.unlock === "tung" || job.unlock === "djup") return "djup";
+  if (job.unlock === "snabb") return "snabb";
+  return "none";
+}
+
+export async function runPaidEnrich(jobId: string) {
+  const job = await readJob(jobId);
+  if (!job?.report) return;
+  const mode = enrichModeFor(job);
+  if (mode === "none") return;
+  const want = mode === "djup" ? 2 : 1;
+  const have = job.report.enrichLevel ?? (job.report.enriched ? 1 : 0);
+  if (have >= want) return;
+  const report = attachNarrative(await enrichReport(job.report, mode));
+  await patchJob(jobId, {
+    report,
+    deepPending: false,
+    progress: { step: "Klar", percent: 100 },
+    status: "complete",
+  });
+}
 
 export async function runScan(jobId: string) {
   const job = await readJob(jobId);
   if (!job) return;
   if (job.status === "complete" || job.status === "error") return;
+  if (job.status === "awaiting_payment") return;
   if (job.status === "running") {
     const age = Date.now() - new Date(job.updatedAt).getTime();
     if (Number.isFinite(age) && age < STUCK_MS) return;
@@ -41,8 +68,20 @@ export async function runScan(jobId: string) {
 
     const https = page.finalUrl.startsWith("https:");
     const facts = parseHtml(page.html, page.finalUrl);
+    try {
+      await writePreviewHtml(jobId, sanitizePreviewHtml(page.html, page.finalUrl));
+    } catch {
+      /* preview is optional */
+    }
 
-    await patchJob(jobId, { progress: { step: "HTML-dokument", percent: 44 } });
+    const sized = classifySize(facts, page.bytes);
+    await patchJob(jobId, {
+      progress: { step: "HTML-dokument", percent: 44 },
+      previewReady: true,
+      sizeClass: sized.sizeClass,
+      heavyReasons: sized.reasons,
+    });
+
     const sec = analyzeSecurityHeaders(page.headers, https);
     const issues: ScanIssue[] = [];
     buildIssuesFromSecurity(https, sec.headers, issues);
@@ -110,17 +149,30 @@ export async function runScan(jobId: string) {
       summary: "",
       deepSummary: "",
       roadmap: [],
+      enriched: false,
+      enrichLevel: 0,
     };
     report.summary = templatedSummary(report);
     report = attachNarrative(report);
 
+    const live = await readJob(jobId);
+    const unlock = live?.unlock ?? job.unlock ?? "free";
+    const heavyUnpaid = sized.sizeClass === "heavy" && unlock !== "tung";
+    const mode = heavyUnpaid ? "none" : enrichModeFor({ unlock });
+
     await patchJob(jobId, { progress: { step: "Rapport", percent: 88 } });
-    report = attachNarrative(await enrichReport(report));
+    if (mode !== "none") {
+      report = attachNarrative(await enrichReport(report, mode));
+    }
 
     await patchJob(jobId, {
       status: "complete",
       progress: { step: "Klar", percent: 100 },
       report,
+      sizeClass: sized.sizeClass,
+      heavyReasons: sized.reasons,
+      previewReady: true,
+      deepPending: (job.intent === "djup" || heavyUnpaid) && unlock === "free",
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Okänt fel";
@@ -134,7 +186,7 @@ export async function runScan(jobId: string) {
       return;
     }
     const report = attachNarrative(
-      await enrichReport(buildDemoReport(job.url, `Livehämtning misslyckades: ${message}`)),
+      await enrichReport(buildDemoReport(job.url, `Livehämtning misslyckades: ${message}`), "none"),
     );
     await patchJob(jobId, {
       status: "complete",

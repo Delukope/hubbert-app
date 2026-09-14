@@ -16,8 +16,8 @@ export default async function AnalyzePage({ searchParams }: PageProps<"/analys">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
         <h1 className="display mt-3 text-4xl sm:text-6xl">En URL. En rapport.</h1>
         <p className="mt-4 max-w-xl text-muted">
-          Gratis teaser: betyg och några avslöjanden. Full rapport och PDF efter betalning. Privata, lokala och
-          metadata-IP:n blockeras.
+          Gratis teaser stannar på sajten. Djupanalys och tunga sajter betalas innan AI-pass. PDF aldrig före
+          betalning. Privata och lokala IP:n blockeras.
         </p>
         <div className="mt-10">
           <UrlForm initialUrl={preset} />

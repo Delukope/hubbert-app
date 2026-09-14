@@ -15,7 +15,8 @@ export async function POST(request: Request) {
         client_reference_id?: string | null;
       };
       const jobId = session.metadata?.jobId || session.client_reference_id;
-      const tier = session.metadata?.tier === "djup" ? "djup" : "snabb";
+      const raw = session.metadata?.tier;
+      const tier = raw === "tung" ? "tung" : raw === "djup" ? "djup" : "snabb";
       if (jobId) await applyUnlock(jobId, tier, session.id);
     }
     return Response.json({ received: true });

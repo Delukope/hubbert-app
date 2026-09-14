@@ -2,14 +2,14 @@ import Link from "next/link";
 import { UrlForm } from "@/components/analyzer/url-form";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCard } from "@/components/project-card";
-import { formatSek, plans } from "@/lib/pricing";
+import { formatSek, plans, tungPlan } from "@/lib/pricing";
 import { appProjects, caseStudyProjects, liveSiteProjects } from "@/lib/projects";
 
 export default function HomePage() {
   const live = liveSiteProjects();
   const cases = caseStudyProjects();
   const apps = appProjects();
-  const price = plans();
+  const price = [...plans(), tungPlan()];
   return (
     <div className="pb-24">
       <section className="relative overflow-hidden">
@@ -32,7 +32,7 @@ export default function HomePage() {
                 ["00 kr", "Teaser"],
                 [formatSek(price[0].sek), "Snabb"],
                 [formatSek(price[1].sek), "Djup"],
-                ["PDF", "Betald"],
+                [formatSek(price[2].sek), "Tung"],
               ].map(([k, v]) => (
                 <div key={v} className="border-t border-line pt-3">
                   <dt className="font-mono text-lg text-ion">{k}</dt>
@@ -113,7 +113,7 @@ export default function HomePage() {
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Priser</p>
         <h2 className="display mt-2 text-3xl">Betala för det som kostar att köra</h2>
-        <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-2">
+        <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
           {price.map((p) => (
             <div key={p.id} className="bg-bg p-6">
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion">{p.name}</p>

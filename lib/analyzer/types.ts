@@ -1,6 +1,7 @@
-export type UnlockTier = "free" | "snabb" | "djup";
-
-export type JobStatus = "queued" | "running" | "complete" | "error";
+export type UnlockTier = "free" | "snabb" | "djup" | "tung";
+export type ScanIntent = "teaser" | "snabb" | "djup";
+export type SizeClass = "normal" | "heavy";
+export type JobStatus = "queued" | "running" | "complete" | "error" | "awaiting_payment";
 
 export type IssueSeverity = "critical" | "high" | "medium" | "low" | "info";
 export type IssueCategory = "security" | "performance" | "seo" | "a11y" | "design" | "best-practice";
@@ -89,6 +90,8 @@ export type ScanReport = {
   summary: string;
   deepSummary: string;
   roadmap: RoadmapItem[];
+  enriched?: boolean;
+  enrichLevel?: 0 | 1 | 2;
   pagespeed?: {
     performance?: number;
     seo?: number;
@@ -113,6 +116,11 @@ export type ScanJob = {
   progress: ScanProgress;
   report?: ScanReport;
   unlock?: UnlockTier;
+  intent?: ScanIntent;
+  sizeClass?: SizeClass;
+  heavyReasons?: string[];
+  previewReady?: boolean;
+  deepPending?: boolean;
   paidAt?: string;
   stripeSessionId?: string;
 };

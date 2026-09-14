@@ -65,7 +65,7 @@ export async function readJob(id: string): Promise<ScanJob | null> {
   return null;
 }
 
-export async function createJob(url: string): Promise<ScanJob> {
+export async function createJob(url: string, intent: ScanJob["intent"] = "teaser"): Promise<ScanJob> {
   const now = new Date().toISOString();
   const job: ScanJob = {
     id: newJobId(),
@@ -75,6 +75,8 @@ export async function createJob(url: string): Promise<ScanJob> {
     updatedAt: now,
     progress: { step: "DNS / TLS", percent: 6 },
     unlock: "free",
+    intent,
+    deepPending: intent === "djup",
   };
   await writeJob(job);
   return job;

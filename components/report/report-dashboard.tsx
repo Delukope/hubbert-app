@@ -16,6 +16,9 @@ export type ReportBilling = {
   stripe: boolean;
   demo: boolean;
   costNote: string;
+  heavy?: boolean;
+  heavyReasons?: string[];
+  deepPending?: boolean;
 };
 
 const severityLabel: Record<ScanIssue["severity"], string> = {
@@ -85,6 +88,17 @@ export function ReportDashboard({
         <p className="rounded-2xl border border-gold/30 bg-gold/8 px-4 py-3 text-sm text-gold">
           Demo-rapport: livehämtning blockerades eller misslyckades
           {report.demoReason ? ` (${report.demoReason})` : ""}.
+        </p>
+      ) : null}
+      {billing?.heavy && !paid ? (
+        <p className="rounded-sm border border-warn/40 bg-warn/8 px-4 py-3 text-sm">
+          Stor sajt ({(billing.heavyReasons ?? []).join(" · ") || "tung yta"}). Vidare pass kräver{" "}
+          <span className="font-mono text-ion">Tung analys</span> — betala innan vi bär mer kostnad.
+        </p>
+      ) : null}
+      {billing?.deepPending && !paid ? (
+        <p className="rounded-sm border border-ion/30 bg-ion/8 px-4 py-3 text-sm">
+          Djupanalys (AI) är köad och körs efter betalning. Teasern nedan är gratis och stannar på sajten.
         </p>
       ) : null}
 
