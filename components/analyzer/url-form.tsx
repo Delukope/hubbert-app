@@ -93,9 +93,11 @@ async function startScan(url: string, intent: "teaser" | "snabb" | "djup"): Prom
 export function UrlForm({
   size = "lg",
   initialUrl = "",
+  hero = false,
 }: {
   size?: "lg" | "md";
   initialUrl?: string;
+  hero?: boolean;
 }) {
   const router = useRouter();
   const [url, setUrl] = useState(initialUrl);
@@ -133,7 +135,18 @@ export function UrlForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="relative w-full">
+    <>
+      {hero ? (
+        <div className="mx-auto max-w-3xl">
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
+          <h1 className="display mt-3 text-4xl sm:text-6xl">En URL. En rapport.</h1>
+          <p className="mt-4 max-w-xl text-muted">
+            Gratis teaser stannar på sajten. Djupanalys och tunga sajter betalas innan AI-pass. PDF aldrig före
+            betalning. Privata och lokala IP:n blockeras.
+          </p>
+        </div>
+      ) : null}
+      <form onSubmit={onSubmit} className={hero ? "relative mx-auto mt-10 w-full max-w-3xl" : "relative w-full"}>
         <input
           tabIndex={-1}
           autoComplete="off"
@@ -213,5 +226,6 @@ export function UrlForm({
         </p>
       )}
     </form>
+    </>
   );
 }
