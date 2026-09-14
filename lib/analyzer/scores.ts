@@ -47,7 +47,7 @@ export function scoreSeo(facts: ScanFacts, url: string, issues: ScanIssue[]): nu
         category: "seo",
         severity: "high",
         title: "Saknar meta description",
-        description: "Utan beskrivning hittar på sökmotorer på en egen snippet.",
+        description: "Utan beskrivning skriver sökmotorer en egen snippet.",
         recommendation: "Skriv 70–160 tecken som säljer klicket.",
       }),
     );

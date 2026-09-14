@@ -1,4 +1,4 @@
-import type { ScanFacts, ScanReport } from "./types";
+import type { ScanFacts, ScanIssue, ScanReport } from "./types";
 import { analyzeSecurityHeaders } from "./security";
 import {
   buildIssuesFromSecurity,
@@ -62,7 +62,7 @@ export function buildDemoReport(url: string, reason: string): ScanReport {
   fakeHeaders["content-encoding"] = "br";
 
   const sec = analyzeSecurityHeaders(fakeHeaders, https);
-  const issues = [];
+  const issues: ScanIssue[] = [];
   buildIssuesFromSecurity(https, sec.headers, issues);
   const seo = scoreSeo(facts, url, issues);
   const a11y = scoreA11y(facts, issues);

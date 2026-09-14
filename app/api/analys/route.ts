@@ -2,6 +2,7 @@ import { after } from "next/server";
 import { analyzeRequestSchema } from "@/lib/analyzer/schema";
 import { createJob } from "@/lib/analyzer/store";
 import { runScan } from "@/lib/analyzer/run";
+import { assertPublicHttpUrl, SsrfError } from "@/lib/analyzer/ssrf";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -17,6 +18,13 @@ export async function POST(request: Request) {
   const parsed = analyzeRequestSchema.safeParse(body);
   if (!parsed.success) {
     const msg = parsed.error.issues[0]?.message ?? "Ogiltig URL.";
+    return Response.json({ error: msg }, { status: 400 });
+  }
+
+  try {
+    await assertPublicHttpUrl(parsed.data.url);
+  } catch (err) {
+    const msg = err instanceof SsrfError ? err.message : "URL:en tillåts inte.";
     return Response.json({ error: msg }, { status: 400 });
   }
 
