@@ -43,10 +43,10 @@ export function snabbPlan(): PricePlan {
     sek: snabbSek(),
     stripePriceId: process.env.STRIPE_PRICE_SNABB?.trim() || undefined,
     points: [
-      "Begränsat djup — heuristik på landningssidan",
-      "Full teaser låses upp per kategori",
-      "PDF efter betalning",
-      "Ingen dyr AI-körning",
+      "Genomgång av startsidan",
+      "Alla kategorier upplåsta",
+      "PDF du kan dela",
+      "Utan AI-pass",
     ],
   };
 }
@@ -59,10 +59,10 @@ export function djupPlan(): PricePlan {
     stripePriceId: process.env.STRIPE_PRICE_DJUP?.trim() || undefined,
     payBefore: true,
     points: [
-      "AI-pass och PageSpeed efter betalning",
-      "Rikare narrativ, E-E-A-T, roadmap",
+      "AI-genomgång och PageSpeed",
+      "Roadmap och tydligare rekommendationer",
       "PDF",
-      "Körs inte klart innan betalt — vi bär inte AI-kostnaden",
+      "Startar efter betalning",
     ],
   };
 }
@@ -75,9 +75,9 @@ export function tungPlan(): PricePlan {
     stripePriceId: process.env.STRIPE_PRICE_TUNG?.trim() || undefined,
     payBefore: true,
     points: [
-      "När HTML, bilder eller länkmassa är tung",
-      "Betala innan vidare pass",
-      "Allt i djupanalys plus utrymme för mer arbete",
+      "För tunga sajter",
+      "Betalas innan de tunga passen",
+      "Samma som djupanalys, med extra utrymme",
     ],
   };
 }
@@ -110,4 +110,4 @@ export function demoUnlockAllowed() {
 }
 
 export const costNote =
-  "Priset täcker AI/agent-körning, kortavgifter och en liten marginal — inte ett abonnemang. Djup och tung körs efter betalning så ingen kan tömma kassan på gratis AI.";
+  "Engångsbelopp, inget abonnemang. Djupanalys och tung startar efter betalning — de tunga passen körs först då.";

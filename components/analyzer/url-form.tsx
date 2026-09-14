@@ -141,8 +141,8 @@ export function UrlForm({
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
           <h1 className="display mt-3 text-4xl sm:text-6xl">En URL. En rapport.</h1>
           <p className="mt-4 max-w-xl text-muted">
-            Gratis teaser stannar på sajten. Djupanalys och tunga sajter betalas innan AI-pass. PDF aldrig före
-            betalning. Privata och lokala IP:n blockeras.
+            Gratis teaser på sajten. Full rapport och PDF när du betalar. Djupanalys startar efter betalning.
+            Privata och lokala adresser släpps inte in.
           </p>
         </div>
       ) : null}
@@ -219,9 +219,9 @@ export function UrlForm({
       ) : (
         <p className="mt-3 text-sm text-muted">
           {intent === "djup"
-            ? "Teaser körs först utan AI. Djupanalys (AI) startar efter betalning."
+            ? "Teaser först. Djupanalys startar efter betalning."
             : intent === "snabb"
-              ? "Snabb analys: mer i rapporten efter betalning. Ingen dyr AI-körning."
+              ? "Mer i rapporten efter betalning."
               : "Gratis teaser på sajten. Full rapport och PDF efter betalning."}
         </p>
       )}

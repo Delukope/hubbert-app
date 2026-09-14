@@ -70,7 +70,7 @@ function ReportPdf({ job }: { job: ScanJob }) {
           </View>
         ))}
         <Text style={{ marginTop: 18, fontSize: 8, color: "#8a8378" }}>
-          Hubbert heuristik. Inte en juridisk eller pentest-rapport. hubberty.se
+          Hubbert-analys. Inte en juridisk eller pentest-rapport. hubberty.se
         </Text>
       </Page>
     </Document>

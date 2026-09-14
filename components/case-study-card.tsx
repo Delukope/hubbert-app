@@ -54,7 +54,7 @@ export async function CaseStudyCard({ project }: { project: Project }) {
         <Frame caption="Efter — kommer" src={slot.afterSrc} exists={after} />
       </div>
       <Link href={`/projekt/${project.slug}`} className="mt-4 inline-flex font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
-        Öppna case-slot
+        Läs mer
       </Link>
     </article>
   );

@@ -426,8 +426,8 @@ export function templatedSummary(report: Pick<ScanReport, "overall" | "security"
         : "Här finns tydlig uppsida. Prioritera säkerhet och grundläggande SEO först.";
   const bullets = top.length
     ? top.map((i) => `${i.title}`).join("; ")
-    : "Inga allvarliga heuristiska fel hittades.";
-  const demo = report.isDemo ? " (demo-rapport — livehämtning var inte möjlig i den här miljön)" : "";
+    : "Inga allvarliga fel hittades.";
+  const demo = report.isDemo ? " (demo-rapport — livehämtning gick inte)" : "";
   return `${host} landar på ${report.overall}/100. Säkerhet ${report.security.grade}, prestanda ${report.performance.score}, SEO ${report.seo.score}, tillgänglighet ${report.a11y.score}. ${tone} Först: ${bullets}.${demo}`;
 }
 
@@ -558,7 +558,7 @@ export function attachNarrative(report: ScanReport): ScanReport {
     }
   })();
   const eeat = report.eeat.notes.slice(0, 3).join(" ");
-  report.deepSummary = `${host} får ${report.overall}/100 i Hubberts heuristik. Säkerhetsbetyg ${report.security.grade}, TTFB ${Math.round(report.performance.ttfbMs)} ms, design ${report.design.score}, E-E-A-T ${report.eeat.score}. ${eeat} Djupanalysen är en prioriterad läsning — inte en automatisk omskrivning av sajten. Nästa steg: betala för PDF och lista, eller be om åtgärdshjälp bara där vi faktiskt kan leverera.`;
+  report.deepSummary = `${host} får ${report.overall}/100. Säkerhetsbetyg ${report.security.grade}, TTFB ${Math.round(report.performance.ttfbMs)} ms, design ${report.design.score}, E-E-A-T ${report.eeat.score}. ${eeat} En prioriterad läsning — inte en omskrivning av sajten.`;
   if (!report.summary) report.summary = templatedSummary(report);
   return report;
 }

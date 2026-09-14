@@ -14,7 +14,7 @@ export const copy = {
   hero: {
     kicker: "Portfolio + sajtanalys",
     title: "Se din sajt som den verkligen är.",
-    lead: "Klistra in en URL. Få ett tydligt betyg på säkerhet, prestanda, SEO och tillgänglighet — plus vad du ska göra först.",
+    lead: "Klistra in en URL. Få betyg på säkerhet, prestanda, SEO och tillgänglighet — plus vad du ska göra först.",
     placeholder: "https://din-sajt.se",
     cta: "Analysera",
     hint: "Gratis, utan inloggning. Vi hämtar bara det som är publikt.",

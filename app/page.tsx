@@ -24,8 +24,8 @@ export default function HomePage() {
               <span className="block text-ion">som den är.</span>
             </h1>
             <p className="mt-6 max-w-md text-base leading-7 text-muted sm:text-lg">
-              Gratis teaser-scan. Full rapport från {formatSek(price[0].sek)}. Hemsidor och appar — bara uppdrag vi
-              kan slutföra. Konny Pettersson.
+              Gratis teaser. Full rapport från {formatSek(price[0].sek)}. Hemsidor och appar — bara jobb vi kan
+              leverera.
             </p>
             <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
               {[
@@ -56,9 +56,9 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
           {[
-            ["/tjanster", "01", "Hemsidor", "Modern stack. Inget Divi. Bara jobb vi kan leverera."],
-            ["/projekt/hubberty-app", "02", "Hubberty", "Familjenav. Arbetsnamn, under utveckling, byts."],
-            ["/projekt/stampe", "03", "STAMPE", "Arbetsnamn. Ingen live-lansering. Kommer snart."],
+            ["/tjanster", "01", "Hemsidor", "Nya sajter och omskrivningar. Bara jobb vi kan leverera."],
+            ["/projekt/hubberty-app", "02", "Hubberty", "Familjenav under utveckling."],
+            ["/projekt/stampe", "03", "STAMPE", "Kommande produkt."],
           ].map(([href, n, title, lead]) => (
             <Link key={href} href={href} className="bg-bg p-6 transition-colors hover:bg-white/3">
               <p className="font-mono text-[11px] text-ion">{n}</p>
@@ -76,7 +76,7 @@ export default function HomePage() {
             <h2 className="display mt-2 text-3xl sm:text-4xl">Hubbert och Akalasi</h2>
           </div>
           <Link href="/projekt" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
-            Inventering
+            Alla projekt
           </Link>
         </div>
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -88,10 +88,9 @@ export default function HomePage() {
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
-        <h2 className="display mt-2 text-3xl sm:text-4xl">Före & efter — kommer</h2>
+        <h2 className="display mt-2 text-3xl sm:text-4xl">Före & efter på gång</h2>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-          Två företagssajter som ska moderniseras. Inga fejkade efter-bilder — ramarna väntar på riktiga assets i{" "}
-          <span className="font-mono text-ion">/public/cases</span>.
+          Två företagssajter som ska moderniseras. Bilderna kommer när omskrivningen är klar.
         </p>
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           {cases.map((p) => (
@@ -112,7 +111,7 @@ export default function HomePage() {
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Priser</p>
-        <h2 className="display mt-2 text-3xl">Betala för det som kostar att köra</h2>
+        <h2 className="display mt-2 text-3xl">Vad det kostar</h2>
         <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
           {price.map((p) => (
             <div key={p.id} className="bg-bg p-6">

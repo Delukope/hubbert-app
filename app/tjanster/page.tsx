@@ -18,23 +18,22 @@ export default function ServicesPage() {
         <div>
           <h2 className="display text-2xl">Hemsidor</h2>
           <p className="mt-3 leading-7 text-muted">
-            Nya sajter och omskrivningar bort från WordPress/Divi när det är rätt. Klientarbete kan visas som
-            före/efter. Första slotarna: Värmlands Trädfällning och Filipsson Entreprenad — ramarna finns, efter-bilder
-            kommer när omskrivningen är gjord. Inga fejkade screenshots.
+            Nya sajter och omskrivningar bort från WordPress och Divi när det är rätt. Värmlands Trädfällning och
+            Filipsson Entreprenad får före och efter när omskrivningen är klar.
           </p>
         </div>
         <div>
           <h2 className="display text-2xl">Appar</h2>
           <p className="mt-3 leading-7 text-muted">
-            Hubberty (familjenav, arbetsnamn) är tidigt. STAMPE kommer snart som arbetsnamn — inte till salu som
-            färdig produkt. Appbyggen offertas bara när scope är tydligt.
+            Hubberty är ett familjenav under utveckling. STAMPE är en kommande produkt — inte till salu än. Appbyggen
+            offertas när uppdraget är tydligt.
           </p>
         </div>
         <div>
           <h2 className="display text-2xl">Åtgärdshjälp efter analys</h2>
           <p className="mt-3 leading-7 text-muted">
-            En rapport är inte en omskrivning. Vi kan hjälpa med konkret lista (headers, metadata, prestanda) när
-            det ryms. Pentest, juridiskt eller evig SEO-coachning ingår inte.
+            En rapport är inte en omskrivning. Vi kan hjälpa med konkret lista — headers, metadata, prestanda — när det
+            ryms. Pentest, juridiskt eller evig SEO-coachning ingår inte.
           </p>
         </div>
       </section>

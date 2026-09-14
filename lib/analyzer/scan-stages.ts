@@ -59,6 +59,6 @@ export const SCAN_LOG_LINES = [
   "score · prestanda",
   "score · seo / e-e-a-t",
   "score · a11y + design",
-  "narrativ · svenska",
+  "sammanfattning · svenska",
   "rapport · komposition",
 ] as const;
