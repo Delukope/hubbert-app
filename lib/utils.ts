@@ -31,5 +31,5 @@ export function scoreTone(score: number): "mint" | "gold" | "warn" | "bad" {
 }
 
 export function siteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://huberty.se";
+  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://hubberty.se";
 }

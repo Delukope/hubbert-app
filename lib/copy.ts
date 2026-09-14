@@ -1,7 +1,7 @@
 export const copy = {
   brand: {
     name: "Hubbert",
-    domain: "huberty.se",
+    domain: "hubberty.se",
     owner: "Konny Pettersson",
     tagline: "Sajter som tål att visas. Analyser som tål att delas.",
   },

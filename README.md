@@ -1,6 +1,6 @@
 # Hubbert
 
-Portfolio + sajtanalys. Domän: [huberty.se](https://huberty.se).  
+Portfolio + sajtanalys. Domän: [hubberty.se](https://hubberty.se).  
 Ägare: **Konny Pettersson**.
 
 Mörkt produkt-UI på Next.js App Router. Inte WordPress. Inte Divi. En kodyta som går att iterera på och en rapport som går att dela.
@@ -73,4 +73,4 @@ Inga hemligheter i git. `.env*` ignoreras (`.env.example` committas). Jobbfiler 
 
 ## Licens
 
-Privat sajt för huberty.se.
+Privat sajt för hubberty.se.

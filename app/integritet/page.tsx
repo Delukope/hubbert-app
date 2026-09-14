@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         för berikning. Utan nycklar stannar allt på servern.
       </p>
       <p className="mt-4 leading-8 text-muted">
-        Personuppgiftsansvarig: Konny Pettersson, huberty.se. Den här sidan är en stubbe och uppdateras när
+        Personuppgiftsansvarig: Konny Pettersson, hubberty.se. Den här sidan är en stubbe och uppdateras när
         drift och e-post är på plats.
       </p>
     </article>

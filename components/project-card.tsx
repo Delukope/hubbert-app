@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Project } from "@/lib/projects";
+import { statusLabel, type Project } from "@/lib/projects";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -107,8 +107,12 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
       >
         <Pattern project={project} />
         <div className="absolute left-4 top-4 flex gap-2">
-          <Badge className="bg-black/30 text-fg">{project.domain}</Badge>
-          {project.status === "wip" ? <Badge className="border-gold/40 text-gold">Pågår</Badge> : null}
+          <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
+          {project.status !== "live" ? (
+            <Badge className={project.status === "wip" ? "border-gold/40 text-gold" : "text-muted"}>
+              {statusLabel(project.status)}
+            </Badge>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
