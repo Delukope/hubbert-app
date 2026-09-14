@@ -9,17 +9,18 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Tjänster</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Tjänster · hubberty.se</p>
       <h1 className="display mt-3 text-4xl">Vi tar bara jobb vi kan slutföra.</h1>
       <p className="mt-4 leading-8 text-muted">
-        Inga eviga retainer-löften. Om uppdraget är större än vad Konny kan leverera säger vi nej. hubberty.se
+        Inga eviga retainer-löften. Om uppdraget är större än vad Konny kan leverera säger vi nej.
       </p>
       <section className="mt-12 space-y-10">
         <div>
           <h2 className="display text-2xl">Hemsidor</h2>
           <p className="mt-3 leading-7 text-muted">
-            Nya sajter och omskrivningar bort från WordPress/Divi när det är rätt. Offert efter en kort genomgång.
-            Fallatrad och Filipsson Entreprenad är typiska: enkla företagssajter som ska moderniseras.
+            Nya sajter och omskrivningar bort från WordPress/Divi när det är rätt. Klientarbete kan visas som
+            före/efter. Första slotarna: Värmlands Trädfällning och Filipsson Entreprenad — ramarna finns, efter-bilder
+            kommer när omskrivningen är gjord. Inga fejkade screenshots.
           </p>
         </div>
         <div>
@@ -38,10 +39,10 @@ export default function ServicesPage() {
         </div>
       </section>
       <div className="mt-10 flex flex-wrap gap-3">
-        <Link href="/analys" className="rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]">
+        <Link href="/analys" className="bg-ion px-5 py-3 text-sm font-medium text-ink">
           Börja med en scan
         </Link>
-        <Link href="/priser" className="rounded-full border border-line px-5 py-3 text-sm">
+        <Link href="/priser" className="border border-line px-5 py-3 text-sm">
           Priser
         </Link>
       </div>

@@ -1,9 +1,15 @@
 import { readJob } from "@/lib/analyzer/store";
 import { redactJob } from "@/lib/analyzer/access";
 import { runScan } from "@/lib/analyzer/run";
+import { corsPreflight, jsonErr, jsonOk } from "@/lib/analyzer/http";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 export const maxDuration = 60;
+
+export function OPTIONS() {
+  return corsPreflight();
+}
 
 export async function GET(
   _request: Request,
@@ -11,8 +17,8 @@ export async function GET(
 ) {
   const { jobId } = await ctx.params;
   const job = await readJob(jobId);
-  if (!job) return Response.json({ error: "Rapporten hittades inte." }, { status: 404 });
-  return Response.json(redactJob(job));
+  if (!job) return jsonErr("Rapporten hittades inte.", 404, "not_found");
+  return jsonOk(redactJob(job));
 }
 
 export async function POST(
@@ -21,10 +27,10 @@ export async function POST(
 ) {
   const { jobId } = await ctx.params;
   const job = await readJob(jobId);
-  if (!job) return Response.json({ error: "Rapporten hittades inte." }, { status: 404 });
-  if (job.status === "queued") {
-    await runScan(jobId);
+  if (!job) return jsonErr("Rapporten hittades inte.", 404, "not_found");
+  if (job.status === "queued" || job.status === "running") {
+    await runScan(jobId).catch(() => undefined);
   }
   const latest = await readJob(jobId);
-  return Response.json(latest ? redactJob(latest) : latest);
+  return jsonOk(latest ? redactJob(latest) : { error: "Rapporten hittades inte.", code: "not_found" });
 }

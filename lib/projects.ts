@@ -1,6 +1,12 @@
 export type ProjectKind = "site" | "app" | "archive";
 export type ProjectStatus = "live" | "wip" | "archive";
 
+export type CaseStudySlot = {
+  label: string;
+  beforeSrc?: string;
+  afterSrc?: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -13,6 +19,7 @@ export type Project = {
   kind: ProjectKind;
   status: ProjectStatus;
   callout?: string;
+  caseStudy?: CaseStudySlot;
   summary: string;
   problem: string;
   approach: string;
@@ -76,18 +83,24 @@ export const projects: Project[] = [
     url: "https://fallatrad.se",
     year: "2023–",
     role: "Webb, probono polish",
-    tags: ["Företag", "Lokal", "Modernisering"],
-    featured: true,
+    tags: ["Före & efter", "Lokal", "Modernisering"],
+    featured: false,
     kind: "site",
     status: "wip",
+    callout: "Före & efter — kommer",
+    caseStudy: {
+      label: "Före & efter — kommer",
+      beforeSrc: "/cases/fallatrad/before.webp",
+      afterSrc: "/cases/fallatrad/after.webp",
+    },
     summary:
-      "Värmlands Trädfällning AB på fallatrad.se. En enkel sajt som ska byggas om med modern stack — probono polish, inte temajakt.",
+      "Värmlands Trädfällning AB på fallatrad.se. Planerat före/efter-case — inte ett färdigt portföljcase. Enkel sajt som ska byggas om, probono.",
     problem:
       "Företagssajten gör jobbet men känns som en mall. Tjänster, förtroende och kontakt ska bära — inte sidofältet.",
     approach:
       "Behåll det som är sant (trädfällning i Värmland, tydlig väg till offert), skär bort det tunga och flytta till en stack som går att iterera på.",
     outcome:
-      "Pågående. Hubberts linje: enkel yta, stark kontrast, en sajt som tål att visas för kunden på telefonen.",
+      "Före/efter-slot. Riktiga efter-assets läggs i /public/cases/fallatrad när omskrivningen finns — inga fejkade bilder.",
     accent: "#7ee0c6",
     accentTo: "#3dd68c",
     pattern: "wave",
@@ -99,18 +112,24 @@ export const projects: Project[] = [
     url: "https://filipssonentreprenad.se",
     year: "2023–",
     role: "Webb, modernisering",
-    tags: ["Företag", "Entreprenad", "Modernisering"],
-    featured: true,
+    tags: ["Före & efter", "Entreprenad", "Modernisering"],
+    featured: false,
     kind: "site",
     status: "wip",
+    callout: "Före & efter — kommer",
+    caseStudy: {
+      label: "Före & efter — kommer",
+      beforeSrc: "/cases/filipsson-entreprenad/before.webp",
+      afterSrc: "/cases/filipsson-entreprenad/after.webp",
+    },
     summary:
-      "Filipsson Entreprenad på filipssonentreprenad.se. Samma uppdrag som fallatrad: en enkel sajt som ska moderniseras, inte sminkas med ett nytt tema.",
+      "Filipsson Entreprenad på filipssonentreprenad.se. Andra planerade före/efter-caset. Enkel sajt som ska moderniseras — inga fejkade efter-bilder.",
     problem:
       "Entreprenadsajter blir snabbt kataloger. Besökaren behöver förstå vad som görs, var, och hur man tar nästa steg.",
     approach:
       "Rensa strukturen kring tjänster och kontakt. Modern stack, bättre prestanda och en yta som Konny kan förbättra utan One.com-begränsningar.",
     outcome:
-      "Pågående modernisering. Samma ribba som övriga aktiva sajter i portföljen.",
+      "Före/efter-slot. Riktiga efter-assets läggs i /public/cases/filipsson-entreprenad när omskrivningen finns.",
     accent: "#f0a35e",
     accentTo: "#e8c07a",
     pattern: "hex",
@@ -238,6 +257,14 @@ export function featuredProjects() {
   return projects.filter((p) => p.featured);
 }
 
+export function liveSiteProjects() {
+  return projects.filter((p) => p.kind === "site" && !p.caseStudy);
+}
+
+export function caseStudyProjects() {
+  return projects.filter((p) => Boolean(p.caseStudy));
+}
+
 export function showcaseProjects() {
   return projects.filter((p) => p.kind === "site");
 }
@@ -250,7 +277,8 @@ export function archiveProjects() {
   return projects.filter((p) => p.kind === "archive");
 }
 
-export function statusLabel(status: ProjectStatus) {
+export function statusLabel(status: ProjectStatus, project?: Project) {
+  if (project?.caseStudy) return project.caseStudy.label;
   if (status === "wip") return "Under utveckling";
   if (status === "archive") return "Tidigare";
   return "Live";

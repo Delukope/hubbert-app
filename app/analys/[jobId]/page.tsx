@@ -47,7 +47,7 @@ export default async function JobPage({
       {job.status === "complete" && job.report ? (
         <ReportDashboard job={job} />
       ) : (
-        <ScanProgress jobId={job.id} />
+        <ScanProgress jobId={job.id} url={job.url} />
       )}
     </div>
   );

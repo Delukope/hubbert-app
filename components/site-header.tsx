@@ -19,32 +19,33 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line/80 bg-bg/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-line/80 bg-bg/75 backdrop-blur-xl">
       <a
         href="#innehall"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:text-[#1a1408]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-ion focus:px-4 focus:py-2 focus:text-sm focus:text-ink"
       >
         Hoppa till innehåll
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-linear-to-br from-gold to-mint text-[#1a1408]">
-            <span className="display text-sm font-bold">H</span>
+        <Link href="/" className="flex items-end gap-3">
+          <span className="display text-xl leading-none tracking-tight">Hubbert</span>
+          <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ion sm:inline">
+            hubberty.se
           </span>
-          <span className="display text-lg tracking-tight">Hubbert</span>
         </Link>
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Huvudnavigation">
-          {links.map((l) => {
+        <nav className="hidden items-center gap-0 md:flex" aria-label="Huvudnavigation">
+          {links.map((l, i) => {
             const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
             return (
               <Link
                 key={l.href}
                 href={l.href}
                 className={cn(
-                  "rounded-full px-3.5 py-1.5 text-sm text-muted transition-colors hover:text-fg",
-                  active && "bg-white/6 text-fg",
+                  "px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-fg",
+                  active && "text-ion",
                 )}
               >
+                <span className="mr-1.5 text-muted/50">0{i + 1}</span>
                 {l.label}
               </Link>
             );
@@ -52,13 +53,13 @@ export function SiteHeader() {
         </nav>
         <Link
           href="/analys"
-          className="hidden rounded-full bg-gold px-4 py-2 text-sm font-medium text-[#1a1408] md:inline-flex"
+          className="hidden bg-ion px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink md:inline-flex"
         >
-          Analysera en sajt
+          Analysera
         </Link>
         <button
           type="button"
-          className="grid h-10 w-10 place-items-center rounded-full border border-line md:hidden"
+          className="grid h-10 w-10 place-items-center border border-line md:hidden"
           aria-expanded={open}
           aria-controls="mobilmeny"
           onClick={() => setOpen((v) => !v)}
@@ -76,7 +77,7 @@ export function SiteHeader() {
             <Link
               key={l.href}
               href={l.href}
-              className="block rounded-xl px-3 py-3 text-sm"
+              className="block px-3 py-3 font-mono text-sm uppercase tracking-[0.14em]"
               onClick={() => setOpen(false)}
             >
               {l.label}

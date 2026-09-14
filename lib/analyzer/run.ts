@@ -19,29 +19,35 @@ import { enrichReport } from "./enrich";
 import { patchJob, readJob } from "./store";
 import type { ScanIssue, ScanReport } from "./types";
 
+const STUCK_MS = 90_000;
+
 export async function runScan(jobId: string) {
   const job = await readJob(jobId);
   if (!job) return;
-  if (job.status === "complete" || job.status === "running") return;
+  if (job.status === "complete" || job.status === "error") return;
+  if (job.status === "running") {
+    const age = Date.now() - new Date(job.updatedAt).getTime();
+    if (Number.isFinite(age) && age < STUCK_MS) return;
+  }
 
   await patchJob(jobId, {
     status: "running",
-    progress: { step: "Hämtar sidan", percent: 12 },
+    progress: { step: "DNS / TLS", percent: 12 },
   });
 
   try {
     const page = await fetchPublicPage(job.url);
-    await patchJob(jobId, { progress: { step: "Tolkar HTML och metadata", percent: 38 } });
+    await patchJob(jobId, { progress: { step: "Svarshuvuden", percent: 28 } });
 
     const https = page.finalUrl.startsWith("https:");
     const facts = parseHtml(page.html, page.finalUrl);
 
-    await patchJob(jobId, { progress: { step: "Säkerhetsheaders", percent: 55 } });
+    await patchJob(jobId, { progress: { step: "HTML-dokument", percent: 44 } });
     const sec = analyzeSecurityHeaders(page.headers, https);
     const issues: ScanIssue[] = [];
     buildIssuesFromSecurity(https, sec.headers, issues);
 
-    await patchJob(jobId, { progress: { step: "Prestanda, SEO och tillgänglighet", percent: 72 } });
+    await patchJob(jobId, { progress: { step: "Poängsättning", percent: 68 } });
     const seo = scoreSeo(facts, page.finalUrl, issues);
     const a11y = scoreA11y(facts, issues);
     const design = scoreDesign(facts, issues);
@@ -108,7 +114,7 @@ export async function runScan(jobId: string) {
     report.summary = templatedSummary(report);
     report = attachNarrative(report);
 
-    await patchJob(jobId, { progress: { step: "Sammanfattning", percent: 88 } });
+    await patchJob(jobId, { progress: { step: "Rapport", percent: 88 } });
     report = attachNarrative(await enrichReport(report));
 
     await patchJob(jobId, {

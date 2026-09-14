@@ -2,8 +2,9 @@ import { assertPublicHttpUrl, SsrfError } from "./ssrf";
 
 const MAX_BYTES = 1_500_000;
 const MAX_REDIRECTS = 5;
-const TIMEOUT_MS = 12_000;
-const UA = "HubbertAnalyzer/1.0 (+https://hubberty.se)";
+const TIMEOUT_MS = 8_000;
+const UA =
+  "Mozilla/5.0 (compatible; HubbertAnalyzer/1.0; +https://hubberty.se) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
 export type FetchedPage = {
   finalUrl: string;
@@ -23,6 +24,23 @@ function headerMap(headers: Headers): Record<string, string> {
     out[key.toLowerCase()] = value;
   });
   return out;
+}
+
+function fetchMessage(err: unknown): string {
+  if (err instanceof SsrfError) return err.message;
+  if (err instanceof Error) {
+    const name = err.name;
+    if (name === "TimeoutError" || name === "AbortError") return "Tidsgränsen för hämtning gick ut.";
+    const msg = err.message.toLowerCase();
+    if (msg.includes("certificate") || msg.includes("ssl") || msg.includes("tls")) {
+      return "TLS/certifikatfel vid hämtning.";
+    }
+    if (msg.includes("fetch") || msg.includes("network") || msg.includes("econn") || msg.includes("enotfound")) {
+      return "Kunde inte nå sajten.";
+    }
+    return err.message;
+  }
+  return "Kunde inte nå sajten.";
 }
 
 async function readLimited(res: Response): Promise<{ text: string; bytes: number }> {
@@ -56,7 +74,7 @@ async function readLimited(res: Response): Promise<{ text: string; bytes: number
   return { text: new TextDecoder("utf-8", { fatal: false }).decode(buf), bytes };
 }
 
-export async function fetchPublicPage(rawUrl: string): Promise<FetchedPage> {
+async function fetchOnce(rawUrl: string): Promise<FetchedPage> {
   let current = await assertPublicHttpUrl(rawUrl);
   let redirectCount = 0;
   let ttfbMs = 0;
@@ -70,16 +88,22 @@ export async function fetchPublicPage(rawUrl: string): Promise<FetchedPage> {
     current = await assertPublicHttpUrl(current.href);
 
     const started = performance.now();
-    const res = await fetch(current.href, {
-      method: "GET",
-      redirect: "manual",
-      headers: {
-        accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
-        "accept-encoding": "gzip, deflate, br",
-        "user-agent": UA,
-      },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
+    let res: Response;
+    try {
+      res = await fetch(current.href, {
+        method: "GET",
+        redirect: "manual",
+        headers: {
+          accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+          "accept-encoding": "gzip, deflate, br",
+          "user-agent": UA,
+          "accept-language": "sv-SE,sv;q=0.9,en;q=0.8",
+        },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+    } catch (err) {
+      throw new Error(fetchMessage(err));
+    }
     ttfbMs = performance.now() - started;
 
     if (res.status >= 300 && res.status < 400) {
@@ -112,4 +136,14 @@ export async function fetchPublicPage(rawUrl: string): Promise<FetchedPage> {
   }
 
   throw new Error("För många omdirigeringar.");
+}
+
+export async function fetchPublicPage(rawUrl: string): Promise<FetchedPage> {
+  try {
+    return await fetchOnce(rawUrl);
+  } catch (err) {
+    if (err instanceof SsrfError) throw err;
+    await new Promise((r) => setTimeout(r, 350));
+    return fetchOnce(rawUrl);
+  }
 }

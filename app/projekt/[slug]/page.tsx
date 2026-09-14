@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { CaseStudyCard } from "@/components/case-study-card";
 import { getProject, projects, statusLabel } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -30,7 +31,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
       <Link href="/projekt" className="text-sm text-muted hover:text-fg">
         ← Alla projekt
       </Link>
-      <div className="mt-8 overflow-hidden rounded-[2rem] border border-line">
+      <div className="mt-8 overflow-hidden border border-line">
         <div
           className="h-48"
           style={{
@@ -42,16 +43,21 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}
         <Badge>{project.year}</Badge>
         {project.callout ? (
-          <Badge className="text-gold">{project.callout}</Badge>
+          <Badge className="text-ion">{project.callout}</Badge>
         ) : project.status !== "live" ? (
-          <Badge className={project.status === "wip" ? "text-gold" : ""}>
-            {statusLabel(project.status)}
+          <Badge className={project.status === "wip" ? "text-ion" : ""}>
+            {statusLabel(project.status, project)}
           </Badge>
         ) : null}
       </div>
       <h1 className="display mt-4 text-4xl sm:text-5xl">{project.name}</h1>
       <p className="mt-3 text-muted">{project.role}</p>
       <p className="mt-6 text-lg leading-8">{project.summary}</p>
+      {project.caseStudy ? (
+        <div className="mt-10">
+          <CaseStudyCard project={project} />
+        </div>
+      ) : null}
       <section className="mt-12 space-y-8">
         <div>
           <h2 className="display text-2xl">Problem</h2>
@@ -72,7 +78,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
             href={project.url}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-line px-5 py-3 text-sm hover:border-gold/40"
+            className="border border-line px-5 py-3 text-sm hover:border-ion/40"
           >
             Besök {project.domain}
           </a>
@@ -80,7 +86,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         {project.url ? (
           <Link
             href={`/analys?url=${encodeURIComponent(project.url)}`}
-            className="rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]"
+            className="bg-ion px-5 py-3 text-sm font-medium text-ink"
           >
             Analysera i Hubbert
           </Link>

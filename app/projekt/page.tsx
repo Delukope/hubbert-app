@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCard } from "@/components/project-card";
-import { appProjects, archiveProjects, showcaseProjects } from "@/lib/projects";
+import { appProjects, archiveProjects, caseStudyProjects, liveSiteProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projekt",
-  description: "Hubberts portfölj: Akalasi, Värmlands Trädfällning, Filipsson Entreprenad och appar under utveckling.",
+  description:
+    "Hubberts portfölj på hubberty.se: Akalasi, före/efter-case för Fallatrad och Filipsson, appar under utveckling.",
 };
 
 function Section({
@@ -21,7 +23,7 @@ function Section({
 }) {
   return (
     <section className="mt-16">
-      <p className="text-xs uppercase tracking-[0.2em] text-muted">{kicker}</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">{kicker}</p>
       <h2 className="display mt-2 text-2xl sm:text-3xl">{title}</h2>
       {lead ? <p className="mt-3 max-w-2xl text-sm text-muted">{lead}</p> : null}
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
@@ -30,27 +32,36 @@ function Section({
 }
 
 export default function ProjectsPage() {
-  const showcase = showcaseProjects();
+  const live = liveSiteProjects();
+  const cases = caseStudyProjects();
   const apps = appProjects();
   const archive = archiveProjects();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Portfolio</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · hubberty.se</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Sajter att bära. Appar på väg.</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Konny styr och förbättrar de aktiva sajterna. Apparna är vision. Det som ligger under tidigare uppdrag
-        administreras inte vidare.
+        Live: Hubbert och Akalasi. Fallatrad och Filipsson är före/efter-slotar — inte färdiga case. Apparna är
+        vision. Tidigare uppdrag administreras inte vidare.
       </p>
-      <Section kicker="Aktuellt" title="Sajter i arbete">
-        {showcase.map((p) => (
+      <Section kicker="Live" title="Aktiva sajter">
+        {live.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
       </Section>
-      <Section
-        kicker="Appar"
-        title="Under utveckling"
-        lead="Produktidéer — inte livesajter. Arbetsnamn kan bytas."
-      >
+      <section className="mt-16">
+        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
+        <h2 className="display mt-2 text-2xl sm:text-3xl">Före & efter — kommer</h2>
+        <p className="mt-3 max-w-2xl text-sm text-muted">
+          Ramar för riktiga före/efter-assets. Inga fejkade screenshots.
+        </p>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          {cases.map((p) => (
+            <CaseStudyCard key={p.slug} project={p} />
+          ))}
+        </div>
+      </section>
+      <Section kicker="Appar" title="Under utveckling" lead="Produktidéer — inte livesajter. Arbetsnamn kan bytas.">
         {apps.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}

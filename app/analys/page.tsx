@@ -11,11 +11,11 @@ export default async function AnalyzePage({ searchParams }: PageProps<"/analys">
   const preset = typeof sp.url === "string" ? sp.url : "";
   return (
     <div className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 grid-fade" aria-hidden />
-      <div className="relative mx-auto max-w-2xl px-4 py-20 sm:px-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-gold">Sajtanalys</p>
-        <h1 className="display mt-3 text-4xl sm:text-5xl">En URL. En rapport.</h1>
-        <p className="mt-4 text-muted">
+      <div className="pointer-events-none absolute inset-0 hero-constellation" aria-hidden />
+      <div className="relative mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
+        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
+        <h1 className="display mt-3 text-4xl sm:text-6xl">En URL. En rapport.</h1>
+        <p className="mt-4 max-w-xl text-muted">
           Gratis teaser: betyg och några avslöjanden. Full rapport och PDF efter betalning. Privata, lokala och
           metadata-IP:n blockeras.
         </p>

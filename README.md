@@ -44,7 +44,7 @@ Stripe: `STRIPE_SECRET_KEY` + `STRIPE_PRICE_SNABB` / `STRIPE_PRICE_DJUP`. Utan n
 
 ## Portfölj
 
-Redigera `lib/projects.ts`. Aktivt: Hubbert (hubberty.se), Akalasi, Värmlands Trädfällning, Filipsson Entreprenad. Appar: Hubberty, STAMPE. Tidigare: west2000, trallen, jodeko.
+Redigera `lib/projects.ts`. Live: Hubbert (hubberty.se), Akalasi. Före/efter-slotar: Värmlands Trädfällning, Filipsson Entreprenad. Appar: Hubberty, STAMPE. Tidigare: west2000, trallen, jodeko.
 
 ## Licens
 

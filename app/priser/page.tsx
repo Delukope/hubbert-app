@@ -11,17 +11,17 @@ export default function PricesPage() {
   const [snabb, djup] = plans();
   return (
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Priser</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Priser · hubberty.se</p>
       <h1 className="display mt-3 text-4xl">Betala för det som kostar att köra.</h1>
       <p className="mt-4 text-muted">{costNote} Inget abonnemang. Hemsidor och appar offert — inte löpande retainer.</p>
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         <div className="glass rounded-3xl p-6">
-          <p className="text-xs uppercase tracking-[0.16em] text-gold">Teaser</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion">Teaser</p>
           <p className="mt-2 font-mono text-3xl">0 kr</p>
           <p className="mt-3 text-sm text-muted">Helhetsbetyg, kategoripoäng och 2–3 avslöjanden. Resten låst.</p>
         </div>
         <div className="glass rounded-3xl p-6">
-          <p className="text-xs uppercase tracking-[0.16em] text-gold">{snabb.name}</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion">{snabb.name}</p>
           <p className="mt-2 font-mono text-3xl">{formatSek(snabb.sek)}</p>
           <ul className="mt-3 space-y-1 text-sm text-muted">
             {snabb.points.map((p) => (
@@ -30,7 +30,7 @@ export default function PricesPage() {
           </ul>
         </div>
         <div className="glass rounded-3xl p-6">
-          <p className="text-xs uppercase tracking-[0.16em] text-gold">{djup.name}</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion">{djup.name}</p>
           <p className="mt-2 font-mono text-3xl">{formatSek(djup.sek)}</p>
           <ul className="mt-3 space-y-1 text-sm text-muted">
             {djup.points.map((p) => (
@@ -42,14 +42,14 @@ export default function PricesPage() {
       <p className="mt-8 text-sm text-muted">
         Snabb analys ligger i spannet 149–299 kr; {formatSek(snabb.sek)} är placeholder tills Stripe-priser är
         satta. Åtgärdshjälp är separat — se{" "}
-        <Link href="/tjanster" className="text-gold hover:underline">
+        <Link href="/tjanster" className="text-ion hover:underline">
           tjänster
         </Link>
         .
       </p>
       <Link
         href="/analys"
-        className="mt-8 inline-flex rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]"
+        className="mt-8 inline-flex bg-ion px-5 py-3 text-sm font-medium text-ink"
       >
         Kör en teaser-scan
       </Link>
