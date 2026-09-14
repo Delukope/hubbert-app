@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { ScanProgress } from "@/components/analyzer/scan-progress";
 import { ReportDashboard } from "@/components/report/report-dashboard";
 import { readJob } from "@/lib/analyzer/store";
 import { fulfillStripeSession } from "@/lib/billing";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({
   params,
@@ -29,6 +31,7 @@ export default async function JobPage({
   params,
   searchParams,
 }: PageProps<"/analys/[jobId]">) {
+  await connection();
   const { jobId } = await params;
   const sp = await searchParams;
   const sessionId = typeof sp.session_id === "string" ? sp.session_id : undefined;

@@ -45,7 +45,11 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
         setMisses(0);
         setError(null);
         setJob(data);
-        if (data.status === "complete" || data.status === "error") {
+        if (data.status === "complete") {
+          window.location.replace(`/analys/${jobId}`);
+          return;
+        }
+        if (data.status === "error") {
           router.refresh();
         }
       } catch {
