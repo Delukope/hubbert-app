@@ -110,7 +110,7 @@ export function UrlForm({
     setPending(true);
     const result = await startScan(target, intent);
     if (result.ok) {
-      router.push(`/analys/${result.id}`);
+      router.push(`/analys/${result.id}?nisse=1`);
       return;
     }
     setError(result.error);

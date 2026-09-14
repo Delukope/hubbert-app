@@ -37,6 +37,7 @@ export default async function JobPage({
   const { jobId } = await params;
   const sp = await searchParams;
   const sessionId = typeof sp.session_id === "string" ? sp.session_id : undefined;
+  const playNisse = sp.nisse === "1";
   if (sessionId) {
     try {
       await fulfillStripeSession(sessionId);
@@ -51,7 +52,7 @@ export default async function JobPage({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      {view.status === "complete" && view.report ? (
+      {view.status === "complete" && view.report && !playNisse ? (
         <ReportDashboard
           job={view}
           billing={{

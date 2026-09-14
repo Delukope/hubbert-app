@@ -77,6 +77,15 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
     return () => window.clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    if (!(job?.status === "complete" && job.report && curtainUp)) return;
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("nisse") !== "1") return;
+    q.delete("nisse");
+    const next = q.toString();
+    router.replace(next ? `/analys/${jobId}?${next}` : `/analys/${jobId}`);
+  }, [job?.status, job?.report, curtainUp, jobId, router]);
+
   const stalled = misses >= 10;
   const showError = job?.status === "error" || Boolean(error) || stalled;
 
