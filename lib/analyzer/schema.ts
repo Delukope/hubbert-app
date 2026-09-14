@@ -19,4 +19,6 @@ export const analyzeRequestSchema = z.object({
         return false;
       }
     }, "Ogiltig URL."),
+  intent: z.enum(["teaser", "snabb", "djup"]).optional().default("teaser"),
+  fax_number: z.string().optional(),
 });

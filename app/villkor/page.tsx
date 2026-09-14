@@ -18,8 +18,13 @@ export default function TermsPage() {
         kartlägga interna nät eller kringgå åtkomstskydd.
       </p>
       <p className="mt-4 leading-8 text-muted">
+        Betald rapport (Snabb analys / Djupanalys) låser upp den skann som redan körts, plus PDF. Ingen
+        återbetalning för en sajt du inte äger rätten att granska. Åtgärdshjälp offertas separat och bara när
+        vi kan slutföra jobbet.
+      </p>
+      <p className="mt-4 leading-8 text-muted">
         Inget avtal om tillgänglighet eller SLA i den här versionen. Innehåll i portföljen tillhör respektive
-        projekt. Stubbe — ersätts med fullständiga villkor vid skarp drift.
+        projekt. hubberty.se
       </p>
     </article>
   );

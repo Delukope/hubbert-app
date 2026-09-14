@@ -1,7 +1,10 @@
-export type JobStatus = "queued" | "running" | "complete" | "error";
+export type UnlockTier = "free" | "snabb" | "djup" | "tung";
+export type ScanIntent = "teaser" | "snabb" | "djup";
+export type SizeClass = "normal" | "heavy";
+export type JobStatus = "queued" | "running" | "complete" | "error" | "awaiting_payment";
 
 export type IssueSeverity = "critical" | "high" | "medium" | "low" | "info";
-export type IssueCategory = "security" | "performance" | "seo" | "a11y" | "best-practice";
+export type IssueCategory = "security" | "performance" | "seo" | "a11y" | "design" | "best-practice";
 
 export type HeaderGrade = "A+" | "A" | "B" | "C" | "D" | "E" | "F";
 
@@ -45,6 +48,14 @@ export type ScanFacts = {
   hasFavicon: boolean;
 };
 
+export type RoadmapItem = {
+  order: number;
+  title: string;
+  category: IssueCategory;
+  severity: IssueSeverity;
+  action: string;
+};
+
 export type ScanReport = {
   url: string;
   fetchedUrl: string;
@@ -72,9 +83,15 @@ export type ScanReport = {
   };
   seo: { score: number };
   a11y: { score: number };
+  design: { score: number };
+  eeat: { score: number; notes: string[] };
   overall: number;
   issues: ScanIssue[];
   summary: string;
+  deepSummary: string;
+  roadmap: RoadmapItem[];
+  enriched?: boolean;
+  enrichLevel?: 0 | 1 | 2;
   pagespeed?: {
     performance?: number;
     seo?: number;
@@ -98,4 +115,12 @@ export type ScanJob = {
   error?: string;
   progress: ScanProgress;
   report?: ScanReport;
+  unlock?: UnlockTier;
+  intent?: ScanIntent;
+  sizeClass?: SizeClass;
+  heavyReasons?: string[];
+  previewReady?: boolean;
+  deepPending?: boolean;
+  paidAt?: string;
+  stripeSessionId?: string;
 };

@@ -1,10 +1,13 @@
 import type { ScanFacts, ScanIssue, ScanReport } from "./types";
 import { analyzeSecurityHeaders } from "./security";
 import {
+  attachNarrative,
   buildIssuesFromSecurity,
   overallScore,
   prioritize,
   scoreA11y,
+  scoreDesign,
+  scoreEeat,
   scorePerformance,
   scoreSeo,
   templatedSummary,
@@ -66,6 +69,8 @@ export function buildDemoReport(url: string, reason: string): ScanReport {
   buildIssuesFromSecurity(https, sec.headers, issues);
   const seo = scoreSeo(facts, url, issues);
   const a11y = scoreA11y(facts, issues);
+  const design = scoreDesign(facts, issues);
+  const eeat = scoreEeat(facts, issues);
   const performance = scorePerformance({
     ttfbMs,
     bytes,
@@ -81,6 +86,7 @@ export function buildDemoReport(url: string, reason: string): ScanReport {
     performance,
     seo,
     a11y,
+    design,
   });
   const ordered = prioritize(issues);
 
@@ -118,10 +124,14 @@ export function buildDemoReport(url: string, reason: string): ScanReport {
     },
     seo: { score: seo },
     a11y: { score: a11y },
+    design: { score: design },
+    eeat,
     overall,
     issues: ordered,
     summary: "",
+    deepSummary: "",
+    roadmap: [],
   };
   report.summary = templatedSummary(report);
-  return report;
+  return attachNarrative(report);
 }

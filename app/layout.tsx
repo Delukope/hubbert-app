@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Syne } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteUrl } from "@/lib/utils";
@@ -15,26 +15,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin", "latin-ext"],
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Hubbert — portfolio och sajtanalys",
+    default: "Hubbert — sajtanalys och hemsidor",
     template: "%s · Hubbert",
   },
   description:
-    "Hubbert är Konny Petterssons nav: utvalda webbprojekt och en sajtanalys som ger betyg på säkerhet, prestanda, SEO och tillgänglighet.",
+    "Hubbert på hubberty.se: sajtanalys, hemsidor och appar av Konny Pettersson. Gratis teaser-scan, betald full rapport.",
   openGraph: {
     title: "Hubbert",
-    description: "Portfolio och sajtanalys. Klistra in en URL, få en rapport värd att dela.",
+    description: "Sajtanalys och hemsidor. Klistra in en URL, få ett betyg — lås upp PDF när du vill.",
     locale: "sv_SE",
     type: "website",
-    url: siteUrl(),
+    url: "https://hubberty.se",
   },
   robots: { index: true, follow: true },
 };
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="sv-SE"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-bg text-fg">
         <div className="noise" aria-hidden />

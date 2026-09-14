@@ -36,6 +36,7 @@ export function CategoryBars({ report }: { report: ScanReport }) {
     { name: "Säkerhet", score: report.security.score },
     { name: "Prestanda", score: report.performance.score },
     { name: "SEO", score: report.seo.score },
+    { name: "Design", score: report.design?.score ?? 0 },
     { name: "A11y", score: report.a11y.score },
   ];
   return (
@@ -69,6 +70,7 @@ export function CategoryRadar({ report }: { report: ScanReport }) {
     { dim: "Säkerhet", score: report.security.score },
     { dim: "Prestanda", score: report.performance.score },
     { dim: "SEO", score: report.seo.score },
+    { dim: "Design", score: report.design?.score ?? 0 },
     { dim: "A11y", score: report.a11y.score },
     { dim: "Helhet", score: report.overall },
   ];

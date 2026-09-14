@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <article className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
-      <p className="text-xs uppercase tracking-[0.2em] text-gold">Om</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Om · hubberty.se</p>
       <h1 className="display mt-3 text-4xl">Inte ett tema. En produkt.</h1>
       <p className="mt-6 leading-8 text-muted">
         Hubbert drivs av Konny Pettersson. Övriga sajter lever på WordPress, One.com och Divi — det funkar,

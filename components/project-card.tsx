@@ -95,7 +95,7 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
     <Link
       href={`/projekt/${project.slug}`}
       className={cn(
-        "group glass flex flex-col overflow-hidden rounded-3xl transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-gold/30",
+        "group glass flex flex-col overflow-hidden transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-ion/35",
         featured && "md:min-h-[340px]",
       )}
     >
@@ -108,9 +108,11 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
         <Pattern project={project} />
         <div className="absolute left-4 top-4 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
-          {project.status !== "live" ? (
-            <Badge className={project.status === "wip" ? "border-gold/40 text-gold" : "text-muted"}>
-              {statusLabel(project.status)}
+          {project.callout ? (
+            <Badge className="border-ion/40 text-ion">{project.callout}</Badge>
+          ) : project.status !== "live" ? (
+            <Badge className={project.status === "wip" ? "border-ion/40 text-ion" : "text-muted"}>
+              {statusLabel(project.status, project)}
             </Badge>
           ) : null}
         </div>

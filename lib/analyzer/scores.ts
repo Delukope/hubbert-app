@@ -382,8 +382,20 @@ export function buildIssuesFromSecurity(
   }
 }
 
-export function overallScore(parts: { security: number; performance: number; seo: number; a11y: number }) {
-  return Math.round(parts.security * 0.28 + parts.performance * 0.26 + parts.seo * 0.24 + parts.a11y * 0.22);
+export function overallScore(parts: {
+  security: number;
+  performance: number;
+  seo: number;
+  a11y: number;
+  design: number;
+}) {
+  return Math.round(
+    parts.security * 0.24 +
+      parts.performance * 0.22 +
+      parts.seo * 0.2 +
+      parts.a11y * 0.16 +
+      parts.design * 0.18,
+  );
 }
 
 export function prioritize(issues: ScanIssue[]): ScanIssue[] {
@@ -417,4 +429,136 @@ export function templatedSummary(report: Pick<ScanReport, "overall" | "security"
     : "Inga allvarliga heuristiska fel hittades.";
   const demo = report.isDemo ? " (demo-rapport — livehämtning var inte möjlig i den här miljön)" : "";
   return `${host} landar på ${report.overall}/100. Säkerhet ${report.security.grade}, prestanda ${report.performance.score}, SEO ${report.seo.score}, tillgänglighet ${report.a11y.score}. ${tone} Först: ${bullets}.${demo}`;
+}
+
+export function scoreDesign(facts: ScanFacts, issues: ScanIssue[]): number {
+  let score = 100;
+  if (!facts.viewport) {
+    score -= 16;
+    issues.push(
+      issue({
+        id: "design-viewport",
+        category: "design",
+        severity: "high",
+        title: "Ingen mobil viewport",
+        description: "Utan viewport känns sajten som en ihoptryckt skrivbordsyta.",
+        recommendation: "Sätt width=device-width och testa på en riktig telefon.",
+      }),
+    );
+  }
+  if (!facts.hasFavicon) {
+    score -= 6;
+    issues.push(
+      issue({
+        id: "design-favicon",
+        category: "design",
+        severity: "low",
+        title: "Saknar favicon",
+        description: "Fliken blir anonym i en hav av andra flikar.",
+        recommendation: "Lägg en SVG- eller PNG-favicon.",
+      }),
+    );
+  }
+  if (!facts.ogImage) {
+    score -= 8;
+    issues.push(
+      issue({
+        id: "design-og",
+        category: "design",
+        severity: "medium",
+        title: "Ingen og:image",
+        description: "Delningar ser ofärdiga ut utan en avsiktlig bild.",
+        recommendation: "En 1200×630-bild som bär varumärket.",
+      }),
+    );
+  }
+  const gen = facts.generator?.toLowerCase() ?? "";
+  if (/divi|wpbakery|elementor/i.test(gen) || /wordpress/i.test(gen)) {
+    score -= 10;
+    issues.push(
+      issue({
+        id: "design-generator",
+        category: "design",
+        severity: "medium",
+        title: "Temamotor syns i källan",
+        description: facts.generator
+          ? `Generator: ${facts.generator}. Det är ofta ett tecken på tunga teman och svåritererad yta.`
+          : "Temamotor syns.",
+        recommendation: "Om sajten ska utvecklas vidare: byt till en kodyta ni äger, inte ett tema ni jagar.",
+        evidence: facts.generator,
+      }),
+    );
+  }
+  if (facts.wordCount > 0 && facts.wordCount < 80) {
+    score -= 10;
+    issues.push(
+      issue({
+        id: "design-thin",
+        category: "design",
+        severity: "medium",
+        title: "Tunn startsida",
+        description: `Ungefär ${facts.wordCount} ord i body. Svårt att förstå erbjudandet.`,
+        recommendation: "Skriv vad ni gör, för vem, och hur man tar nästa steg — ovanför vecket.",
+      }),
+    );
+  }
+  return clamp(score);
+}
+
+export function scoreEeat(facts: ScanFacts, issues: ScanIssue[]): { score: number; notes: string[] } {
+  let score = 100;
+  const notes: string[] = [];
+  const types = facts.jsonLdTypes.map((t) => t.toLowerCase());
+  const hasOrg = types.some((t) => t.includes("organization") || t.includes("person") || t.includes("localbusiness"));
+  if (!hasOrg) {
+    score -= 18;
+    notes.push("Ingen Organization/Person i JSON-LD — svagare E-E-A-T-signal.");
+    issues.push(
+      issue({
+        id: "eeat-org",
+        category: "seo",
+        severity: "medium",
+        title: "Svagt avsändar-schema",
+        description: "Google vill se vem som står bakom sajten (Organization eller Person).",
+        recommendation: "JSON-LD med namn, URL och gärna sammaAs mot riktiga profiler.",
+      }),
+    );
+  } else {
+    notes.push("Schema för organisation eller person finns.");
+  }
+  if (!facts.description) {
+    score -= 10;
+    notes.push("Ingen meta description — sämre snippet och svagare första intryck.");
+  }
+  if (!facts.lang) {
+    score -= 8;
+    notes.push("html lang saknas — sämre språksignal.");
+  }
+  if (facts.wordCount < 120) {
+    score -= 12;
+    notes.push("Lite brödtext gör det svårt att visa erfarenhet och expertis.");
+  }
+  return { score: clamp(score), notes };
+}
+
+export function attachNarrative(report: ScanReport): ScanReport {
+  const ordered = prioritize(report.issues);
+  report.roadmap = ordered.slice(0, 8).map((item, i) => ({
+    order: i + 1,
+    title: item.title,
+    category: item.category,
+    severity: item.severity,
+    action: item.recommendation,
+  }));
+  const host = (() => {
+    try {
+      return new URL(report.url).hostname;
+    } catch {
+      return report.url;
+    }
+  })();
+  const eeat = report.eeat.notes.slice(0, 3).join(" ");
+  report.deepSummary = `${host} får ${report.overall}/100 i Hubberts heuristik. Säkerhetsbetyg ${report.security.grade}, TTFB ${Math.round(report.performance.ttfbMs)} ms, design ${report.design.score}, E-E-A-T ${report.eeat.score}. ${eeat} Djupanalysen är en prioriterad läsning — inte en automatisk omskrivning av sajten. Nästa steg: betala för PDF och lista, eller be om åtgärdshjälp bara där vi faktiskt kan leverera.`;
+  if (!report.summary) report.summary = templatedSummary(report);
+  return report;
 }
