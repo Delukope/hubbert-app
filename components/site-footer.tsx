@@ -7,7 +7,7 @@ export function SiteFooter() {
         <div>
           <p className="display text-lg">Hubbert</p>
           <p className="mt-1 max-w-sm text-sm text-muted">
-            Portfolio och sajtanalys av Konny Pettersson. huberty.se
+            Portfolio och sajtanalys av Konny Pettersson. hubberty.se
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted" aria-label="Juridik">

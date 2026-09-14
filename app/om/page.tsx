@@ -20,7 +20,7 @@ export default function AboutPage() {
         SecurityHeaders-betyg och GTmetrix-grafer — i ett enda svenskt gränssnitt.
       </p>
       <p className="mt-4 leading-8 text-muted">
-        Kontakt via sajterna i portföljen, eller via huberty.se när mailet är på plats.
+        Kontakt via sajterna i portföljen, eller via hubberty.se när mailet är på plats.
       </p>
     </article>
   );

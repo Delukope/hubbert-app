@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { getProject, projects } from "@/lib/projects";
+import { getProject, projects, statusLabel } from "@/lib/projects";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -39,9 +39,13 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         />
       </div>
       <div className="mt-8 flex flex-wrap gap-2">
-        <Badge>{project.domain}</Badge>
+        {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}
         <Badge>{project.year}</Badge>
-        {project.status === "wip" ? <Badge className="text-gold">Pågår</Badge> : null}
+        {project.status !== "live" ? (
+          <Badge className={project.status === "wip" ? "text-gold" : ""}>
+            {statusLabel(project.status)}
+          </Badge>
+        ) : null}
       </div>
       <h1 className="display mt-4 text-4xl sm:text-5xl">{project.name}</h1>
       <p className="mt-3 text-muted">{project.role}</p>
@@ -61,20 +65,26 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         </div>
       </section>
       <div className="mt-12 flex flex-wrap gap-3">
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full border border-line px-5 py-3 text-sm hover:border-gold/40"
-        >
-          Besök {project.domain}
-        </a>
-        <Link
-          href={`/analys?url=${encodeURIComponent(project.url)}`}
-          className="rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]"
-        >
-          Analysera i Hubbert
-        </Link>
+        {project.url ? (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-line px-5 py-3 text-sm hover:border-gold/40"
+          >
+            Besök {project.domain}
+          </a>
+        ) : null}
+        {project.url ? (
+          <Link
+            href={`/analys?url=${encodeURIComponent(project.url)}`}
+            className="rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]"
+          >
+            Analysera i Hubbert
+          </Link>
+        ) : (
+          <p className="text-sm text-muted">Ingen publik URL ännu — vision / under utveckling.</p>
+        )}
       </div>
     </div>
   );
