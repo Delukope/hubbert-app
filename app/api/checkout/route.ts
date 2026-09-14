@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   if (!stripeReady()) {
     return Response.json(
       {
-        error: "Betalning är inte konfigurerad ännu. Sätt Stripe-nycklar, eller ALLOW_DEMO_UNLOCK=true för UI-test.",
+        error: "Betalning är inte igång ännu.",
       },
       { status: 503 },
     );

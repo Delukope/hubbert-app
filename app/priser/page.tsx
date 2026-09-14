@@ -13,7 +13,7 @@ export default function PricesPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Priser · hubberty.se</p>
-      <h1 className="display mt-3 text-4xl">Betala för det som kostar att köra.</h1>
+      <h1 className="display mt-3 text-4xl">Teaser gratis. Resten när du vill gå djupare.</h1>
       <p className="mt-4 text-muted">{costNote}</p>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
         <div className="glass p-6">
@@ -52,7 +52,7 @@ export default function PricesPage() {
         </div>
       </div>
       <p className="mt-8 text-sm text-muted">
-        Snabb 149–299 kr; {formatSek(snabb.sek)} är placeholder. Djup och tung kräver betalning innan AI-pass. Se{" "}
+        Snabb kostar {formatSek(snabb.sek)}. Djup och tung betalas innan de tunga passen. Se{" "}
         <Link href="/tjanster" className="text-ion hover:underline">
           tjänster
         </Link>

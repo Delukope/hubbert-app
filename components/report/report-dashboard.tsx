@@ -93,12 +93,12 @@ export function ReportDashboard({
       {billing?.heavy && !paid ? (
         <p className="rounded-sm border border-warn/40 bg-warn/8 px-4 py-3 text-sm">
           Stor sajt ({(billing.heavyReasons ?? []).join(" · ") || "tung yta"}). Vidare pass kräver{" "}
-          <span className="font-mono text-ion">Tung analys</span> — betala innan vi bär mer kostnad.
+          <span className="font-mono text-ion">Tung analys</span> — den startar efter betalning.
         </p>
       ) : null}
       {billing?.deepPending && !paid ? (
         <p className="rounded-sm border border-ion/30 bg-ion/8 px-4 py-3 text-sm">
-          Djupanalys (AI) är köad och körs efter betalning. Teasern nedan är gratis och stannar på sajten.
+          Djupanalys körs efter betalning. Teasern nedan är gratis.
         </p>
       ) : null}
 
@@ -128,11 +128,11 @@ export function ReportDashboard({
       </section>
 
       <section>
-        <h2 className="display text-2xl">{paid ? "Vad du bör göra först" : "Avslöjanden"}</h2>
+        <h2 className="display text-2xl">{paid ? "Vad du bör göra först" : "Tre fynd"}</h2>
         <p className="mt-2 text-sm text-muted">
           {paid
             ? "Prioriterat ur den fulla skannen."
-            : "Tre smakprov. Resten är låst — skannen är redan körd."}
+            : "Resten öppnas när du betalar."}
         </p>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {teasers.length === 0 ? (
@@ -182,7 +182,7 @@ export function ReportDashboard({
             Ladda ner PDF
           </a>
           {job.unlock === "snabb" ? (
-            <p className="self-center text-sm text-muted">Vill du ha narrativ och E-E-A-T? Uppgradera till djupanalys.</p>
+            <p className="self-center text-sm text-muted">Vill du ha en tydligare läsning och nästa steg? Ta djupanalys.</p>
           ) : null}
         </div>
       )}
@@ -223,7 +223,7 @@ export function ReportDashboard({
 
           <section className="grid gap-4 lg:grid-cols-2">
             <Card>
-              <h2 className="display text-xl">Prestandaheuristik</h2>
+              <h2 className="display text-xl">Prestanda</h2>
               <dl className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <Stat k="TTFB" v={formatMs(report.performance.ttfbMs)} />
                 <Stat k="HTML-storlek" v={formatBytes(report.performance.totalBytes)} />

@@ -41,8 +41,8 @@ export default function ProjectsPage() {
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · hubberty.se</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Sajter att bära. Appar på väg.</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Live: Hubbert och Akalasi. Fallatrad och Filipsson är före/efter-slotar — inte färdiga case. Apparna är
-        vision. Tidigare uppdrag administreras inte vidare.
+        Live: Hubbert och Akalasi. Fallatrad och Filipsson får före och efter när omskrivningen är klar. Apparna
+        byggs. Tidigare uppdrag ligger kvar som historik.
       </p>
       <Section kicker="Live" title="Aktiva sajter">
         {live.map((p) => (
@@ -51,9 +51,9 @@ export default function ProjectsPage() {
       </Section>
       <section className="mt-16">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
-        <h2 className="display mt-2 text-2xl sm:text-3xl">Före & efter — kommer</h2>
+        <h2 className="display mt-2 text-2xl sm:text-3xl">Före & efter på gång</h2>
         <p className="mt-3 max-w-2xl text-sm text-muted">
-          Ramar för riktiga före/efter-assets. Inga fejkade screenshots.
+          Två företagssajter som ska moderniseras. Bilderna kommer när omskrivningen är klar.
         </p>
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           {cases.map((p) => (
@@ -61,14 +61,14 @@ export default function ProjectsPage() {
           ))}
         </div>
       </section>
-      <Section kicker="Appar" title="Under utveckling" lead="Produktidéer — inte livesajter. Arbetsnamn kan bytas.">
+      <Section kicker="Appar" title="Under utveckling" lead="Hubberty är familjenav. STAMPE är en kommande produkt.">
         {apps.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
       </Section>
       <Section
         kicker="Tidigare"
-        title="Inte aktiv linje"
+        title="Tidigare uppdrag"
         lead="Administrerat tidigare. Ingen mer utveckling planerad."
       >
         {archive.map((p) => (

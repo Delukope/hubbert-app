@@ -92,8 +92,7 @@ export function UnlockCta({
       </div>
       {!stripe && !demo ? (
         <p className="text-sm text-muted">
-          Betalning är inte konfigurerad ännu. Stripe-nycklar eller ALLOW_DEMO_UNLOCK=true krävs för att låsa
-          upp i den här miljön.
+          Betalning är inte igång ännu. Teasern är gratis — full rapport öppnas när kassan är kopplad.
         </p>
       ) : null}
       <p className="text-xs text-muted">{costNote}</p>

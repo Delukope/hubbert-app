@@ -91,7 +91,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
             Analysera i Hubbert
           </Link>
         ) : (
-          <p className="text-sm text-muted">Ingen publik URL ännu — vision / under utveckling.</p>
+          <p className="text-sm text-muted">Ingen publik URL ännu.</p>
         )}
       </div>
     </div>
