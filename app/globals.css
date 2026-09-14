@@ -159,108 +159,116 @@ body {
   }
 }
 
-.nisse-sprite {
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  filter: drop-shadow(2px 2px 0 #000);
+.nisse-figure {
+  width: 5.5rem;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
 }
 
 .nisse-walker {
   position: absolute;
-  bottom: 14%;
-  left: -14%;
+  bottom: 6%;
+  left: -16%;
   z-index: 3;
-  animation: nisse-stomp 0.28s steps(2) infinite;
+  animation: nisse-stride 0.7s ease-in-out infinite;
 }
 
 .nisse-walker--enter {
-  animation: nisse-enter 1.8s steps(8) forwards, nisse-stomp 0.28s steps(2) infinite;
+  animation:
+    nisse-enter 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    nisse-stride 0.7s ease-in-out infinite;
 }
 
 .nisse-walker--in {
-  left: 36%;
-  animation: nisse-stomp 0.22s steps(2) infinite;
+  left: 38%;
+  animation: nisse-stride 0.85s ease-in-out infinite;
 }
 
 .nisse-rummage {
-  animation: nisse-dig 0.45s steps(2) infinite;
+  transform-origin: 44px 140px;
+  animation: nisse-dig 0.9s ease-in-out infinite;
 }
 
 .nisse-mutter {
-  text-shadow: 0 1px 0 #000;
+  padding: 0.15rem 0.45rem;
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
 }
 
 .nisse-heap {
   position: absolute;
-  bottom: -12px;
+  bottom: -8px;
   z-index: 4;
-  width: 46%;
-  min-height: 72px;
+  width: 48%;
+  min-height: 88px;
 }
 
 .nisse-heap--l {
-  left: -6%;
+  left: -4%;
 }
 
 .nisse-heap--r {
-  right: -8%;
-  text-align: right;
+  right: -6%;
 }
 
 .nisse-scrap {
   position: absolute;
-  bottom: 8px;
+  bottom: 10px;
   left: 0;
-  max-width: 11rem;
-  padding: 2px 6px;
-  border: 1px solid rgba(244, 236, 223, 0.22);
-  background: #1a1410;
+  max-width: 12rem;
+  padding: 4px 8px;
+  border: 1px solid rgba(244, 236, 223, 0.18);
+  background: color-mix(in oklab, var(--bg-elev) 88%, black);
   color: var(--ion);
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 9px;
-  letter-spacing: 0.06em;
+  font-size: 10px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
-  animation: nisse-toss 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  animation: nisse-toss 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .nisse-scrap--decoy {
   color: var(--warn);
-  border-color: color-mix(in oklab, var(--warn) 45%, transparent);
+  border-color: color-mix(in oklab, var(--warn) 40%, transparent);
 }
 
 @keyframes nisse-enter {
   from {
     left: -18%;
+    opacity: 0.2;
   }
   to {
-    left: 36%;
+    left: 38%;
+    opacity: 1;
   }
 }
 
-@keyframes nisse-stomp {
-  from {
+@keyframes nisse-stride {
+  0%,
+  100% {
     transform: translateY(0);
   }
-  to {
-    transform: translateY(2px);
+  50% {
+    transform: translateY(-5px);
   }
 }
 
 @keyframes nisse-dig {
   0%,
   100% {
-    transform: rotate(-8deg) translateY(0);
+    transform: rotate(-6deg) translateY(0);
   }
   50% {
-    transform: rotate(10deg) translateY(3px);
+    transform: rotate(9deg) translateY(4px);
   }
 }
 
 @keyframes nisse-toss {
   0% {
     opacity: 0;
-    transform: translate(110px, -70px) rotate(-12deg) scale(0.5);
+    transform: translate(120px, -80px) rotate(-18deg) scale(0.55);
   }
   100% {
     opacity: 1;
