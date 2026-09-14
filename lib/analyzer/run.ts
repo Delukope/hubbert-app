@@ -3,10 +3,13 @@ import { fetchPublicPage } from "./fetch-page";
 import { parseHtml } from "./parse-html";
 import { analyzeSecurityHeaders } from "./security";
 import {
+  attachNarrative,
   buildIssuesFromSecurity,
   overallScore,
   prioritize,
   scoreA11y,
+  scoreDesign,
+  scoreEeat,
   scorePerformance,
   scoreSeo,
   templatedSummary,
@@ -41,6 +44,8 @@ export async function runScan(jobId: string) {
     await patchJob(jobId, { progress: { step: "Prestanda, SEO och tillgänglighet", percent: 72 } });
     const seo = scoreSeo(facts, page.finalUrl, issues);
     const a11y = scoreA11y(facts, issues);
+    const design = scoreDesign(facts, issues);
+    const eeat = scoreEeat(facts, issues);
     const performance = scorePerformance({
       ttfbMs: page.ttfbMs,
       bytes: page.bytes,
@@ -56,6 +61,7 @@ export async function runScan(jobId: string) {
       performance,
       seo,
       a11y,
+      design,
     });
 
     let report: ScanReport = {
@@ -91,14 +97,19 @@ export async function runScan(jobId: string) {
       },
       seo: { score: seo },
       a11y: { score: a11y },
+      design: { score: design },
+      eeat,
       overall,
       issues: prioritize(issues),
       summary: "",
+      deepSummary: "",
+      roadmap: [],
     };
     report.summary = templatedSummary(report);
+    report = attachNarrative(report);
 
     await patchJob(jobId, { progress: { step: "Sammanfattning", percent: 88 } });
-    report = await enrichReport(report);
+    report = attachNarrative(await enrichReport(report));
 
     await patchJob(jobId, {
       status: "complete",
@@ -116,8 +127,8 @@ export async function runScan(jobId: string) {
       });
       return;
     }
-    const report = await enrichReport(
-      buildDemoReport(job.url, `Livehämtning misslyckades: ${message}`),
+    const report = attachNarrative(
+      await enrichReport(buildDemoReport(job.url, `Livehämtning misslyckades: ${message}`)),
     );
     await patchJob(jobId, {
       status: "complete",

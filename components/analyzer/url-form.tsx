@@ -67,7 +67,7 @@ export function UrlForm({
           {error}
         </p>
       ) : (
-        <p className="mt-3 text-sm text-muted">Gratis, utan inloggning. Vi hämtar bara det som är publikt.</p>
+        <p className="mt-3 text-sm text-muted">Gratis, utan inloggning. Teaser-betyg; full rapport från 199 kr.</p>
       )}
     </form>
   );

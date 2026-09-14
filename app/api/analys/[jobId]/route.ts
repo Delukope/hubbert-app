@@ -1,4 +1,5 @@
 import { readJob } from "@/lib/analyzer/store";
+import { redactJob } from "@/lib/analyzer/access";
 import { runScan } from "@/lib/analyzer/run";
 
 export const runtime = "nodejs";
@@ -11,7 +12,7 @@ export async function GET(
   const { jobId } = await ctx.params;
   const job = await readJob(jobId);
   if (!job) return Response.json({ error: "Rapporten hittades inte." }, { status: 404 });
-  return Response.json(job);
+  return Response.json(redactJob(job));
 }
 
 export async function POST(
@@ -25,5 +26,5 @@ export async function POST(
     await runScan(jobId);
   }
   const latest = await readJob(jobId);
-  return Response.json(latest);
+  return Response.json(latest ? redactJob(latest) : latest);
 }

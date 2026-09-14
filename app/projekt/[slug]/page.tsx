@@ -41,7 +41,9 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
       <div className="mt-8 flex flex-wrap gap-2">
         {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}
         <Badge>{project.year}</Badge>
-        {project.status !== "live" ? (
+        {project.callout ? (
+          <Badge className="text-gold">{project.callout}</Badge>
+        ) : project.status !== "live" ? (
           <Badge className={project.status === "wip" ? "text-gold" : ""}>
             {statusLabel(project.status)}
           </Badge>

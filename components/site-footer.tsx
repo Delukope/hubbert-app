@@ -11,6 +11,12 @@ export function SiteFooter() {
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted" aria-label="Juridik">
+          <Link href="/tjanster" className="hover:text-fg">
+            Tjänster
+          </Link>
+          <Link href="/priser" className="hover:text-fg">
+            Priser
+          </Link>
           <Link href="/om" className="hover:text-fg">
             Om
           </Link>

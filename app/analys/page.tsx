@@ -16,8 +16,8 @@ export default async function AnalyzePage({ searchParams }: PageProps<"/analys">
         <p className="text-xs uppercase tracking-[0.2em] text-gold">Sajtanalys</p>
         <h1 className="display mt-3 text-4xl sm:text-5xl">En URL. En rapport.</h1>
         <p className="mt-4 text-muted">
-          Vi hämtar HTML och headers, sätter betyg och listar vad som faktiskt är värt att fixa. Privata,
-          lokala och metadata-IP:n blockeras.
+          Gratis teaser: betyg och några avslöjanden. Full rapport och PDF efter betalning. Privata, lokala och
+          metadata-IP:n blockeras.
         </p>
         <div className="mt-10">
           <UrlForm initialUrl={preset} />

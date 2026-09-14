@@ -12,6 +12,7 @@ export type Project = {
   featured: boolean;
   kind: ProjectKind;
   status: ProjectStatus;
+  callout?: string;
   summary: string;
   problem: string;
   approach: string;
@@ -123,6 +124,7 @@ export const projects: Project[] = [
     featured: false,
     kind: "app",
     status: "wip",
+    callout: "Under utveckling",
     summary:
       "Familjenav under arbetsnamnet HUBBERTY (byts). Unika QR-id:n som knyter ihop Edlevo, Haldor, SportAdmin, Svenskalag med mera — plus kalender, sysslor, veckoplan, semester och jobb.",
     problem:
@@ -144,6 +146,7 @@ export const projects: Project[] = [
     featured: false,
     kind: "app",
     status: "wip",
+    callout: "Kommer snart",
     summary:
       "STAMPE är ett arbetsnamn för en kommande app. Mer form och riktning kommer — just nu en plats i portföljen så visionen syns.",
     problem:

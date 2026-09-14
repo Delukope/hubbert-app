@@ -46,6 +46,7 @@ export async function createJob(url: string): Promise<ScanJob> {
     createdAt: now,
     updatedAt: now,
     progress: { step: "Köad", percent: 4 },
+    unlock: "free",
   };
   await writeJob(job);
   return job;

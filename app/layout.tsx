@@ -24,17 +24,17 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Hubbert — portfolio och sajtanalys",
+    default: "Hubbert — sajtanalys och hemsidor",
     template: "%s · Hubbert",
   },
   description:
-    "Hubbert är Konny Petterssons nav: utvalda webbprojekt och en sajtanalys som ger betyg på säkerhet, prestanda, SEO och tillgänglighet.",
+    "Hubbert på hubberty.se: sajtanalys, hemsidor och appar av Konny Pettersson. Gratis teaser-scan, betald full rapport.",
   openGraph: {
     title: "Hubbert",
-    description: "Portfolio och sajtanalys. Klistra in en URL, få en rapport värd att dela.",
+    description: "Sajtanalys och hemsidor. Klistra in en URL, få ett betyg — lås upp PDF när du vill.",
     locale: "sv_SE",
     type: "website",
-    url: siteUrl(),
+    url: "https://hubberty.se",
   },
   robots: { index: true, follow: true },
 };

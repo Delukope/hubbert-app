@@ -108,7 +108,9 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
         <Pattern project={project} />
         <div className="absolute left-4 top-4 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
-          {project.status !== "live" ? (
+          {project.callout ? (
+            <Badge className="border-gold/40 text-gold">{project.callout}</Badge>
+          ) : project.status !== "live" ? (
             <Badge className={project.status === "wip" ? "border-gold/40 text-gold" : "text-muted"}>
               {statusLabel(project.status)}
             </Badge>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ScanProgress } from "@/components/analyzer/scan-progress";
 import { ReportDashboard } from "@/components/report/report-dashboard";
 import { readJob } from "@/lib/analyzer/store";
+import { fulfillStripeSession } from "@/lib/billing";
 
 export const dynamic = "force-dynamic";
 
@@ -24,8 +25,20 @@ export async function generateMetadata({
   };
 }
 
-export default async function JobPage({ params }: PageProps<"/analys/[jobId]">) {
+export default async function JobPage({
+  params,
+  searchParams,
+}: PageProps<"/analys/[jobId]">) {
   const { jobId } = await params;
+  const sp = await searchParams;
+  const sessionId = typeof sp.session_id === "string" ? sp.session_id : undefined;
+  if (sessionId) {
+    try {
+      await fulfillStripeSession(sessionId);
+    } catch {
+      /* webhook kan komma senare */
+    }
+  }
   const job = await readJob(jobId);
   if (!job) notFound();
 
