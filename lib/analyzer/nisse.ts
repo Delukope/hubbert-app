@@ -40,6 +40,9 @@ export const NISSE_MUTTERS = [
   "Det här var inte meningen att ligga här.",
   "Skruva loss, släng på högen.",
   "Snygg yta. Under? Skrot.",
+  "Den här funktionen har bott i en backe.",
+  "Två headers och en mutter. Klassiskt.",
+  "Jag ser en Divi. Den åker ut.",
 ];
 
 function hash32(input: string) {

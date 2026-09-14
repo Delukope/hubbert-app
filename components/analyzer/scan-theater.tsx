@@ -112,7 +112,7 @@ export function ScanTheater({
           </div>
         ) : (
           <>
-            <div className="nisse-stage relative mt-8 overflow-visible pb-16">
+            <div className="nisse-stage relative mt-8 overflow-visible pb-20">
               <div className="relative overflow-hidden border border-line bg-black/40" style={{ aspectRatio: "16 / 10" }}>
                 {jobId ? (
                   <iframe
