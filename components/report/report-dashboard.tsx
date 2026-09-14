@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ScanJob, ScanIssue } from "@/lib/analyzer/types";
 import { isDeep, isPaid, jobUnlock } from "@/lib/analyzer/access";
@@ -7,7 +9,14 @@ import { ScoreRingWrap } from "@/components/ui/score-ring";
 import { CategoryBars, CategoryRadar, PerfBars } from "@/components/report/charts";
 import { UnlockCta } from "@/components/report/unlock-cta";
 import { formatBytes, formatMs, scoreTone, cn } from "@/lib/utils";
-import { costNote, demoUnlockAllowed, plans, stripeReady } from "@/lib/pricing";
+import { costNote as defaultCostNote, demoUnlockAllowed, plans, stripeReady, type PricePlan } from "@/lib/pricing";
+
+export type ReportBilling = {
+  plans: PricePlan[];
+  stripe: boolean;
+  demo: boolean;
+  costNote: string;
+};
 
 const severityLabel: Record<ScanIssue["severity"], string> = {
   critical: "Kritiskt",
@@ -43,9 +52,19 @@ function toneClass(score: number) {
   return "text-bad";
 }
 
-export function ReportDashboard({ job }: { job: ScanJob }) {
+export function ReportDashboard({
+  job,
+  billing,
+}: {
+  job: ScanJob;
+  billing?: ReportBilling;
+}) {
   const report = job.report;
   if (!report) return null;
+  const pricePlans = billing?.plans ?? plans();
+  const stripe = billing?.stripe ?? stripeReady();
+  const demo = billing?.demo ?? demoUnlockAllowed();
+  const costNote = billing?.costNote ?? defaultCostNote;
   const paid = isPaid(job);
   const deep = isDeep(job);
   const host = (() => {
@@ -133,9 +152,9 @@ export function ReportDashboard({ job }: { job: ScanJob }) {
             <UnlockCta
               jobId={job.id}
               current={jobUnlock(job)}
-              plans={plans()}
-              stripe={stripeReady()}
-              demo={demoUnlockAllowed()}
+              plans={pricePlans}
+              stripe={stripe}
+              demo={demo}
               costNote={costNote}
             />
           </div>
@@ -312,9 +331,9 @@ export function ReportDashboard({ job }: { job: ScanJob }) {
                 <UnlockCta
                   jobId={job.id}
                   current={jobUnlock(job)}
-                  plans={plans().filter((p) => p.id === "djup")}
-                  stripe={stripeReady()}
-                  demo={demoUnlockAllowed()}
+                  plans={pricePlans.filter((p) => p.id === "djup")}
+                  stripe={stripe}
+                  demo={demo}
                   costNote={costNote}
                 />
               </div>

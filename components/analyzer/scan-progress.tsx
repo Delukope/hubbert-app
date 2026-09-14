@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ScanJob } from "@/lib/analyzer/types";
 import { ScanTheater } from "@/components/analyzer/scan-theater";
+import { ReportDashboard, type ReportBilling } from "@/components/report/report-dashboard";
+
+type JobPayload = ScanJob & { billing?: ReportBilling; error?: string };
 
 export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
   const router = useRouter();
-  const [job, setJob] = useState<ScanJob | null>(null);
+  const [job, setJob] = useState<JobPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [misses, setMisses] = useState(0);
   const kicked = useRef(false);
@@ -23,9 +26,9 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
           headers: { accept: "application/json" },
         });
         const text = await res.text();
-        let data: (ScanJob & { error?: string }) | null = null;
+        let data: JobPayload | null = null;
         try {
-          data = JSON.parse(text) as ScanJob & { error?: string };
+          data = JSON.parse(text) as JobPayload;
         } catch {
           fails += 1;
           if (fails >= 8) setError("Analysmotorn svarade inte med data. Försök igen.");
@@ -45,13 +48,6 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
         setMisses(0);
         setError(null);
         setJob(data);
-        if (data.status === "complete") {
-          window.location.replace(`/analys/${jobId}`);
-          return;
-        }
-        if (data.status === "error") {
-          router.refresh();
-        }
       } catch {
         fails += 1;
         if (fails >= 8) setError("Tillfällig nätverksstörning mot rapporten. Försök igen.");
@@ -64,7 +60,7 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
       stop = true;
       window.clearInterval(id);
     };
-  }, [jobId, router]);
+  }, [jobId]);
 
   useEffect(() => {
     if (kicked.current) return;
@@ -90,6 +86,10 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
     } catch {
       setError("Fortfarande ingen kontakt. Kontrollera nätet och försök igen.");
     }
+  }
+
+  if (job?.status === "complete" && job.report) {
+    return <ReportDashboard job={job} billing={job.billing} />;
   }
 
   return (
