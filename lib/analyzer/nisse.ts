@@ -92,6 +92,6 @@ export function findsForProgress(finds: NisseFind[], percent: number, stage: Sca
   const order: ScanStageId[] = ["dns", "headers", "html", "score", "report"];
   const maxIdx = order.indexOf(stage);
   const eligible = finds.filter((f) => order.indexOf(f.stage) <= maxIdx);
-  const cap = Math.max(0, Math.floor(percent / 8));
+  const cap = Math.min(eligible.length, 4 + Math.floor(percent / 6));
   return eligible.slice(0, cap);
 }

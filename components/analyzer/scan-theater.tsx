@@ -117,6 +117,7 @@ export function ScanTheater({
                 <div className="absolute inset-0 overflow-hidden">
                   {jobId ? (
                     <iframe
+                      key={previewReady ? "preview-ready" : "preview-wait"}
                       title={`Förhandsvisning av ${host}`}
                       src={`/api/analys/${jobId}/preview`}
                       sandbox=""
