@@ -14,6 +14,7 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
   const [error, setError] = useState<string | null>(null);
   const [misses, setMisses] = useState(0);
   const kicked = useRef(false);
+  const [curtainUp, setCurtainUp] = useState(false);
 
   useEffect(() => {
     let stop = false;
@@ -70,6 +71,12 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
     );
   }, [jobId]);
 
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t = window.setTimeout(() => setCurtainUp(true), reduced ? 400 : 5200);
+    return () => window.clearTimeout(t);
+  }, []);
+
   const stalled = misses >= 10;
   const showError = job?.status === "error" || Boolean(error) || stalled;
 
@@ -88,7 +95,7 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
     }
   }
 
-  if (job?.status === "complete" && job.report) {
+  if (job?.status === "complete" && job.report && curtainUp) {
     return <ReportDashboard job={job} billing={job.billing} />;
   }
 
@@ -97,14 +104,16 @@ export function ScanProgress({ jobId, url }: { jobId: string; url?: string }) {
       url={job?.url ?? url}
       jobId={jobId}
       previewReady={Boolean(job?.previewReady)}
-      percent={job?.progress.percent ?? 8}
+      percent={job?.status === "complete" && !curtainUp ? Math.max(job.progress.percent, 78) : (job?.progress.percent ?? 8)}
       step={job?.progress.step}
       status={
         showError
           ? "error"
-          : job?.status === "awaiting_payment"
-            ? "queued"
-            : (job?.status ?? "running")
+          : job?.status === "complete" && !curtainUp
+            ? "running"
+            : job?.status === "awaiting_payment"
+              ? "queued"
+              : (job?.status ?? "running")
       }
       error={
         job?.status === "error"

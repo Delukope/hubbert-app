@@ -8,32 +8,35 @@ import { cn } from "@/lib/utils";
 function NisseFigure({ rummage }: { rummage: boolean }) {
   const uid = `n${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   return (
-    <svg viewBox="0 0 140 228" className={cn("nisse-figure", rummage && "nisse-rummage")} aria-hidden>
+    <svg viewBox="0 0 168 248" className={cn("nisse-figure", rummage && "nisse-rummage")} aria-hidden>
       <defs>
-        <linearGradient id={`${uid}-coat`} x1="0.15" y1="0" x2="0.9" y2="1">
+        <linearGradient id={`${uid}-hat`} x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#3d342c" />
+          <stop offset="100%" stopColor="#14110e" />
+        </linearGradient>
+        <linearGradient id={`${uid}-coat`} x1="0.1" y1="0" x2="0.9" y2="1">
           <stop offset="0%" stopColor="#4a4038" />
-          <stop offset="42%" stopColor="#2a2420" />
-          <stop offset="100%" stopColor="#14110f" />
+          <stop offset="55%" stopColor="#26201c" />
+          <stop offset="100%" stopColor="#12100e" />
         </linearGradient>
         <linearGradient id={`${uid}-rust`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#d06a32" />
-          <stop offset="100%" stopColor="#8a3418" />
+          <stop offset="0%" stopColor="#e07a3a" />
+          <stop offset="100%" stopColor="#8c3514" />
         </linearGradient>
         <linearGradient id={`${uid}-skin`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#e2b896" />
-          <stop offset="100%" stopColor="#b07a58" />
+          <stop offset="0%" stopColor="#f0c4a2" />
+          <stop offset="100%" stopColor="#b07a54" />
         </linearGradient>
-        <linearGradient id={`${uid}-visor`} x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={`${uid}-ion`} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#7dffb3" />
-          <stop offset="55%" stopColor="#c8ffe4" />
           <stop offset="100%" stopColor="#e8c07a" />
         </linearGradient>
         <linearGradient id={`${uid}-steel`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#d8dde4" />
+          <stop offset="0%" stopColor="#eef2f6" />
           <stop offset="100%" stopColor="#6a727c" />
         </linearGradient>
-        <filter id={`${uid}-glow`} x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="1.8" result="b" />
+        <filter id={`${uid}-glow`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.2" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
@@ -41,67 +44,64 @@ function NisseFigure({ rummage }: { rummage: boolean }) {
         </filter>
       </defs>
 
-      <ellipse cx="70" cy="218" rx="34" ry="6" fill="#000" opacity="0.38" />
+      <ellipse cx="84" cy="238" rx="40" ry="7" fill="#000" opacity="0.4" />
 
-      <path d="M42 168 L34 214 L54 216 L56 170 Z" fill="#1a1410" />
-      <path d="M72 166 L74 214 L98 216 L90 168 Z" fill="#241c16" />
-      <path d="M32 206 L34 216 L56 218 L54 206 Z" fill="#0c0a09" />
-      <path d="M72 204 L74 216 L100 218 L96 204 Z" fill="#0c0a09" />
-      <path d="M40 206 H52" stroke="#e8c07a" strokeWidth="1.2" opacity="0.55" />
-      <path d="M80 204 H94" stroke="#e8c07a" strokeWidth="1.2" opacity="0.55" />
+      <path d="M52 176 L42 228 L66 230 L70 178 Z" fill="#1a1410" />
+      <path d="M90 174 L94 228 L122 230 L112 176 Z" fill="#241c16" />
+      <path d="M40 218 C42 232 66 234 68 220 Z" fill="#0b0908" />
+      <path d="M92 216 C96 232 124 234 120 218 Z" fill="#0b0908" />
+      <path d="M46 220 H62" stroke="#e8c07a" strokeWidth="1.4" opacity="0.7" />
+      <path d="M100 218 H116" stroke="#e8c07a" strokeWidth="1.4" opacity="0.7" />
 
       <g className="nisse-arm nisse-arm--back">
-        <path d="M40 88 C22 104 14 132 22 148 L34 146 C30 132 34 110 46 96 Z" fill="#2a2420" />
-        <path d="M18 144 L10 158 L28 162 L34 148 Z" fill="#1c1816" />
-        <circle cx="16" cy="156" r="3.2" fill="#e8c07a" />
+        <path d="M52 96 C28 118 22 150 32 168 L48 162 C42 146 48 118 62 104 Z" fill="#2c2622" />
+        <path d="M28 164 L18 180 L40 184 L48 166 Z" fill="#1a1614" />
+        <circle cx="24" cy="176" r="3.4" fill="#e8c07a" />
       </g>
 
-      <path d="M44 78 L92 72 L100 168 L38 172 Z" fill={`url(#${uid}-coat)`} />
-      <path d="M52 80 L88 76 L90 128 L50 132 Z" fill="#1c1816" opacity="0.35" />
-      <path d="M46 98 L96 92 L94 118 L44 124 Z" fill={`url(#${uid}-rust)`} />
-      <path d="M54 104 L86 100 L85 108 L55 112 Z" fill="#7dffb3" opacity="0.22" />
-      <path d="M48 82 L58 138" stroke="#e8c07a" strokeWidth="0.7" opacity="0.35" />
-      <circle cx="50" cy="90" r="1.6" fill="#e8c07a" />
-      <circle cx="50" cy="112" r="1.6" fill="#e8c07a" />
-      <circle cx="92" cy="88" r="1.6" fill="#e8c07a" />
-      <circle cx="92" cy="110" r="1.6" fill="#e8c07a" />
+      <path d="M54 90 L118 82 L128 176 L46 182 Z" fill={`url(#${uid}-coat)`} />
+      <path d="M64 96 L110 90 L114 140 L62 146 Z" fill="#1a1614" opacity="0.28" />
+      <path d="M56 112 L124 104 L120 132 L54 140 Z" fill={`url(#${uid}-rust)`} />
+      <path d="M68 118 L108 112 L106 122 L68 128 Z" fill="#7dffb3" opacity="0.2" />
+      <circle cx="62" cy="104" r="2" fill="#e8c07a" />
+      <circle cx="62" cy="128" r="2" fill="#e8c07a" />
+      <circle cx="116" cy="100" r="2" fill="#e8c07a" />
+      <circle cx="116" cy="124" r="2" fill="#e8c07a" />
 
-      <path d="M40 138 L102 134 L100 150 L38 154 Z" fill="#12100e" />
-      <rect x="64" y="136" width="14" height="12" rx="1.5" fill="#e8c07a" />
-      <path d="M42 152 L38 168 L46 168 L48 152" fill="#c45c28" />
-      <path d="M96 148 L104 166 L112 164 L102 146" fill="#7dffb3" opacity="0.55" />
-      <rect x="54" y="150" width="8" height="14" rx="1" fill="#2a2420" stroke="#e8c07a" strokeWidth="0.6" />
+      <path d="M48 148 L130 142 L128 160 L46 166 Z" fill="#0e0c0b" />
+      <rect x="78" y="144" width="16" height="14" rx="2" fill="#e8c07a" />
+      <path d="M52 164 L46 182 L56 182 L58 164 Z" fill="#c45c28" />
+      <path d="M118 158 L128 178 L138 174 L126 156 Z" fill="#7dffb3" opacity="0.55" />
 
       <g className="nisse-arm nisse-arm--throw">
-        <path d="M88 86 C108 78 124 92 128 112 L114 118 C112 102 100 94 88 98 Z" fill="#2a2420" />
-        <path d="M118 108 L136 96 L140 108 L124 122 Z" fill="#1c1816" />
+        <path d="M112 96 C138 86 154 104 158 128 L140 134 C138 114 124 104 112 108 Z" fill="#2c2622" />
+        <path d="M146 124 L166 110 L172 124 L152 140 Z" fill="#1a1614" />
         <g filter={`url(#${uid}-glow)`}>
           <path
-            d="M128 86 L148 118 L140 124 L132 110 L124 116 L120 108 Z"
+            d="M158 96 L180 134 L170 140 L160 122 L150 130 L144 120 Z"
             fill={`url(#${uid}-steel)`}
             stroke="#e8c07a"
-            strokeWidth="0.8"
+            strokeWidth="1"
           />
-          <circle cx="146" cy="120" r="4.2" fill="none" stroke={`url(#${uid}-visor)`} strokeWidth="2.2" />
+          <circle cx="178" cy="136" r="5.2" fill="none" stroke={`url(#${uid}-ion)`} strokeWidth="2.4" />
         </g>
       </g>
 
-      <path d="M54 70 L80 66 L84 86 L52 88 Z" fill={`url(#${uid}-skin)`} />
-      <path d="M48 28 L86 20 L94 78 L46 82 Z" fill={`url(#${uid}-skin)`} />
-      <path d="M46 18 C62 6 90 8 96 28 L98 48 L44 54 Z" fill="#161210" />
-      <path d="M50 24 L90 18 L92 42 L48 46 Z" fill="#0c0a09" />
-      <path
-        d="M52 34 L90 30 L89 48 L53 50 Z"
-        fill="#061410"
-        stroke={`url(#${uid}-visor)`}
-        strokeWidth="1.4"
-        filter={`url(#${uid}-glow)`}
-      />
-      <rect x="56" y="36" width="12" height="9" rx="1.2" fill={`url(#${uid}-visor)`} />
-      <rect x="72" y="35" width="12" height="9" rx="1.2" fill={`url(#${uid}-visor)`} opacity="0.85" />
-      <path d="M58 56 L80 54 L78 62 L58 63 Z" fill="#5c3317" />
-      <path d="M62 14 L72 2 L80 16" fill="none" stroke="#e8c07a" strokeWidth="1.8" strokeLinecap="round" />
-      <circle cx="72" cy="2" r="2.4" fill="#7dffb3" filter={`url(#${uid}-glow)`} />
+      <path d="M70 78 L98 74 L102 94 L68 96 Z" fill={`url(#${uid}-skin)`} />
+      <ellipse cx="84" cy="72" rx="26" ry="22" fill={`url(#${uid}-skin)`} />
+      <path d="M84 4 L124 78 L44 78 Z" fill={`url(#${uid}-hat)`} />
+      <path d="M84 10 L114 72 L54 72 Z" fill="#1c1814" opacity="0.35" />
+      <path d="M42 74 L126 70 L128 84 L40 88 Z" fill="#0c0a09" />
+      <path d="M50 78 L118 74" stroke="#e8c07a" strokeWidth="1.6" />
+      <g filter={`url(#${uid}-glow)`}>
+        <rect x="58" y="62" width="22" height="12" rx="6" fill="#061410" stroke={`url(#${uid}-ion)`} strokeWidth="1.6" />
+        <rect x="88" y="61" width="22" height="12" rx="6" fill="#061410" stroke={`url(#${uid}-ion)`} strokeWidth="1.6" />
+        <rect x="64" y="65" width="12" height="6" rx="3" fill={`url(#${uid}-ion)`} />
+        <rect x="94" y="64" width="12" height="6" rx="3" fill={`url(#${uid}-ion)`} opacity="0.88" />
+        <path d="M80 68 H88" stroke={`url(#${uid}-ion)`} strokeWidth="2" />
+      </g>
+      <path d="M72 82 L96 80 L94 88 L72 89 Z" fill="#6a3a1c" />
+      <circle cx="84" cy="6" r="3.2" fill="#7dffb3" filter={`url(#${uid}-glow)`} />
     </svg>
   );
 }
@@ -109,12 +109,12 @@ function NisseFigure({ rummage }: { rummage: boolean }) {
 function heapStyle(find: NisseFind, i: number, side: "l" | "r"): CSSProperties {
   const h = find.id.charCodeAt(0) + find.id.charCodeAt(Math.min(4, find.id.length - 1)) + i * 23;
   const rot = (h % 78) - 39;
-  const x = (i % 4) * 20 + (side === "l" ? 2 : 8) + (h % 19);
-  const y = Math.floor(i / 3) * 15 + (i % 3) * 8 + (h % 13);
-  const fromX = side === "l" ? 110 : -70;
+  const x = (i % 4) * 22 + (side === "l" ? 8 : 14) + (h % 18);
+  const y = Math.floor(i / 3) * 16 + (i % 3) * 7 + (h % 12);
+  const fromX = side === "l" ? 90 : -60;
   return {
     ["--nisse-land" as string]: `translate(${x}px, ${-y}px) rotate(${rot}deg)`,
-    ["--nisse-from" as string]: `translate(${fromX}px, -92px) rotate(${rot > 0 ? -22 : 18}deg) scale(0.42)`,
+    ["--nisse-from" as string]: `translate(${fromX}px, -70px) rotate(${rot > 0 ? -22 : 18}deg) scale(0.42)`,
     animationDelay: `${Math.min(i * 0.12, 1.7)}s`,
     zIndex: 4 + (i % 6),
     fontSize: `${10 + (i % 3)}px`,
@@ -137,7 +137,7 @@ export function SkrotNisse({
   const { finds, mutters } = useMemo(() => nisseCatalog(seed), [seed]);
   const revealed = useMemo(() => findsForProgress(finds, percent, stage), [finds, percent, stage]);
   const mutter = mutters[Math.min(mutters.length - 1, Math.floor(percent / 12))] ?? mutters[0];
-  const inPage = active && percent > 10;
+  const inPage = active && percent > 8;
   const leftHeap = revealed.filter((_, i) => i % 2 === 0);
   const rightHeap = revealed.filter((_, i) => i % 2 === 1);
 
@@ -172,7 +172,7 @@ export function SkrotNisse({
         <NisseFigure rummage={inPage} />
         <span className="sr-only">Skrot-Nisse rotar i sidans skrot.</span>
       </div>
-      <p className="nisse-mutter display absolute left-[18%] top-3 max-w-[70%] text-lg leading-tight text-fg sm:text-2xl">
+      <p className="nisse-mutter display absolute left-[14%] top-3 max-w-[72%] text-base leading-tight text-fg sm:text-xl">
         {mutter}
       </p>
       <div className="nisse-heap nisse-heap--l">

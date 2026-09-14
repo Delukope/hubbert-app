@@ -160,7 +160,7 @@ body {
 }
 
 .nisse-figure {
-  width: 7.4rem;
+  width: 9.25rem;
   height: auto;
   overflow: visible;
   filter:
@@ -170,8 +170,8 @@ body {
 
 .nisse-walker {
   position: absolute;
-  bottom: 4%;
-  left: -18%;
+  bottom: 2%;
+  left: -22%;
   z-index: 3;
   animation: nisse-stride 0.64s ease-in-out infinite;
 }
@@ -183,17 +183,17 @@ body {
 }
 
 .nisse-walker--in {
-  left: 36%;
+  left: 28%;
   animation: nisse-stride 0.82s ease-in-out infinite;
 }
 
 .nisse-rummage {
-  transform-origin: 70px 218px;
+  transform-origin: 84px 238px;
   animation: nisse-dig 0.86s ease-in-out infinite;
 }
 
 .nisse-arm--throw {
-  transform-origin: 92px 90px;
+  transform-origin: 118px 104px;
   transform-box: fill-box;
 }
 
@@ -210,18 +210,18 @@ body {
 
 .nisse-heap {
   position: absolute;
-  bottom: -14px;
+  bottom: 6px;
   z-index: 4;
-  width: 52%;
-  min-height: 104px;
+  width: 44%;
+  min-height: 96px;
 }
 
 .nisse-heap--l {
-  left: -7%;
+  left: -2%;
 }
 
 .nisse-heap--r {
-  right: -8%;
+  right: -2%;
 }
 
 .nisse-scrap {
@@ -249,11 +249,11 @@ body {
 
 @keyframes nisse-enter {
   from {
-    left: -20%;
+    left: -22%;
     opacity: 0.15;
   }
   to {
-    left: 36%;
+    left: 28%;
     opacity: 1;
   }
 }

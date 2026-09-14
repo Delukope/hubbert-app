@@ -77,20 +77,20 @@ export function ScanTheater({
       <div className="scan-theater__grid pointer-events-none absolute inset-0" aria-hidden />
       <div className="scan-theater__beam pointer-events-none absolute inset-0" aria-hidden />
 
-      <div className="relative p-5 sm:p-8 lg:p-10">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="relative p-4 sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">
               {status === "error" ? "Avbrott" : boot || status === "boot" ? "Nisse knyter kängorna" : "Skrot-Nisse"}
             </p>
-            <h1 className="display mt-2 max-w-xl text-3xl leading-[1.05] sm:text-5xl">
+            <h1 className="display mt-1 max-w-xl text-2xl leading-[1.08] sm:text-4xl">
               {status === "error" ? "Skanningen nådde inte fram." : stage.verb}
             </h1>
-            <p className="mt-2 font-mono text-sm text-ion/90">{host}</p>
+            <p className="mt-1 font-mono text-sm text-ion/90">{host}</p>
             {step && status !== "error" ? <p className="mt-1 text-sm text-muted">{step}</p> : null}
           </div>
           <div className="text-right">
-            <p className="font-mono text-4xl tabular-nums tracking-tight text-ion">{pad(visual)}</p>
+            <p className="font-mono text-3xl tabular-nums tracking-tight text-ion sm:text-4xl">{pad(visual)}</p>
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">pct</p>
           </div>
         </div>
@@ -112,32 +112,34 @@ export function ScanTheater({
           </div>
         ) : (
           <>
-            <div className="nisse-stage relative mt-8 overflow-visible pb-20">
-              <div className="relative overflow-hidden border border-line bg-black/40" style={{ aspectRatio: "16 / 10" }}>
-                {jobId ? (
-                  <iframe
-                    title={`Förhandsvisning av ${host}`}
-                    src={`/api/analys/${jobId}/preview`}
-                    sandbox=""
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full bg-[#07050a]"
-                  />
-                ) : (
-                  <div className="grid h-full place-items-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-                    Hämtar yta åt Nisse
-                  </div>
-                )}
+            <div className="nisse-stage relative mt-5 overflow-visible pb-8">
+              <div className="relative h-[min(22rem,46vh)] overflow-visible border border-line bg-black/40">
+                <div className="absolute inset-0 overflow-hidden">
+                  {jobId ? (
+                    <iframe
+                      title={`Förhandsvisning av ${host}`}
+                      src={`/api/analys/${jobId}/preview`}
+                      sandbox=""
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full bg-[#07050a]"
+                    />
+                  ) : (
+                    <div className="grid h-full place-items-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                      Hämtar yta åt Nisse
+                    </div>
+                  )}
+                </div>
                 <p className="pointer-events-none absolute bottom-2 left-2 z-20 font-mono text-[10px] uppercase tracking-[0.16em] text-ion">
                   {previewReady ? "Sandlåda · inget JS" : "Väntar på HTML"}
                 </p>
+                <SkrotNisse
+                  seed={seed}
+                  percent={visual}
+                  stage={stage.id}
+                  reduced={reduced}
+                  active
+                />
               </div>
-              <SkrotNisse
-                seed={seed}
-                percent={visual}
-                stage={stage.id}
-                reduced={reduced}
-                active
-              />
             </div>
 
             <ol className="mt-4 flex flex-wrap gap-x-6 gap-y-2" aria-label="Skanningssteg">
