@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Om",
-  description: "Huberty är Konny Petterssons nav för webbprojekt och sajtanalys.",
+  description: "Hubbert är Konny Petterssons nav för webbprojekt och sajtanalys.",
 };
 
 export default function AboutPage() {
@@ -11,8 +11,8 @@ export default function AboutPage() {
       <p className="text-xs uppercase tracking-[0.2em] text-gold">Om</p>
       <h1 className="display mt-3 text-4xl">Inte ett tema. En produkt.</h1>
       <p className="mt-6 leading-8 text-muted">
-        Huberty drivs av Konny Pettersson. Övriga sajter lever på WordPress, One.com och Divi — det funkar,
-        men det begränsar. Huberty är den andra polen: modern stack, snabb att iterera, inget temajakt, och
+        Hubbert drivs av Konny Pettersson. Övriga sajter lever på WordPress, One.com och Divi — det funkar,
+        men det begränsar. Hubbert är den andra polen: modern stack, snabb att iterera, inget temajakt, och
         en analysyta som går att visa live.
       </p>
       <p className="mt-4 leading-8 text-muted">

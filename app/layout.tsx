@@ -24,13 +24,13 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Huberty — portfolio och sajtanalys",
-    template: "%s · Huberty",
+    default: "Hubbert — portfolio och sajtanalys",
+    template: "%s · Hubbert",
   },
   description:
-    "Huberty är Konny Petterssons nav: utvalda webbprojekt och en sajtanalys som ger betyg på säkerhet, prestanda, SEO och tillgänglighet.",
+    "Hubbert är Konny Petterssons nav: utvalda webbprojekt och en sajtanalys som ger betyg på säkerhet, prestanda, SEO och tillgänglighet.",
   openGraph: {
-    title: "Huberty",
+    title: "Hubbert",
     description: "Portfolio och sajtanalys. Klistra in en URL, få en rapport värd att dela.",
     locale: "sv_SE",
     type: "website",

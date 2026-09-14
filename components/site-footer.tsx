@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="mt-auto border-t border-line">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-6">
         <div>
-          <p className="display text-lg">Huberty</p>
+          <p className="display text-lg">Hubbert</p>
           <p className="mt-1 max-w-sm text-sm text-muted">
             Portfolio och sajtanalys av Konny Pettersson. huberty.se
           </p>

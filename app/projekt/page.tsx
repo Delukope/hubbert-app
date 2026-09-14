@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projekt",
-  description: "Webbprojekt av Konny Pettersson — från Akalacity till Huberty.",
+  description: "Webbprojekt av Konny Pettersson — från Akalacity till Hubbert.",
 };
 
 export default function ProjectsPage() {

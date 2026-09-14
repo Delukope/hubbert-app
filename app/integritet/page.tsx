@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Integritet",
-  description: "Hur Huberty hanterar URL:er och rapporter.",
+  description: "Hur Hubbert hanterar URL:er och rapporter.",
 };
 
 export default function PrivacyPage() {
@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <article className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
       <h1 className="display text-4xl">Integritet</h1>
       <p className="mt-6 leading-8 text-muted">
-        När du klistrar in en URL hämtar Huberty den publika HTML:en och svarshuvudena. Vi loggar inte in,
+        När du klistrar in en URL hämtar Hubbert den publika HTML:en och svarshuvudena. Vi loggar inte in,
         vi lagrar inga cookies från målsajten, och vi scannar inte bakom inloggning.
       </p>
       <p className="mt-4 leading-8 text-muted">

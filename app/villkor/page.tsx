@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Villkor",
-  description: "Användarvillkor för Huberty.",
+  description: "Användarvillkor för Hubbert.",
 };
 
 export default function TermsPage() {
@@ -10,7 +10,7 @@ export default function TermsPage() {
     <article className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
       <h1 className="display text-4xl">Villkor</h1>
       <p className="mt-6 leading-8 text-muted">
-        Huberty tillhandahålls som ett verktyg för att granska publika webbplatser. Analyserna är heuristiska
+        Hubbert tillhandahålls som ett verktyg för att granska publika webbplatser. Analyserna är heuristiska
         och kan vara ofullständiga. En demo-rapport kan visas om målsajten inte går att hämta.
       </p>
       <p className="mt-4 leading-8 text-muted">

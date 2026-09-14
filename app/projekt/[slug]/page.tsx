@@ -73,7 +73,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
           href={`/analys?url=${encodeURIComponent(project.url)}`}
           className="rounded-full bg-gold px-5 py-3 text-sm font-medium text-[#1a1408]"
         >
-          Analysera i Huberty
+          Analysera i Hubbert
         </Link>
       </div>
     </div>

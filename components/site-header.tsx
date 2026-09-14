@@ -29,7 +29,7 @@ export function SiteHeader() {
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-linear-to-br from-gold to-mint text-[#1a1408]">
             <span className="display text-sm font-bold">H</span>
           </span>
-          <span className="display text-lg tracking-tight">Huberty</span>
+          <span className="display text-lg tracking-tight">Hubbert</span>
         </Link>
         <nav className="hidden items-center gap-1 md:flex" aria-label="Huvudnavigation">
           {links.map((l) => {

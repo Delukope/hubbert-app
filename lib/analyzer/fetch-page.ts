@@ -3,7 +3,7 @@ import { assertPublicHttpUrl, SsrfError } from "./ssrf";
 const MAX_BYTES = 1_500_000;
 const MAX_REDIRECTS = 5;
 const TIMEOUT_MS = 12_000;
-const UA = "HubertyAnalyzer/1.0 (+https://huberty.se)";
+const UA = "HubbertAnalyzer/1.0 (+https://huberty.se)";
 
 export type FetchedPage = {
   finalUrl: string;

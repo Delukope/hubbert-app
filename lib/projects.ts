@@ -37,7 +37,7 @@ export const projects: Project[] = [
     approach:
       "Tydlig informationsarkitektur för två redaktionella linjer, snabbare mallar, mätbar SEO-hygien och en visuell identitet som tål att delas. Fokus på titel, ingress och relaterade spår istället för prydnadswidgets.",
     outcome:
-      "Trafiken växer. Sajten är byggd för att skalas med fler texter utan att navigeras sönder — och för att kunna granskas med samma analysmotor som Huberty själv använder.",
+      "Trafiken växer. Sajten är byggd för att skalas med fler texter utan att navigeras sönder — och för att kunna granskas med samma analysmotor som Hubbert själv använder.",
     accent: "#e8c07a",
     accentTo: "#ff8a5b",
     pattern: "orbit",
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     approach:
       "Rensa strukturen kring tjänster och kontakt, höj kontrast och fotoanvändning, och lägg en ärlig engelsk yta ovanpå den svenska — inte en maskinöversatt kopia.",
     outcome:
-      "Pågående polish. Målet är en sajt som känns lika omsorgsfull som en välskött rabatt, och som Huberty-analysen kan peka ut nästa steg på.",
+      "Pågående polish. Målet är en sajt som känns lika omsorgsfull som en välskött rabatt, och som Hubbert-analysen kan peka ut nästa steg på.",
     accent: "#7ee0c6",
     accentTo: "#3dd68c",
     pattern: "wave",
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     approach:
       "Minimal yta, stark typografi, noll theme-jakt. Innehåll och struktur först, därefter mätning av läsbarhet, metadata och tillgänglighet.",
     outcome:
-      "En liten sajt med tydlig röst. Bra testfall för Hubernys analyser: lite HTML, höga krav på detaljer.",
+      "En liten sajt med tydlig röst. Bra testfall för Hubberts analyser: lite HTML, höga krav på detaljer.",
     accent: "#9b8cff",
     accentTo: "#6ea8ff",
     pattern: "grid",
@@ -103,7 +103,7 @@ export const projects: Project[] = [
     approach:
       "Behåll karaktären, skär bort det som inte bär. Kompression, cache, tydliga landningssidor och en struktur som Google faktiskt kan läsa.",
     outcome:
-      "En sajt som får leka med 2000-talet i ytan, men som mäts med moderna betyg i Huberty-rapporten.",
+      "En sajt som får leka med 2000-talet i ytan, men som mäts med moderna betyg i Hubbert-rapporten.",
     accent: "#ff6b9d",
     accentTo: "#ffc14d",
     pattern: "bars",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     approach:
       "Tydlig statuskänsla, ärliga headers, HTTPS som default och en sajt som själv är ett bevis: cache, kompression, HSTS.",
     outcome:
-      "Ett nav för driftnära arbete. Precis den typ av sajt Hubernys säkerhetsbetyg är byggd för att granska.",
+      "Ett nav för driftnära arbete. Precis den typ av sajt Hubberts säkerhetsbetyg är byggd för att granska.",
     accent: "#5ee0ff",
     accentTo: "#7ee0c6",
     pattern: "hex",
@@ -154,7 +154,7 @@ export const projects: Project[] = [
   },
   {
     slug: "huberty",
-    name: "Huberty",
+    name: "Hubbert",
     domain: "huberty.se",
     url: "https://huberty.se",
     year: "2026",
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     summary:
       "Det här navet. Portfolio och sajtanalys i samma produkt — byggt för att iterera snabbt, utan WordPress och utan temajakt.",
     problem:
-      "Övriga sajter körs på WordPress + One.com + Divi. Det funkar, men det begränsar. Huberty skulle vara motsatsen: modern, snabb att ändra, imponerande live.",
+      "Övriga sajter körs på WordPress + One.com + Divi. Det funkar, men det begränsar. Hubbert skulle vara motsatsen: modern, snabb att ändra, imponerande live.",
     approach:
       "Next.js App Router, typad projektdata, server-side analys med SSRF-skydd, betyg och prioriterade åtgärder. Svenskt gränssnitt, mörk produkt-UI.",
     outcome:
