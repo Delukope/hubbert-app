@@ -65,7 +65,7 @@ Redigera `lib/projects.ts`. Live: Hubberty (hubberty.se), Akalasi. Före/efter-s
 
 ## Bilder
 
-- Live-kort: `public/projects/hubberty.jpg` och `public/projects/akalasi.jpg`. Akalasi har en live-skärmdump. Hubberty är en placeholder (`Skärmdump kommer`) tills den nya sajten är ute — byt filen mot en riktig skärmdump då.
+- LIVE-foton saknas tills vidare — lägg filer i `public/projects/` (`hubberty.jpg` / `akalasi.jpg`, eller `.png`/`.webp`). Tills dess: gradient + domän, inga fejkade skärmdumpar.
 - Klient före/efter: `public/cases/...` — placeholders tills omskrivningen är klar.
 - Hubrix-logotyper: `public/hubrix/logo-vit.png` (mörk UI), `public/hubrix/logo.png` (färg), `public/hubrix/symbol.png`. Används bara på Hubrix-kortet, aldrig som Hubberty-sajtlogo eller favicon.
 

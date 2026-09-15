@@ -1,17 +1,6 @@
-import { access } from "node:fs/promises";
-import path from "node:path";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
-
-async function publicExists(src?: string) {
-  if (!src) return false;
-  try {
-    await access(path.join(process.cwd(), "public", src.replace(/^\//, "")));
-    return true;
-  } catch {
-    return false;
-  }
-}
+import { publicFileExists } from "@/lib/public-file";
 
 function Frame({
   caption,
@@ -39,8 +28,8 @@ function Frame({
 export async function CaseStudyCard({ project }: { project: Project }) {
   const slot = project.caseStudy;
   if (!slot) return null;
-  const before = await publicExists(slot.beforeSrc);
-  const after = await publicExists(slot.afterSrc);
+  const before = await publicFileExists(slot.beforeSrc);
+  const after = await publicFileExists(slot.afterSrc);
   return (
     <article className="border border-line p-4 sm:p-5">
       <div className="flex items-baseline justify-between gap-3">

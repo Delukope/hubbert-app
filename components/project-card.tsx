@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { statusLabel, type Project } from "@/lib/projects";
+import { resolvePublicCover } from "@/lib/public-file";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -91,7 +92,28 @@ function Pattern({ project }: { project: Project }) {
   );
 }
 
-export function ProjectCover({
+function BrandSlot({ project }: { project: Project }) {
+  const label = project.domain ?? project.name;
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        background: `radial-gradient(90% 120% at 8% 110%, ${project.accent}3d, transparent 58%), radial-gradient(80% 100% at 100% -10%, ${project.accentTo}36, transparent 52%), linear-gradient(165deg, #0b0d12 0%, #141821 100%)`,
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+        style={{ background: `linear-gradient(to top, ${project.accent}14, transparent)` }}
+        aria-hidden
+      />
+      <p className="absolute bottom-5 left-5 font-mono text-[13px] uppercase tracking-[0.22em] text-fg/90">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+export async function ProjectCover({
   project,
   featured,
   className,
@@ -100,17 +122,16 @@ export function ProjectCover({
   featured?: boolean;
   className?: string;
 }) {
+  const cover = await resolvePublicCover(project.coverSrc);
   return (
     <div
       className={cn("relative overflow-hidden", className ?? "h-40")}
-      style={{
-        background: `radial-gradient(120% 80% at 80% 20%, ${project.accent}33, transparent 55%), #0c0e14`,
-      }}
+      style={{ background: "#0c0e14" }}
     >
-      {project.coverSrc ? (
+      {cover ? (
         <div className={cn("absolute inset-0", project.coverFit === "contain" && "inset-5")}>
           <Image
-            src={project.coverSrc}
+            src={cover}
             alt={project.name}
             fill
             sizes={featured ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
@@ -118,8 +139,17 @@ export function ProjectCover({
             priority={featured}
           />
         </div>
+      ) : project.coverSrc ? (
+        <BrandSlot project={project} />
       ) : (
-        <Pattern project={project} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(120% 80% at 80% 20%, ${project.accent}33, transparent 55%), #0c0e14`,
+          }}
+        >
+          <Pattern project={project} />
+        </div>
       )}
     </div>
   );
