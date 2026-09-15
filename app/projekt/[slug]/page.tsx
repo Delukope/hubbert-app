@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCover } from "@/components/project-card";
 import { copy } from "@/lib/copy";
+import { resolvePublicCover } from "@/lib/public-file";
 import { getProject, projects, statusLabel } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -17,9 +18,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
+  const image =
+    (await resolvePublicCover(project.heroSrc)) ??
+    (await resolvePublicCover(project.coverSrc)) ??
+    (await resolvePublicCover(project.image));
   return {
     title: project.name,
     description: project.summary,
+    ...(image
+      ? {
+          openGraph: { images: [{ url: image }] },
+        }
+      : {}),
   };
 }
 
@@ -34,7 +44,11 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         ← Alla projekt
       </Link>
       <div className="mt-8 overflow-hidden border border-line">
-        <ProjectCover project={project} variant="hero" className="h-52 sm:h-56" />
+        <ProjectCover
+          project={project}
+          variant="hero"
+          className={project.heroSrc || project.coverFit === "contain" ? "h-64 sm:h-80" : "h-52 sm:h-56"}
+        />
       </div>
       <div className="mt-8 flex flex-wrap gap-2">
         {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}

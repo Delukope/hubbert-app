@@ -124,10 +124,11 @@ export async function ProjectCover({
   className?: string;
   variant?: "card" | "hero";
 }) {
+  const primary = project.coverSrc ?? project.image;
   const compact = variant === "card" && !featured && project.coverSrcCompact;
   const preferred =
-    variant === "hero" ? (project.heroSrc ?? project.coverSrc) : compact ? project.coverSrcCompact : project.coverSrc;
-  const cover = (await resolvePublicCover(preferred)) ?? (await resolvePublicCover(project.coverSrc));
+    variant === "hero" ? (project.heroSrc ?? primary) : compact ? project.coverSrcCompact : primary;
+  const cover = (await resolvePublicCover(preferred)) ?? (await resolvePublicCover(primary));
   const fitContain = project.coverFit === "contain" || Boolean(preferred?.includes("/brands/") || preferred?.includes("/hubrix/"));
   return (
     <div
@@ -145,7 +146,7 @@ export async function ProjectCover({
             priority={featured || variant === "hero"}
           />
         </div>
-      ) : project.coverSrc ? (
+      ) : primary ? (
         <BrandSlot project={project} />
       ) : (
         <div
@@ -171,7 +172,7 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
       )}
     >
       <div className="relative">
-        <ProjectCover project={project} featured={featured} />
+        <ProjectCover project={project} featured={featured} className={featured ? "h-44 sm:h-52" : undefined} />
         <div className="absolute left-4 top-4 z-10 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
           {project.callout ? (

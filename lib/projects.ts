@@ -20,6 +20,8 @@ export type Project = {
   status: ProjectStatus;
   callout?: string;
   caseStudy?: CaseStudySlot;
+  /** Primary cover path under `public/`. */
+  image?: string;
   coverSrc?: string;
   coverSrcCompact?: string;
   coverFit?: "cover" | "contain";
@@ -69,10 +71,11 @@ export const projects: Project[] = [
     featured: true,
     kind: "site",
     status: "live",
+    image: "/brands/akalasi/logo-horizontal.png",
     coverSrc: "/brands/akalasi/logo-horizontal.png",
     coverSrcCompact: "/brands/akalasi/symbol-a.png",
     coverFit: "contain",
-    heroSrc: "/brands/akalasi/logo-tagline.png",
+    heroSrc: "/brands/akalasi/logo-stacked.png",
     summary:
       "Kunskaps- och hjälpsajt på akalasi.se. Probono: först täcka kostnaderna, därefter överskott till människor som behöver det.",
     problem:
