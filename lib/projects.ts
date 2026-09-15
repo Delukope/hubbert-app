@@ -44,10 +44,14 @@ export const projects: Project[] = [
     year: "2026",
     role: "Produkt, design, analysmotor",
     tags: ["Produkt", "Analys", "Portfolio"],
-    featured: true,
+    featured: false,
     kind: "site",
     status: "live",
-    coverSrc: "/projects/hubberty.jpg",
+    callout: "Den här sajten",
+    image: "/projects/hubberty-card.png",
+    coverSrc: "/projects/hubberty-card.png",
+    coverSrcCompact: "/brands/hubberty/icon-black.png",
+    coverFit: "contain",
     summary:
       "Den här sajten: portfolio och sajtanalys på hubberty.se. Byggd i Next.js så den går att ändra snabbt, utan WordPress.",
     problem:
@@ -71,10 +75,8 @@ export const projects: Project[] = [
     featured: true,
     kind: "site",
     status: "live",
-    image: "/brands/akalasi/logo-horizontal.png",
-    coverSrc: "/brands/akalasi/logo-horizontal.png",
-    coverSrcCompact: "/brands/akalasi/symbol-a.png",
-    coverFit: "contain",
+    image: "/projects/akalasi-showcase.png",
+    coverSrc: "/projects/akalasi-showcase.png",
     heroSrc: "/brands/akalasi/logo-stacked.png",
     summary:
       "Kunskaps- och hjälpsajt på akalasi.se. Probono: först täcka kostnaderna, därefter överskott till människor som behöver det.",
@@ -257,6 +259,11 @@ export function featuredProjects() {
 
 export function liveSiteProjects() {
   return projects.filter((p) => p.kind === "site" && !p.caseStudy);
+}
+
+/** Homepage LIVE grid — never the Hubberty self-site. */
+export function homeLiveProjects() {
+  return liveSiteProjects().filter((p) => p.featured && p.slug !== "hubberty");
 }
 
 export function caseStudyProjects() {

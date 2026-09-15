@@ -172,7 +172,11 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
       )}
     >
       <div className="relative">
-        <ProjectCover project={project} featured={featured} className={featured ? "h-44 sm:h-52" : undefined} />
+        <ProjectCover
+          project={project}
+          featured={featured}
+          className={featured ? (project.coverFit === "contain" ? "h-44 sm:h-52" : "aspect-[16/9]") : undefined}
+        />
         <div className="absolute left-4 top-4 z-10 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
           {project.callout ? (

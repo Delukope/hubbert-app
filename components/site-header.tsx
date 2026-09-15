@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -28,7 +29,15 @@ export function SiteHeader() {
         Hoppa till innehåll
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-end gap-3">
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image
+            src="/brands/hubberty/icon-black.png"
+            alt=""
+            width={36}
+            height={36}
+            className="h-9 w-9 object-contain"
+            priority
+          />
           <span className="display text-xl leading-none tracking-tight">{copy.brand.name}</span>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ion sm:inline">
             {copy.brand.domain}

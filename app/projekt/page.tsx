@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { BrandCredit } from "@/components/brand-credit";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
@@ -14,11 +15,13 @@ function Section({
   kicker,
   title,
   lead,
+  credit,
   children,
 }: {
   kicker: string;
   title: string;
   lead?: string;
+  credit?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -26,6 +29,7 @@ function Section({
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">{kicker}</p>
       <h2 className="display mt-2 text-2xl sm:text-3xl">{title}</h2>
       {lead ? <p className="mt-3 max-w-2xl text-sm text-muted">{lead}</p> : null}
+      {credit ? <div className="mt-4">{credit}</div> : null}
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
     </section>
   );
@@ -41,10 +45,10 @@ export default function ProjectsPage() {
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · {copy.brand.domain}</p>
       <h1 className="display mt-3 text-4xl sm:text-5xl">Live-sajter och appar under utveckling.</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Live just nu: Hubberty och Akalasi. Fallatrad och Filipsson får före och efter när omskrivningen är klar.
-        Apparna byggs. Tidigare uppdrag ligger kvar som historik.
+        Live just nu: Akalasi. Hubberty är den här sajten. Fallatrad och Filipsson får före och efter när
+        omskrivningen är klar. Apparna byggs. Tidigare uppdrag ligger kvar som historik.
       </p>
-      <Section kicker="Live" title="Aktiva sajter">
+      <Section kicker="Live" title="Aktiva sajter" credit={<BrandCredit kind="sajt" />}>
         {live.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
@@ -65,6 +69,7 @@ export default function ProjectsPage() {
         kicker="Appar"
         title="Under utveckling"
         lead="Hubberty är familjenav. Hubrix är en kommande stämpelklocka för tid och projekt."
+        credit={<BrandCredit kind="app" />}
       >
         {apps.map((p) => (
           <ProjectCard key={p.slug} project={p} />

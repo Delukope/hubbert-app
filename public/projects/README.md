@@ -1,9 +1,6 @@
-# LIVE card photos
+# LIVE / project visuals
 
-Drop real screenshots here. Cards use `next/image` when the file exists.
+- `akalasi-showcase.png` — Akalasi LIVE card (desktop + mobile mockup)
+- `hubberty-card.png` — Hubberty wordmark for `/projekt` inventory (not featured on home)
 
-- `hubberty.jpg` (or `.png` / `.webp`) — Hubberty live card
-
-Akalasi uses brand logos in `public/brands/akalasi/`, not a screenshot slot.
-
-Until Hubberty files are here, that card shows a branded gradient + domain — not a fake screenshot. Akalasi is wired to logos, not this folder.
+Akalasi detail hero still uses logos in `public/brands/akalasi/`.

@@ -4,8 +4,8 @@ Official logos (teal/cyan on black). Dark panels only — not the Hubberty site 
 
 | File | Use |
 | --- | --- |
-| `symbol-a.png` | Compact card thumb |
-| `logo-horizontal.png` | Wide LIVE cards (`image` / `coverSrc`) |
 | `logo-stacked.png` | `/projekt/akalasi` hero |
+| `logo-horizontal.png` | Spare wide lockup |
 | `logo-tagline.png` | Spare tagline lockup |
+| `symbol-a.png` | Spare compact mark |
 | `wordmark-script.png` | Optional / unused in UI |

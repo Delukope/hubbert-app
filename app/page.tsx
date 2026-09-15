@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { UrlForm } from "@/components/analyzer/url-form";
+import { BrandCredit } from "@/components/brand-credit";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
 import { formatSek, plans, tungPlan } from "@/lib/pricing";
-import { appProjects, caseStudyProjects, liveSiteProjects } from "@/lib/projects";
+import { appProjects, caseStudyProjects, homeLiveProjects } from "@/lib/projects";
 
 export default function HomePage() {
-  const live = liveSiteProjects();
+  const live = homeLiveProjects();
   const cases = caseStudyProjects();
   const apps = appProjects();
   const price = [...plans(), tungPlan()];
@@ -71,13 +72,13 @@ export default function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Live</p>
-            <h2 className="display mt-2 text-3xl sm:text-4xl">Hubberty och Akalasi</h2>
+            <h2 className="display mt-2 text-3xl sm:text-4xl">Live arbete</h2>
           </div>
           <Link href="/projekt" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
             Alla projekt
           </Link>
         </div>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className={live.length > 1 ? "mt-8 grid gap-5 lg:grid-cols-2" : "mt-8 max-w-4xl"}>
           {live.map((p) => (
             <ProjectCard key={p.slug} project={p} featured />
           ))}
@@ -100,6 +101,7 @@ export default function HomePage() {
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Appar</p>
         <h2 className="display mt-2 text-3xl">Under utveckling</h2>
+        <BrandCredit kind="app" className="mt-3" />
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {apps.map((p) => (
             <ProjectCard key={p.slug} project={p} />
