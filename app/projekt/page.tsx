@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { ProjectCard } from "@/components/project-card";
+import { copy } from "@/lib/copy";
 import { appProjects, archiveProjects, caseStudyProjects, liveSiteProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projekt",
-  description:
-    "Hubberts portfölj på hubberty.se: Akalasi, före/efter-case för Fallatrad och Filipsson, appar under utveckling.",
+  description: `${copy.brand.name}s portfölj på ${copy.brand.domain}: Akalasi, före/efter-case för Fallatrad och Filipsson, appar under utveckling.`,
 };
 
 function Section({
@@ -38,11 +38,11 @@ export default function ProjectsPage() {
   const archive = archiveProjects();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · hubberty.se</p>
-      <h1 className="display mt-3 text-4xl sm:text-5xl">Sajter att bära. Appar på väg.</h1>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · {copy.brand.domain}</p>
+      <h1 className="display mt-3 text-4xl sm:text-5xl">Live-sajter och appar under utveckling.</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Live: Hubbert och Akalasi. Fallatrad och Filipsson får före och efter när omskrivningen är klar. Apparna
-        byggs. Tidigare uppdrag ligger kvar som historik.
+        Live just nu: Hubberty och Akalasi. Fallatrad och Filipsson får före och efter när omskrivningen är klar.
+        Apparna byggs. Tidigare uppdrag ligger kvar som historik.
       </p>
       <Section kicker="Live" title="Aktiva sajter">
         {live.map((p) => (
@@ -51,7 +51,7 @@ export default function ProjectsPage() {
       </Section>
       <section className="mt-16">
         <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
-        <h2 className="display mt-2 text-2xl sm:text-3xl">Före & efter på gång</h2>
+        <h2 className="display mt-2 text-2xl sm:text-3xl">Före och efter på gång</h2>
         <p className="mt-3 max-w-2xl text-sm text-muted">
           Två företagssajter som ska moderniseras. Bilderna kommer när omskrivningen är klar.
         </p>
@@ -61,7 +61,11 @@ export default function ProjectsPage() {
           ))}
         </div>
       </section>
-      <Section kicker="Appar" title="Under utveckling" lead="Hubberty är familjenav. STAMPE är en kommande produkt.">
+      <Section
+        kicker="Appar"
+        title="Under utveckling"
+        lead="Hubberty är familjenav. Hubrix är en kommande stämpelklocka för tid och projekt."
+      >
         {apps.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}

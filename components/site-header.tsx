@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { copy } from "@/lib/copy";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Hem" },
-  { href: "/projekt", label: "Projekt" },
-  { href: "/analys", label: "Analys" },
-  { href: "/tjanster", label: "Tjänster" },
-  { href: "/priser", label: "Priser" },
-  { href: "/om", label: "Om" },
+  { href: "/", label: copy.nav.home },
+  { href: "/projekt", label: copy.nav.projects },
+  { href: "/analys", label: copy.nav.analyze },
+  { href: "/tjanster", label: copy.nav.services },
+  { href: "/priser", label: copy.nav.prices },
+  { href: "/om", label: copy.nav.about },
 ];
 
 export function SiteHeader() {
@@ -28,13 +29,13 @@ export function SiteHeader() {
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-end gap-3">
-          <span className="display text-xl leading-none tracking-tight">Hubbert</span>
+          <span className="display text-xl leading-none tracking-tight">{copy.brand.name}</span>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ion sm:inline">
-            hubberty.se
+            {copy.brand.domain}
           </span>
         </Link>
         <nav className="hidden items-center gap-0 md:flex" aria-label="Huvudnavigation">
-          {links.map((l, i) => {
+          {links.map((l) => {
             const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
             return (
               <Link
@@ -45,7 +46,6 @@ export function SiteHeader() {
                   active && "text-ion",
                 )}
               >
-                <span className="mr-1.5 text-muted/50">0{i + 1}</span>
                 {l.label}
               </Link>
             );
@@ -55,7 +55,7 @@ export function SiteHeader() {
           href="/analys"
           className="hidden bg-ion px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink md:inline-flex"
         >
-          Analysera
+          {copy.hero.cta}
         </Link>
         <button
           type="button"

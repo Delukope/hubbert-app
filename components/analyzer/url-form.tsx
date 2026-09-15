@@ -139,7 +139,7 @@ export function UrlForm({
       {hero ? (
         <div className="mx-auto max-w-3xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
-          <h1 className="display mt-3 text-4xl sm:text-6xl">En URL. En rapport.</h1>
+          <h1 className="display mt-3 text-4xl sm:text-6xl">Klistra in en URL, få en rapport.</h1>
           <p className="mt-4 max-w-xl text-muted">
             Gratis teaser på sajten. Full rapport och PDF när du betalar. Djupanalys startar efter betalning.
             Privata och lokala adresser släpps inte in.

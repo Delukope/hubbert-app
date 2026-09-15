@@ -35,7 +35,7 @@ function ReportPdf({ job }: { job: ScanJob }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.kicker}>HUBBERT · {deep ? "DJUPANALYS" : "SNABB ANALYS"}</Text>
+        <Text style={styles.kicker}>HUBBERTY · {deep ? "DJUPANALYS" : "SNABB ANALYS"}</Text>
         <Text style={styles.h1}>{host}</Text>
         <Text style={styles.muted}>{report.fetchedUrl}</Text>
         <Text style={styles.muted}>{new Date(report.scannedAt).toLocaleString("sv-SE")}</Text>
@@ -70,7 +70,7 @@ function ReportPdf({ job }: { job: ScanJob }) {
           </View>
         ))}
         <Text style={{ marginTop: 18, fontSize: 8, color: "#8a8378" }}>
-          Hubbert-analys. Inte en juridisk eller pentest-rapport. hubberty.se
+          Hubberty-analys. Inte en juridisk eller pentest-rapport. hubberty.se
         </Text>
       </Page>
     </Document>

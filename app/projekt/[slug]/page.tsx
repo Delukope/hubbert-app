@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { CaseStudyCard } from "@/components/case-study-card";
+import { ProjectCover } from "@/components/project-card";
+import { copy } from "@/lib/copy";
 import { getProject, projects, statusLabel } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -32,12 +34,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         ← Alla projekt
       </Link>
       <div className="mt-8 overflow-hidden border border-line">
-        <div
-          className="h-48"
-          style={{
-            background: `radial-gradient(90% 120% at 80% 10%, ${project.accent}55, transparent 50%), linear-gradient(135deg, #0c0e14, ${project.accentTo}22)`,
-          }}
-        />
+        <ProjectCover project={project} className="h-48" />
       </div>
       <div className="mt-8 flex flex-wrap gap-2">
         {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}
@@ -88,7 +85,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
             href={`/analys?url=${encodeURIComponent(project.url)}`}
             className="bg-ion px-5 py-3 text-sm font-medium text-ink"
           >
-            Analysera i Hubbert
+            Analysera i {copy.brand.name}
           </Link>
         ) : (
           <p className="text-sm text-muted">Ingen publik URL ännu.</p>

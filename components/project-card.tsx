@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { statusLabel, type Project } from "@/lib/projects";
 import { Badge } from "@/components/ui/badge";
@@ -90,6 +91,40 @@ function Pattern({ project }: { project: Project }) {
   );
 }
 
+export function ProjectCover({
+  project,
+  featured,
+  className,
+}: {
+  project: Project;
+  featured?: boolean;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn("relative overflow-hidden", className ?? "h-40")}
+      style={{
+        background: `radial-gradient(120% 80% at 80% 20%, ${project.accent}33, transparent 55%), #0c0e14`,
+      }}
+    >
+      {project.coverSrc ? (
+        <div className={cn("absolute inset-0", project.coverFit === "contain" && "inset-5")}>
+          <Image
+            src={project.coverSrc}
+            alt={project.name}
+            fill
+            sizes={featured ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
+            className={project.coverFit === "contain" ? "object-contain" : "object-cover"}
+            priority={featured}
+          />
+        </div>
+      ) : (
+        <Pattern project={project} />
+      )}
+    </div>
+  );
+}
+
 export function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
   return (
     <Link
@@ -99,14 +134,9 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
         featured && "md:min-h-[340px]",
       )}
     >
-      <div
-        className="relative h-40 overflow-hidden"
-        style={{
-          background: `radial-gradient(120% 80% at 80% 20%, ${project.accent}33, transparent 55%), #0c0e14`,
-        }}
-      >
-        <Pattern project={project} />
-        <div className="absolute left-4 top-4 flex gap-2">
+      <div className="relative">
+        <ProjectCover project={project} featured={featured} />
+        <div className="absolute left-4 top-4 z-10 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
           {project.callout ? (
             <Badge className="border-ion/40 text-ion">{project.callout}</Badge>

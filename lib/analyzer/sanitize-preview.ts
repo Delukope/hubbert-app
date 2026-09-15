@@ -32,7 +32,7 @@ export function sanitizePreviewHtml(html: string, baseUrl: string): string {
   $("base").remove();
   $("meta[http-equiv]").remove();
   $("body").prepend(
-    `<div style="font:12px/1.4 ui-monospace,monospace;padding:8px;background:#111;color:#7dffb3">Hubbert-förhandsvisning · skript avstängda</div>`,
+    `<div style="font:12px/1.4 ui-monospace,monospace;padding:8px;background:#111;color:#7dffb3">Hubberty-förhandsvisning · skript avstängda</div>`,
   );
   let out = $.html();
   if (out.length > MAX_PREVIEW) out = out.slice(0, MAX_PREVIEW);

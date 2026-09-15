@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { copy } from "@/lib/copy";
 
 export const metadata: Metadata = {
   title: "Tjänster",
-  description: "Hemsidor, appar och åtgärdshjälp från Hubbert. Vi tar bara uppdrag vi kan slutföra.",
+  description: `Hemsidor, appar och åtgärdshjälp från ${copy.brand.name}. Jag tar uppdrag jag kan slutföra.`,
 };
 
 export default function ServicesPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Tjänster · hubberty.se</p>
-      <h1 className="display mt-3 text-4xl">Vi tar bara jobb vi kan slutföra.</h1>
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Tjänster · {copy.brand.domain}</p>
+      <h1 className="display mt-3 text-4xl">Uppdrag jag kan slutföra.</h1>
       <p className="mt-4 leading-8 text-muted">
-        Inga eviga retainer-löften. Om uppdraget är större än vad Konny kan leverera säger vi nej.
+        Inga eviga retainer-löften. Om jobbet är större än vad jag kan leverera säger jag nej.
       </p>
       <section className="mt-12 space-y-10">
         <div>
@@ -25,15 +26,15 @@ export default function ServicesPage() {
         <div>
           <h2 className="display text-2xl">Appar</h2>
           <p className="mt-3 leading-7 text-muted">
-            Hubberty är ett familjenav under utveckling. STAMPE är en kommande produkt — inte till salu än. Appbyggen
-            offertas när uppdraget är tydligt.
+            Hubberty är ett familjenav under utveckling. Hubrix är en kommande stämpelklocka för tid och projekt — inte
+            till salu än. Appbyggen offertas när uppdraget är tydligt.
           </p>
         </div>
         <div>
           <h2 className="display text-2xl">Åtgärdshjälp efter analys</h2>
           <p className="mt-3 leading-7 text-muted">
-            En rapport är inte en omskrivning. Vi kan hjälpa med konkret lista — headers, metadata, prestanda — när det
-            ryms. Pentest, juridiskt eller evig SEO-coachning ingår inte.
+            En rapport är inte en omskrivning. Jag kan hjälpa med en konkret lista — headers, metadata, prestanda — när
+            det ryms. Pentest, juridiskt eller evig SEO-coachning ingår inte.
           </p>
         </div>
       </section>

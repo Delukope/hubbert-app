@@ -4,7 +4,7 @@ import { costNote, formatSek, plans, tungPlan } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Priser",
-  description: "Gratis teaser, snabb, djup och tung analys på Hubbert. hubberty.se",
+  description: "Gratis teaser, snabb, djup och tung analys på Hubberty. hubberty.se",
 };
 
 export default function PricesPage() {

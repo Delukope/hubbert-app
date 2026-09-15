@@ -21,7 +21,7 @@ export function teaserNotifyPayload(job: ScanJob) {
   })();
   const score = job.report?.overall;
   return {
-    subject: `Hubbert-teaser: ${host}`,
+    subject: `Hubberty-teaser: ${host}`,
     text: [
       `Teaser för ${host}${typeof score === "number" ? ` · ${score}/100` : ""}.`,
       "Full rapport och PDF skickas inte förrän betalning är registrerad.",

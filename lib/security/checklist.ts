@@ -1,5 +1,5 @@
 /**
- * Hubbert hardening checklist (practical, not “AI magic”).
+ * Hubberty hardening checklist (practical, not “AI magic”).
  * Review when shipping a security update — last pass: 2026-09-14.
  *
  * [ ] CSP / headers still applied in next.config + proxy

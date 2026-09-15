@@ -1,9 +1,11 @@
-# Hubbert
+# Hubberty
 
-Produkt på **[hubberty.se](https://hubberty.se)** (två t + y). UI-namn: **Hubbert**.  
+Produkt på **[hubberty.se](https://hubberty.se)** (två t + y). Sajtnamn: **Hubberty**.  
 Ägare: **Konny Pettersson**.
 
 Sajtanalys (gratis teaser på sajten → betald full rapport + PDF), hemsidor och appar. Inte WordPress. Inte Divi.
+
+**Hubrix** (hubrix.se) är en kommande stämpelklocka för tid och projekt — en egen produkt, inte sajtnamnet här.
 
 ## Stack
 
@@ -57,7 +59,13 @@ Checklista: `lib/security/checklist.ts`.
 
 ## Portfölj
 
-Redigera `lib/projects.ts`. Live: Hubbert (hubberty.se), Akalasi. Före/efter-slotar: Värmlands Trädfällning, Filipsson Entreprenad. Appar: Hubberty, STAMPE. Tidigare: west2000, trallen, jodeko.
+Redigera `lib/projects.ts`. Live: Hubberty (hubberty.se), Akalasi. Före/efter-slotar: Värmlands Trädfällning, Filipsson Entreprenad. Appar: Hubberty (familjenav), Hubrix (stämpelklocka, hubrix.se). Tidigare: west2000, trallen, jodeko.
+
+## Bilder
+
+- Live-kort: `public/projects/hubberty.jpg` och `public/projects/akalasi.jpg`. Akalasi har en live-skärmdump. Hubberty är en placeholder (`Skärmdump kommer`) tills den nya sajten är ute — byt filen mot en riktig skärmdump då.
+- Klient före/efter: `public/cases/...` — placeholders tills omskrivningen är klar.
+- Hubrix-logotyper: `public/hubrix/logo-vit.png` (mörk UI), `public/hubrix/logo.png` (färg), `public/hubrix/symbol.png`. Används bara på Hubrix-kortet, aldrig som Hubberty-sajtlogo eller favicon.
 
 ## Licens
 

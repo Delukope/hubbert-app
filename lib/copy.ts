@@ -1,23 +1,25 @@
 export const copy = {
   brand: {
-    name: "Hubbert",
+    name: "Hubberty",
     domain: "hubberty.se",
     owner: "Konny Pettersson",
-    tagline: "Sajter som tål att visas. Analyser som tål att delas.",
+    tagline: "Sajtanalys, hemsidor och appar.",
   },
   nav: {
     home: "Hem",
     projects: "Projekt",
     analyze: "Analys",
+    services: "Tjänster",
+    prices: "Priser",
     about: "Om",
   },
   hero: {
-    kicker: "Portfolio + sajtanalys",
-    title: "Se din sajt som den verkligen är.",
-    lead: "Klistra in en URL. Få betyg på säkerhet, prestanda, SEO och tillgänglighet — plus vad du ska göra först.",
+    kicker: "Hubberty · hubberty.se",
+    title: "Hur mår sajten?",
+    lead: "Klistra in en URL. Du får betyg på säkerhet, prestanda, SEO och tillgänglighet — och vad som är värt att göra först.",
     placeholder: "https://din-sajt.se",
     cta: "Analysera",
-    hint: "Gratis, utan inloggning. Vi hämtar bara det som är publikt.",
+    hint: "Gratis teaser, utan inloggning. Vi hämtar bara det som är publikt.",
   },
 } as const;
 

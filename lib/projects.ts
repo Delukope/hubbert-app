@@ -20,6 +20,8 @@ export type Project = {
   status: ProjectStatus;
   callout?: string;
   caseStudy?: CaseStudySlot;
+  coverSrc?: string;
+  coverFit?: "cover" | "contain";
   summary: string;
   problem: string;
   approach: string;
@@ -32,7 +34,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "hubbert",
-    name: "Hubbert",
+    name: "Hubberty",
     domain: "hubberty.se",
     url: "https://hubberty.se",
     year: "2026",
@@ -41,14 +43,15 @@ export const projects: Project[] = [
     featured: true,
     kind: "site",
     status: "live",
+    coverSrc: "/projects/hubberty.jpg",
     summary:
-      "Det här navet. Portfolio och sajtanalys i samma produkt — Hubbert på hubberty.se. Byggt för att iterera snabbt, utan WordPress och utan temajakt.",
+      "Den här sajten: portfolio och sajtanalys på hubberty.se. Byggd i Next.js så den går att ändra snabbt, utan WordPress.",
     problem:
-      "WordPress och Divi räcker ett tag, sen tar de emot. Hubbert skulle vara motsatsen: modern, snabb att ändra, redo att visas.",
+      "WordPress och Divi funkar ett tag, sen blir det trögt. Jag ville ha en sajt jag kan ändra i kod och visa live.",
     approach:
-      "Byggt i Next.js. Typad projektdata, sajtanalys på servern, svenska betyg och åtgärder. Mörkt gränssnitt som går att visa live.",
+      "Next.js, typad projektdata och sajtanalys på servern. Svenska betyg och åtgärder. Mörkt gränssnitt.",
     outcome:
-      "En sajt som både visar arbetet och granskar andras. Dela en rapport-URL. Iterera i kod, inte i temabutiken.",
+      "En sajt som både visar arbetet och granskar andras. Dela en rapport-URL. Ändra i kod, inte i temabutiken.",
     accent: "#e8c07a",
     accentTo: "#7ee0c6",
     pattern: "hub",
@@ -64,6 +67,7 @@ export const projects: Project[] = [
     featured: true,
     kind: "site",
     status: "live",
+    coverSrc: "/projects/akalasi.jpg",
     summary:
       "Kunskaps- och hjälpsajt på akalasi.se. Probono: först täcka kostnaderna, därefter överskott till människor som behöver det.",
     problem:
@@ -154,21 +158,26 @@ export const projects: Project[] = [
     pattern: "grid",
   },
   {
-    slug: "stampe",
-    name: "STAMPE",
+    slug: "hubrix",
+    name: "Hubrix",
+    domain: "hubrix.se",
     year: "2026",
-    role: "Kommande produkt",
-    tags: ["App"],
+    role: "Produkt, tid & projekt",
+    tags: ["App", "Stämpelklocka"],
     featured: false,
     kind: "app",
     status: "wip",
-    callout: "Kommande produkt",
-    summary: "En kommande app. Form och riktning tar form — mer att visa när den har ett tydligt läge.",
-    problem: "En ny produkt ska ha en egen yta medan den tar form.",
-    approach: "Kort beskrivning tills den är redo att visas.",
+    callout: "Kommande stämpelklocka",
+    coverSrc: "/hubrix/logo-vit.png",
+    coverFit: "contain",
+    summary:
+      "Stämpelklocka för tid och projekt, på hubrix.se. Inte lanserad än — mer att visa när den har ett tydligt läge.",
+    problem:
+      "Tid och projekt hamnar i klocka, kalkylark och chatt. Det ska gå att stämpla och följa arbete på ett ställe.",
+    approach: "En egen produkt för stämpling, tid och projekt. Byggs separat från den här sajten.",
     outcome: "På gång. Ingen publik sajt än.",
-    accent: "#5ee0ff",
-    accentTo: "#7ee0c6",
+    accent: "#e45416",
+    accentTo: "#c43c0c",
     pattern: "pulse",
   },
   {

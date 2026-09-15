@@ -11,6 +11,12 @@ const cors = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["cheerio", "@react-pdf/renderer", "stripe"],
+  images: {
+    qualities: [75],
+  },
+  async redirects() {
+    return [{ source: "/projekt/stampe", destination: "/projekt/hubrix", permanent: true }];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: cors },

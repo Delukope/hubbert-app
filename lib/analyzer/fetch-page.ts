@@ -4,7 +4,7 @@ const MAX_BYTES = 1_500_000;
 const MAX_REDIRECTS = 5;
 const TIMEOUT_MS = 8_000;
 const UA =
-  "Mozilla/5.0 (compatible; HubbertAnalyzer/1.0; +https://hubberty.se) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  "Mozilla/5.0 (compatible; HubbertyAnalyzer/1.0; +https://hubberty.se) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
 export type FetchedPage = {
   finalUrl: string;

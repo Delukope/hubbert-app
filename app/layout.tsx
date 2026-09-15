@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { copy } from "@/lib/copy";
 import { siteUrl } from "@/lib/utils";
 import "./globals.css";
 
@@ -24,13 +25,12 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Hubbert — sajtanalys och hemsidor",
-    template: "%s · Hubbert",
+    default: `${copy.brand.name} — sajtanalys och hemsidor`,
+    template: `%s · ${copy.brand.name}`,
   },
-  description:
-    "Hubbert på hubberty.se: sajtanalys, hemsidor och appar av Konny Pettersson. Gratis teaser-scan, betald full rapport.",
+  description: `${copy.brand.name} på ${copy.brand.domain}: sajtanalys, hemsidor och appar av ${copy.brand.owner}. Gratis teaser-scan, betald full rapport.`,
   openGraph: {
-    title: "Hubbert",
+    title: copy.brand.name,
     description: "Sajtanalys och hemsidor. Klistra in en URL, få ett betyg — lås upp PDF när du vill.",
     locale: "sv_SE",
     type: "website",
