@@ -97,18 +97,17 @@ export const projects: Project[] = [
     url: "https://fallatrad.se",
     year: "2023–",
     role: "Webb, probono polish",
-    tags: ["Före & efter", "Lokal", "Modernisering"],
+    tags: ["Lokal", "Modernisering"],
     featured: false,
     kind: "site",
     status: "wip",
-    callout: "Före & efter på gång",
     caseStudy: {
-      label: "Före & efter på gång",
+      label: "Omskrivning",
       beforeSrc: "/cases/fallatrad/before.webp",
       afterSrc: "/cases/fallatrad/after.webp",
     },
     summary:
-      "Värmlands Trädfällning AB på fallatrad.se. Enkel sajt som ska byggas om — probono. Före och efter är på gång.",
+      "Värmlands Trädfällning AB på fallatrad.se. Enkel sajt som ska byggas om — probono.",
     problem:
       "Företagssajten gör jobbet men känns som en mall. Tjänster, förtroende och kontakt ska bära — inte sidofältet.",
     approach:
@@ -125,18 +124,16 @@ export const projects: Project[] = [
     url: "https://filipssonentreprenad.se",
     year: "2023–",
     role: "Webb, modernisering",
-    tags: ["Före & efter", "Entreprenad", "Modernisering"],
+    tags: ["Entreprenad", "Modernisering"],
     featured: false,
     kind: "site",
     status: "wip",
-    callout: "Före & efter på gång",
     caseStudy: {
-      label: "Före & efter på gång",
+      label: "Omskrivning",
       beforeSrc: "/cases/filipsson-entreprenad/before.webp",
       afterSrc: "/cases/filipsson-entreprenad/after.webp",
     },
-    summary:
-      "Filipsson Entreprenad på filipssonentreprenad.se. Enkel sajt som ska moderniseras. Före och efter är på gång.",
+    summary: "Filipsson Entreprenad på filipssonentreprenad.se. Enkel sajt som ska moderniseras.",
     problem:
       "Entreprenadsajter blir snabbt kataloger. Besökaren behöver förstå vad som görs, var, och hur man tar nästa steg.",
     approach:

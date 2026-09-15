@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { UrlForm } from "@/components/analyzer/url-form";
 import { BrandCredit } from "@/components/brand-credit";
-import { CaseStudyCard } from "@/components/case-study-card";
+import { CaseCarouselSection } from "@/components/case-carousel-section";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
 import { formatSek, plans, tungPlan } from "@/lib/pricing";
@@ -54,10 +54,11 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-2">
+        <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
           {[
-            ["/tjanster", "Hemsidor", "Nya sajter och omskrivningar."],
-            ["/projekt/hubrix", "Hubrix", "Kommande stämpelklocka för tid och projekt."],
+            ["/tjanster", "Sajt", "Hemsidor och omskrivningar."],
+            ["/projekt/hubrix", "App", "Appbyggen. Hubrix är en stämpelklocka på gång."],
+            ["/analys", "Analys", "Klistra in en URL. Betyg och vad som är värt att göra först."],
           ].map(([href, title, lead]) => (
             <Link key={href} href={href} className="bg-bg p-6 transition-colors hover:bg-white/3">
               <h2 className="display text-2xl">{title}</h2>
@@ -69,10 +70,7 @@ export default function HomePage() {
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Live</p>
-            <h2 className="display mt-2 text-3xl sm:text-4xl">Live arbete</h2>
-          </div>
+          <h2 className="display text-3xl sm:text-4xl">Live</h2>
           <Link href="/projekt" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
             Alla projekt
           </Link>
@@ -85,15 +83,9 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
-        <h2 className="display mt-2 text-3xl sm:text-4xl">Före och efter på gång</h2>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-          Två företagssajter som ska moderniseras. Bilderna kommer när omskrivningen är klar.
-        </p>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {cases.map((p) => (
-            <CaseStudyCard key={p.slug} project={p} />
-          ))}
+        <h2 className="display text-3xl sm:text-4xl">Före och efter</h2>
+        <div className="mt-8">
+          <CaseCarouselSection projects={cases} />
         </div>
       </section>
 

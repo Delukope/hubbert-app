@@ -420,7 +420,7 @@ export function templatedSummary(report: Pick<ScanReport, "overall" | "security"
   })();
   const tone =
     report.overall >= 85
-      ? "Sajten är i gott skick — finputs mer än räddning."
+      ? "Sajten är i gott skick — finputs mer än stor omskrivning."
       : report.overall >= 65
         ? "En solid bas, men några hål sänker helhetsintrycket."
         : "Här finns tydlig uppsida. Prioritera säkerhet och grundläggande SEO först.";

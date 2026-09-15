@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { BrandCredit } from "@/components/brand-credit";
-import { CaseStudyCard } from "@/components/case-study-card";
+import { CaseCarouselSection } from "@/components/case-carousel-section";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
 import { appProjects, archiveProjects, caseStudyProjects, liveSiteProjects } from "@/lib/projects";
@@ -54,15 +54,9 @@ export default function ProjectsPage() {
         ))}
       </Section>
       <section className="mt-16">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Klientarbete</p>
-        <h2 className="display mt-2 text-2xl sm:text-3xl">Före och efter på gång</h2>
-        <p className="mt-3 max-w-2xl text-sm text-muted">
-          Två företagssajter som ska moderniseras. Bilderna kommer när omskrivningen är klar.
-        </p>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {cases.map((p) => (
-            <CaseStudyCard key={p.slug} project={p} />
-          ))}
+        <h2 className="display text-2xl sm:text-3xl">Före och efter</h2>
+        <div className="mt-8">
+          <CaseCarouselSection projects={cases} />
         </div>
       </section>
       <Section
