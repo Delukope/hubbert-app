@@ -13,5 +13,7 @@ export async function CaseCarouselSection({ projects }: { projects: Project[] })
       afterSrc: await resolvePublicCover(project.caseStudy?.afterSrc),
     })),
   );
-  return <CaseCarousel slides={slides} />;
+  const ready = slides.filter((slide) => slide.beforeSrc || slide.afterSrc);
+  if (ready.length === 0) return null;
+  return <CaseCarousel slides={ready} />;
 }

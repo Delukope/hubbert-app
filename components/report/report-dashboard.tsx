@@ -93,13 +93,14 @@ export function ReportDashboard({
       ) : null}
       {billing?.heavy && !paid ? (
         <p className="rounded-sm border border-warn/40 bg-warn/8 px-4 py-3 text-sm">
-          Stor sajt ({(billing.heavyReasons ?? []).join(" · ") || "tung yta"}). Vidare pass kräver{" "}
-          <span className="font-mono text-ion">Tung analys</span> — den startar efter betalning.
+          Stor sajt
+          {(billing.heavyReasons ?? []).length ? ` (${(billing.heavyReasons ?? []).join(" · ")})` : ""}. För större
+          eller tyngre sajter betalas den djupare genomgången innan den körs.
         </p>
       ) : null}
       {billing?.deepPending && !paid ? (
         <p className="rounded-sm border border-ion/30 bg-ion/8 px-4 py-3 text-sm">
-          Djupanalys körs efter betalning. Teasern nedan är gratis.
+          Djupare genomgång körs efter betalning. Teasern nedan är gratis.
         </p>
       ) : null}
 

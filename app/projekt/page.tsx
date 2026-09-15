@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { BrandCredit } from "@/components/brand-credit";
 import { CaseCarouselSection } from "@/components/case-carousel-section";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
@@ -8,72 +7,64 @@ import { appProjects, archiveProjects, caseStudyProjects, liveSiteProjects } fro
 
 export const metadata: Metadata = {
   title: "Projekt",
-  description: `${copy.brand.name}s portfölj på ${copy.brand.domain}: Akalasi, före/efter-case för Fallatrad och Filipsson, appar under utveckling.`,
+  description: `${copy.brand.name}s portfölj: webbprojekt, appar och före/efter-omskrivningar.`,
 };
 
 function Section({
-  kicker,
+  id,
   title,
   lead,
-  credit,
   children,
 }: {
-  kicker: string;
+  id?: string;
   title: string;
   lead?: string;
-  credit?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <section className="mt-16">
-      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">{kicker}</p>
-      <h2 className="display mt-2 text-2xl sm:text-3xl">{title}</h2>
+    <section id={id} className="mt-16 scroll-mt-24">
+      <h2 className="display text-2xl sm:text-3xl">{title}</h2>
       {lead ? <p className="mt-3 max-w-2xl text-sm text-muted">{lead}</p> : null}
-      {credit ? <div className="mt-4">{credit}</div> : null}
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
     </section>
   );
 }
 
 export default function ProjectsPage() {
-  const live = liveSiteProjects();
+  const live = liveSiteProjects().filter((p) => p.slug !== "hubberty");
   const cases = caseStudyProjects();
   const apps = appProjects();
   const archive = archiveProjects();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Portfolio · {copy.brand.domain}</p>
-      <h1 className="display mt-3 text-4xl sm:text-5xl">Live-sajter och appar under utveckling.</h1>
+      <h1 className="display text-4xl sm:text-5xl">Projekt</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Live just nu: Akalasi. Hubberty är den här sajten. Fallatrad och Filipsson får före och efter när
-        omskrivningen är klar. Apparna byggs. Tidigare uppdrag ligger kvar som historik.
+        Webbprojekt, appar och omskrivningar. Appar som inte är lanserade går inte att köpa eller ladda ner.
       </p>
-      <Section kicker="Live" title="Aktiva sajter" credit={<BrandCredit kind="sajt" />}>
+      <Section id="sajter" title="Utvalda projekt">
         {live.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
       </Section>
       <section className="mt-16">
-        <h2 className="display text-2xl sm:text-3xl">Före och efter</h2>
+        <h2 className="display text-2xl sm:text-3xl">Samma företag. Ny webbplats.</h2>
+        <p className="mt-3 max-w-2xl text-sm text-muted">
+          Se hur äldre webbplatser får tydligare innehåll, bättre struktur och ett nytt uttryck.
+        </p>
         <div className="mt-8">
           <CaseCarouselSection projects={cases} />
         </div>
       </section>
       <Section
-        kicker="Appar"
-        title="Under utveckling"
-        lead="Hubberty är familjenav. Hubrix är en kommande stämpelklocka för tid och projekt."
-        credit={<BrandCredit kind="app" />}
+        id="appar"
+        title="Appar & verktyg"
+        lead="Inte lanserade. Korten leder till mer om läget — inte till en butik."
       >
         {apps.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
       </Section>
-      <Section
-        kicker="Tidigare"
-        title="Tidigare uppdrag"
-        lead="Administrerat tidigare. Ingen mer utveckling planerad."
-      >
+      <Section id="tidigare" title="Tidigare uppdrag" lead="Administrerat tidigare. Ingen mer utveckling planerad.">
         {archive.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}

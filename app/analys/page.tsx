@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { UrlForm } from "@/components/analyzer/url-form";
-import { copy } from "@/lib/copy";
 
 export const metadata: Metadata = {
   title: "Analysera en sajt",
-  description: `Klistra in en URL på ${copy.brand.name} och få betyg på säkerhet, prestanda, SEO och tillgänglighet.`,
+  description: `Klistra in din webbadress. Se vad som behöver förbättras — och vad du bör börja med.`,
 };
 
 export default async function AnalyzePage({ searchParams }: PageProps<"/analys">) {

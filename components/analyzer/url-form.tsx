@@ -5,7 +5,9 @@ import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScanTheater } from "@/components/analyzer/scan-theater";
+import { PackageChooser } from "@/components/package-chooser";
 import { copy } from "@/lib/copy";
+import { formatSek, snabbSek, type PackageId } from "@/lib/pricing";
 
 type StartResult =
   | { ok: true; id: string; url: string }
@@ -102,7 +104,7 @@ export function UrlForm({
 }) {
   const router = useRouter();
   const [url, setUrl] = useState(initialUrl);
-  const [intent, setIntent] = useState<"teaser" | "snabb" | "djup">("teaser");
+  const [intent, setIntent] = useState<PackageId>("free");
   const [error, setError] = useState<string | null>(null);
   const [retryable, setRetryable] = useState(false);
   const [pending, setPending] = useState(false);
@@ -111,7 +113,8 @@ export function UrlForm({
     setError(null);
     setRetryable(false);
     setPending(true);
-    const result = await startScan(target, intent);
+    const scanIntent = intent === "djup" ? "djup" : intent === "snabb" ? "snabb" : "teaser";
+    const result = await startScan(target, scanIntent);
     if (result.ok) {
       router.push(`/analys/${result.id}?nisse=1`);
       return;
@@ -139,13 +142,10 @@ export function UrlForm({
     <>
       {hero ? (
         <div className="mx-auto max-w-3xl">
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">
-            {copy.brand.name} · sajtanalys
-          </p>
-          <h1 className="display mt-3 text-4xl sm:text-6xl">Klistra in en URL, få en rapport.</h1>
-          <p className="mt-4 max-w-xl text-muted">
-            Gratis teaser på sajten. Full rapport och PDF när du betalar. Djupanalys startar efter betalning.
-            Privata och lokala adresser släpps inte in.
+          <h1 className="display text-4xl sm:text-6xl">Vad behöver din sajt?</h1>
+          <p className="mt-4 max-w-xl text-muted">{copy.hero.hint}</p>
+          <p className="mt-2 max-w-xl text-sm text-muted">
+            Full rapport från {formatSek(snabbSek())}. Djupare genomgång betalas innan den körs.
           </p>
         </div>
       ) : null}
@@ -157,36 +157,8 @@ export function UrlForm({
           aria-hidden
           className="absolute h-0 w-0 overflow-hidden opacity-0"
         />
-        <fieldset className="mb-3 flex flex-wrap gap-2">
-          <legend className="sr-only">Analysnivå</legend>
-          {(
-            [
-              ["teaser", "Teaser"],
-              ["snabb", "Snabb"],
-              ["djup", "Djup"],
-            ] as const
-          ).map(([id, label]) => (
-            <label
-              key={id}
-              className={
-                intent === id
-                  ? "border border-ion bg-ion/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ion"
-                  : "border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted"
-              }
-            >
-              <input
-                type="radio"
-                name="intent"
-                value={id}
-                checked={intent === id}
-                onChange={() => setIntent(id)}
-                className="sr-only"
-              />
-              {label}
-            </label>
-          ))}
-        </fieldset>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+        <PackageChooser value={intent} onChange={setIntent} options={["free", "snabb", "djup"]} />
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-stretch">
         <label className="sr-only" htmlFor="url">
           Webbplatsens URL
         </label>
@@ -220,13 +192,7 @@ export function UrlForm({
           ) : null}
         </div>
       ) : (
-        <p className="mt-3 text-sm text-muted">
-          {intent === "djup"
-            ? "Teaser först. Djupanalys startar efter betalning."
-            : intent === "snabb"
-              ? "Mer i rapporten efter betalning."
-              : "Gratis teaser på sajten. Full rapport och PDF efter betalning."}
-        </p>
+        <p className="mt-3 text-sm text-muted">{copy.hero.hint} Privata och lokala adresser släpps inte in.</p>
       )}
     </form>
     </>

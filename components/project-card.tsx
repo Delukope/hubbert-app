@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandCredit } from "@/components/brand-credit";
 import { statusLabel, type Project } from "@/lib/projects";
 import { resolvePublicCover } from "@/lib/public-file";
 import { Badge } from "@/components/ui/badge";
@@ -142,7 +143,7 @@ export async function ProjectCover({
             alt={project.name}
             fill
             sizes={featured || variant === "hero" ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
-            className={fitContain ? "object-contain" : "object-cover"}
+            className={fitContain ? "object-contain" : "object-cover object-top"}
             priority={featured || variant === "hero"}
           />
         </div>
@@ -162,29 +163,49 @@ export async function ProjectCover({
   );
 }
 
+function creditKind(project: Project): "sajt" | "app" | null {
+  if (project.kind === "app") return "app";
+  if (project.slug === "akalasi" || project.slug === "hubberty") return null;
+  if (project.kind === "site") return "sajt";
+  return null;
+}
+
 export function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
+  const credit = creditKind(project);
+  const unreleased = project.kind === "app" && project.status === "wip";
+  const showStatus =
+    Boolean(project.callout) || (project.status !== "live" && project.kind !== "app" && !project.caseStudy);
   return (
     <Link
       href={`/projekt/${project.slug}`}
+      aria-label={unreleased ? `${project.name}, inte lanserad än` : undefined}
       className={cn(
-        "group glass flex flex-col overflow-hidden transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-ion/35",
-        featured && "md:min-h-[340px]",
+        "group glass flex flex-col overflow-hidden motion-safe:transition-[border-color] hover:border-ion/50 focus-visible:border-ion",
+        featured && "md:min-h-[280px]",
       )}
     >
       <div className="relative">
         <ProjectCover
           project={project}
           featured={featured}
-          className={featured ? (project.coverFit === "contain" ? "h-44 sm:h-52" : "aspect-[16/9]") : undefined}
+          className={
+            featured
+              ? project.coverFit === "contain"
+                ? "h-40 sm:h-44"
+                : "max-h-52 h-48 sm:h-52"
+              : undefined
+          }
         />
         <div className="absolute left-4 top-4 z-10 flex gap-2">
           <Badge className="bg-black/30 text-fg">{project.domain ?? "App"}</Badge>
-          {project.callout ? (
-            <Badge className="border-ion/40 text-ion">{project.callout}</Badge>
-          ) : project.status !== "live" ? (
-            <Badge className={project.status === "wip" ? "border-ion/40 text-ion" : "text-muted"}>
-              {statusLabel(project.status, project)}
-            </Badge>
+          {showStatus ? (
+            project.callout ? (
+              <Badge className="border-ion/40 text-ion">{project.callout}</Badge>
+            ) : (
+              <Badge className={project.status === "wip" ? "border-ion/40 text-ion" : "text-muted"}>
+                {statusLabel(project.status, project)}
+              </Badge>
+            )
           ) : null}
         </div>
       </div>
@@ -193,11 +214,17 @@ export function ProjectCard({ project, featured }: { project: Project; featured?
           <h3 className="display text-xl tracking-tight">{project.name}</h3>
           <span className="font-mono text-xs text-muted">{project.year}</span>
         </div>
-        <p className="line-clamp-3 text-sm leading-6 text-muted">{project.summary}</p>
-        <div className="mt-auto flex flex-wrap gap-2 pt-2">
-          {project.tags.map((t) => (
-            <Badge key={t}>{t}</Badge>
-          ))}
+        <p className="line-clamp-4 text-sm leading-6 text-muted">{project.summary}</p>
+        {unreleased ? (
+          <p className="text-xs text-muted">Inte lanserad. Inte tillgänglig att köpa eller ladda ner.</p>
+        ) : null}
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-2">
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((t) => (
+              <Badge key={t}>{t}</Badge>
+            ))}
+          </div>
+          {credit ? <BrandCredit kind={credit} className="h-6 sm:h-7" /> : null}
         </div>
       </div>
     </Link>

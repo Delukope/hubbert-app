@@ -18,8 +18,7 @@ export function SiteFooter() {
             <span className="display text-lg">{copy.brand.name}</span>
           </p>
           <p className="mt-1 max-w-sm text-sm text-muted">
-            Portfolio och sajtanalys av {copy.brand.owner}. Alltid{" "}
-            <span className="font-mono text-ion">{copy.brand.domain}</span>.
+            Webbplatser, appar och sajtanalys av {copy.brand.owner}.
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted" aria-label="Juridik">

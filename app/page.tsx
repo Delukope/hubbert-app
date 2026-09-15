@@ -1,50 +1,42 @@
 import Link from "next/link";
 import { UrlForm } from "@/components/analyzer/url-form";
-import { BrandCredit } from "@/components/brand-credit";
 import { CaseCarouselSection } from "@/components/case-carousel-section";
+import { OfferingCards } from "@/components/offering-cards";
 import { ProjectCard } from "@/components/project-card";
 import { copy } from "@/lib/copy";
-import { formatSek, plans, tungPlan } from "@/lib/pricing";
+import { formatSek, packageDetail, plans } from "@/lib/pricing";
 import { appProjects, caseStudyProjects, homeLiveProjects } from "@/lib/projects";
 
 export default function HomePage() {
   const live = homeLiveProjects();
   const cases = caseStudyProjects();
   const apps = appProjects();
-  const price = [...plans(), tungPlan()];
+  const [snabb] = plans();
+  const free = packageDetail("free");
+  const tung = packageDetail("tung");
   return (
     <div className="pb-24">
       <section className="relative overflow-hidden">
         <div className="hero-constellation pointer-events-none absolute inset-0" aria-hidden />
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:pt-14">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-ion">{copy.hero.kicker}</p>
-            <h1 className="display mt-5 max-w-[16ch] text-[clamp(2.4rem,7vw,5.4rem)] leading-[0.92] tracking-[-0.04em]">
+            <h1 className="display max-w-[16ch] text-[clamp(2.4rem,7vw,5.4rem)] leading-[0.92] tracking-[-0.04em]">
               Hur mår
               <span className="block text-ion">sajten?</span>
             </h1>
-            <p className="mt-6 max-w-md text-base leading-7 text-muted sm:text-lg">
-              {copy.hero.lead} Full rapport från {formatSek(price[0].sek)}. Hemsidor och appar tar jag när jag kan
-              leverera dem.
+            <p className="mt-6 max-w-md text-base leading-7 text-muted sm:text-lg">{copy.hero.lead}</p>
+            <p className="mt-3 max-w-md text-sm text-muted">
+              Full rapport från {formatSek(snabb.sek)}. Hemsidor och appar: se{" "}
+              <Link href="/tjanster" className="text-ion hover:underline">
+                tjänster
+              </Link>
+              .
             </p>
-            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
-              {[
-                ["0 kr", "Teaser"],
-                [formatSek(price[0].sek), "Snabb"],
-                [formatSek(price[1].sek), "Djup"],
-                [formatSek(price[2].sek), "Tung"],
-              ].map(([k, v]) => (
-                <div key={v} className="border-t border-line pt-3">
-                  <dt className="font-mono text-lg text-ion">{k}</dt>
-                  <dd className="mt-1 text-xs uppercase tracking-[0.16em] text-muted">{v}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
           <div className="self-end">
             <div className="console-panel p-5 sm:p-6">
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ion">Sajtanalys</p>
-              <p className="display mt-3 text-2xl leading-tight">Klistra in en URL. Jag hämtar det som är publikt.</p>
+              <p className="display text-2xl leading-tight">Vad behöver din sajt?</p>
+              <p className="mt-2 text-sm text-muted">{copy.hero.hint}</p>
               <div className="mt-6">
                 <UrlForm size="md" />
               </div>
@@ -54,28 +46,17 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
-          {[
-            ["/tjanster", "Sajt", "Hemsidor och omskrivningar."],
-            ["/projekt/hubrix", "App", "Appbyggen. Hubrix är en stämpelklocka på gång."],
-            ["/analys", "Analys", "Klistra in en URL. Betyg och vad som är värt att göra först."],
-          ].map(([href, title, lead]) => (
-            <Link key={href} href={href} className="bg-bg p-6 transition-colors hover:bg-white/3">
-              <h2 className="display text-2xl">{title}</h2>
-              <p className="mt-2 text-sm leading-6 text-muted">{lead}</p>
-            </Link>
-          ))}
-        </div>
+        <OfferingCards />
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="display text-3xl sm:text-4xl">Live</h2>
+          <h2 className="display text-3xl sm:text-4xl">Utvalda projekt</h2>
           <Link href="/projekt" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
             Alla projekt
           </Link>
         </div>
-        <div className={live.length > 1 ? "mt-8 grid gap-5 lg:grid-cols-2" : "mt-8 max-w-4xl"}>
+        <div className={live.length > 1 ? "mt-8 grid gap-5 lg:grid-cols-2" : "mt-8 max-w-3xl"}>
           {live.map((p) => (
             <ProjectCard key={p.slug} project={p} featured />
           ))}
@@ -83,16 +64,17 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <h2 className="display text-3xl sm:text-4xl">Före och efter</h2>
+        <h2 className="display text-3xl sm:text-4xl">Samma företag. Ny webbplats.</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
+          Se hur äldre webbplatser får tydligare innehåll, bättre struktur och ett nytt uttryck.
+        </p>
         <div className="mt-8">
           <CaseCarouselSection projects={cases} />
         </div>
       </section>
 
-      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Appar</p>
-        <h2 className="display mt-2 text-3xl">Under utveckling</h2>
-        <BrandCredit kind="app" className="mt-3" />
+      <section id="appar" className="mx-auto mt-16 max-w-6xl scroll-mt-24 px-4 sm:px-6">
+        <h2 className="display text-3xl">Appar &amp; verktyg</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {apps.map((p) => (
             <ProjectCard key={p.slug} project={p} />
@@ -101,21 +83,19 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Priser</p>
-        <h2 className="display mt-2 text-3xl">Vad det kostar</h2>
+        <h2 className="display text-3xl">Vad det kostar</h2>
         <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
-          {price.map((p) => (
+          {[free, packageDetail("snabb"), packageDetail("djup")].map((p) => (
             <div key={p.id} className="bg-bg p-6">
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ion">{p.name}</p>
-              <p className="mt-2 font-mono text-3xl">{formatSek(p.sek)}</p>
-              <ul className="mt-4 space-y-1 text-sm text-muted">
-                {p.points.map((pt) => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ul>
+              <p className="mt-2 font-mono text-3xl">{p.sek === 0 ? "0 kr" : formatSek(p.sek)}</p>
+              <p className="mt-3 text-sm text-muted">{p.gets}</p>
             </div>
           ))}
         </div>
+        <p className="mt-4 max-w-2xl text-sm text-muted">
+          {tung.gets} {formatSek(tung.sek)} — betalas innan analysen körs. Visas när en sajt bedöms som stor eller tung.
+        </p>
         <Link href="/priser" className="mt-6 inline-flex font-mono text-[11px] uppercase tracking-[0.18em] text-ion hover:underline">
           Alla priser och villkor
         </Link>

@@ -14,12 +14,12 @@ export const copy = {
     about: "Om",
   },
   hero: {
-    kicker: "Hubberty · hubberty.se",
+    kicker: "",
     title: "Hur mår sajten?",
-    lead: "Klistra in en URL. Du får betyg på säkerhet, prestanda, SEO och tillgänglighet — och vad som är värt att göra först.",
+    lead: "Klistra in din webbadress. Se vad som behöver förbättras — och vad du bör börja med.",
     placeholder: "https://din-sajt.se",
     cta: "Analysera",
-    hint: "Gratis teaser, utan inloggning. Vi hämtar bara det som är publikt.",
+    hint: "Börja med en gratis analys.",
   },
 } as const;
 

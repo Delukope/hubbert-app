@@ -26,8 +26,8 @@ export default function ServicesPage() {
         <div>
           <h2 className="display text-2xl">Appar</h2>
           <p className="mt-3 leading-7 text-muted">
-            Hubberty är ett familjenav under utveckling. Hubrix är en kommande stämpelklocka för tid och projekt — inte
-            till salu än. Appbyggen offertas när uppdraget är tydligt.
+            Appbyggen offertas när uppdraget är tydligt. Hubrix är en stämpelklocka under eget märke — inte lanserad.
+            Familjeappen Hubberty är en annan produkt än den här webbplatsen, och är inte lanserad.
           </p>
         </div>
         <div>
@@ -40,7 +40,7 @@ export default function ServicesPage() {
       </section>
       <div className="mt-10 flex flex-wrap gap-3">
         <Link href="/analys" className="bg-ion px-5 py-3 text-sm font-medium text-ink">
-          Börja med en scan
+          Börja med en gratis analys
         </Link>
         <Link href="/priser" className="border border-line px-5 py-3 text-sm">
           Priser

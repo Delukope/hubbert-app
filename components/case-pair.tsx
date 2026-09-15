@@ -13,8 +13,8 @@ export function CasePair({
 }) {
   return (
     <div className={cn("grid sm:grid-cols-2", className)}>
-      <Frame label="Före" src={beforeSrc} name={name} />
-      <Frame label="Efter" src={afterSrc} name={name} />
+      <Frame label="Tidigare webbplats" src={beforeSrc} name={name} />
+      <Frame label="Ny version" src={afterSrc} name={name} />
     </div>
   );
 }

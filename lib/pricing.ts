@@ -43,10 +43,9 @@ export function snabbPlan(): PricePlan {
     sek: snabbSek(),
     stripePriceId: process.env.STRIPE_PRICE_SNABB?.trim() || undefined,
     points: [
-      "Genomgång av startsidan",
-      "Alla kategorier upplåsta",
-      "PDF du kan dela",
-      "Utan AI-pass",
+      "Full rapport av den körda genomgången",
+      "PDF du kan spara och dela",
+      "Ingen extra AI-läsning",
     ],
   };
 }
@@ -59,10 +58,9 @@ export function djupPlan(): PricePlan {
     stripePriceId: process.env.STRIPE_PRICE_DJUP?.trim() || undefined,
     payBefore: true,
     points: [
-      "AI-genomgång och PageSpeed",
-      "Roadmap och tydligare rekommendationer",
+      "Djupare genomgång och tydligare nästa steg",
       "PDF",
-      "Startar efter betalning",
+      "Betalas innan den djupare körningen startar",
     ],
   };
 }
@@ -70,14 +68,14 @@ export function djupPlan(): PricePlan {
 export function tungPlan(): PricePlan {
   return {
     id: "tung",
-    name: "Tung / stor sajt",
+    name: "Större sajt",
     sek: tungSek(),
     stripePriceId: process.env.STRIPE_PRICE_TUNG?.trim() || undefined,
     payBefore: true,
     points: [
-      "För tunga sajter",
-      "Betalas innan de tunga passen",
-      "Samma som djupanalys, med extra utrymme",
+      "Samma djupare genomgång som Djup",
+      "För större eller tyngre sajter",
+      "Betalas innan analysen körs",
     ],
   };
 }
@@ -110,4 +108,64 @@ export function demoUnlockAllowed() {
 }
 
 export const costNote =
-  "Engångsbelopp, inget abonnemang. Djupanalys och tung startar efter betalning — de tunga passen körs först då.";
+  "Engångsbelopp, inget abonnemang. Djupare genomgång och större sajter betalas innan den körningen startar.";
+
+export type PackageId = "free" | "snabb" | "djup" | "tung";
+
+export type PackageDetail = {
+  id: PackageId;
+  name: string;
+  sek: number;
+  gets: string;
+  included: string[];
+  notIncluded: string[];
+  payWhen: string;
+};
+
+export function packageDetail(id: PackageId): PackageDetail {
+  if (id === "snabb") {
+    const p = snabbPlan();
+    return {
+      id,
+      name: "Snabb",
+      sek: p.sek,
+      gets: "Full rapport och PDF av den körda genomgången.",
+      included: ["Helhetsbetyg och alla kategorier", "Åtgärder", "PDF"],
+      notIncluded: ["Extra AI-läsning", "Djupare körning"],
+      payWhen: "Du får en gratis teaser först. Rapporten låses upp när du betalar — analysen har redan körts.",
+    };
+  }
+  if (id === "djup") {
+    const p = djupPlan();
+    return {
+      id,
+      name: "Djup",
+      sek: p.sek,
+      gets: "Djupare genomgång och tydligare nästa steg.",
+      included: ["Allt i Snabb", "Djupare genomgång", "Tydligare rekommendationer", "PDF"],
+      notIncluded: ["Omskrivning av sajten", "Löpande SEO-avtal"],
+      payWhen: "Du får teasern först. Den djupare körningen startar efter betalning.",
+    };
+  }
+  if (id === "tung") {
+    const p = tungPlan();
+    return {
+      id,
+      name: "Större sajt",
+      sek: p.sek,
+      gets: "Samma djupare genomgång, för större eller tyngre sajter.",
+      included: ["Samma som Djup", "För sajter som bedöms som stora eller tunga"],
+      notIncluded: ["Omskrivning av sajten", "En annan sorts rapport än Djup"],
+      payWhen: "Betalas innan analysen körs.",
+    };
+  }
+  return {
+    id: "free",
+    name: "Gratis",
+    sek: 0,
+    gets: "Helhetsbetyg och ett urval fynd, direkt på sidan.",
+    included: ["Helhetsbetyg", "Ett urval fynd"],
+    notIncluded: ["Full rapport", "PDF"],
+    payWhen: "Ingen betalning.",
+  };
+}

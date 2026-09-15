@@ -145,16 +145,15 @@ export const projects: Project[] = [
   },
   {
     slug: "hubberty-app",
-    name: "Hubberty",
+    name: "Hubberty-appen",
     year: "2026",
-    role: "Produkt, familjeapp",
+    role: "Familjeapp",
     tags: ["App", "Familj"],
     featured: false,
     kind: "app",
     status: "wip",
-    callout: "Under utveckling",
     summary:
-      "Familjenav under utveckling. Unika QR-id:n som knyter ihop Edlevo, Haldor, SportAdmin, Svenskalag med mera — plus kalender, sysslor, veckoplan, semester och jobb.",
+      "Familjeapp — inte den här webbplatsen. Ska knyta ihop kalender och vardag. Inte lanserad än.",
     problem:
       "Familjens vecka är utspridd i skolplattformar, lagappar och kalendrar som inte pratar med varandra. Någon håller allt i huvudet.",
     approach:
@@ -174,11 +173,10 @@ export const projects: Project[] = [
     featured: false,
     kind: "app",
     status: "wip",
-    callout: "Kommande stämpelklocka",
     coverSrc: "/hubrix/logo-vit.png",
     coverFit: "contain",
     summary:
-      "Stämpelklocka för tid och projekt, på hubrix.se. Inte lanserad än — mer att visa när den har ett tydligt läge.",
+      "Stämpelklocka för tid och projekt, på hubrix.se. Inte lanserad än.",
     problem:
       "Tid och projekt hamnar i klocka, kalkylark och chatt. Det ska gå att stämpla och följa arbete på ett ställe.",
     approach: "En egen produkt för stämpling, tid och projekt. Byggs separat från den här sajten.",
@@ -281,7 +279,7 @@ export function archiveProjects() {
 
 export function statusLabel(status: ProjectStatus, project?: Project) {
   if (project?.caseStudy) return project.caseStudy.label;
-  if (status === "wip") return "Under utveckling";
+  if (status === "wip") return project?.kind === "app" ? "Inte lanserad" : "På gång";
   if (status === "archive") return "Tidigare";
   return "Live";
 }

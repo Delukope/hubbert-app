@@ -7,6 +7,7 @@ export async function CaseStudyCard({ project }: { project: Project }) {
   if (!slot) return null;
   const beforeSrc = await resolvePublicCover(slot.beforeSrc);
   const afterSrc = await resolvePublicCover(slot.afterSrc);
+  if (!beforeSrc && !afterSrc) return null;
   return (
     <div className="overflow-hidden border border-line">
       <CasePair name={project.name} beforeSrc={beforeSrc} afterSrc={afterSrc} />
