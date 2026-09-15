@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 
 function dirs() {
-  return [path.join(process.cwd(), ".data", "jobs"), path.join(os.tmpdir(), "hubbert-jobs")];
+  return [path.join(process.cwd(), ".data", "jobs"), path.join(os.tmpdir(), "hubberty-jobs")];
 }
 
 function assertId(id: string) {

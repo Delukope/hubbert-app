@@ -7,7 +7,7 @@ import type { ScanJob } from "./types";
 const mem = new Map<string, ScanJob>();
 
 function dirs(): string[] {
-  return [path.join(process.cwd(), ".data", "jobs"), path.join(os.tmpdir(), "hubbert-jobs")];
+  return [path.join(process.cwd(), ".data", "jobs"), path.join(os.tmpdir(), "hubberty-jobs")];
 }
 
 function fileFor(dir: string, id: string) {

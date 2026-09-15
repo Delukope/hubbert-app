@@ -15,7 +15,7 @@ export function proxy(request: NextRequest) {
     for (const [k, v] of Object.entries(siteSecurityHeaders)) res.headers.set(k, v);
     res.headers.set("Retry-After", "3");
     const delay = tarpitMs(true);
-    res.headers.set("x-hubbert-pace", String(delay));
+    res.headers.set("x-hubberty-pace", String(delay));
     return res;
   }
 

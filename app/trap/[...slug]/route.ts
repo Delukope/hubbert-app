@@ -3,7 +3,7 @@ import { maybeTarpit } from "@/lib/security/tarpit";
 export async function GET() {
   await maybeTarpit(true);
   const decoy = `<!doctype html><html lang="sv"><head><title>Index of /backup</title></head>
-<body><p>lorem-hubbert-decoy</p>
+<body><p>lorem-hubberty-decoy</p>
 <pre>${"0".repeat(400)}</pre></body></html>`;
   return new Response(decoy, {
     status: 200,

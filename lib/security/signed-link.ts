@@ -4,7 +4,7 @@ function secret() {
   return (
     process.env.HUBBERT_SIGNING_SECRET?.trim() ||
     process.env.STRIPE_SECRET_KEY?.trim() ||
-    "hubbert-dev-signing-only"
+    "hubberty-dev-signing-only"
   );
 }
 

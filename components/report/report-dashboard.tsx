@@ -9,6 +9,7 @@ import { ScoreRingWrap } from "@/components/ui/score-ring";
 import { CategoryBars, CategoryRadar, PerfBars } from "@/components/report/charts";
 import { UnlockCta } from "@/components/report/unlock-cta";
 import { formatBytes, formatMs, scoreTone, cn } from "@/lib/utils";
+import { copy } from "@/lib/copy";
 import { costNote as defaultCostNote, demoUnlockAllowed, plans, stripeReady, type PricePlan } from "@/lib/pricing";
 
 export type ReportBilling = {
@@ -106,7 +107,7 @@ export function ReportDashboard({
         <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <p className="text-xs uppercase tracking-[0.2em] text-gold">
-              {paid ? (deep ? "Djupanalys" : "Snabb analys") : "Gratis teaser"}
+              {copy.brand.name} · {paid ? (deep ? "Djupanalys" : "Snabb analys") : "Gratis teaser"}
             </p>
             <h1 className="display mt-3 text-4xl tracking-tight sm:text-5xl">{host}</h1>
             <p className="mt-4 text-base leading-7 text-muted">

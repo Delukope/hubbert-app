@@ -17,7 +17,7 @@ export async function GET(
   return new Response(bytes, {
     headers: {
       "content-type": "application/pdf",
-      "content-disposition": `attachment; filename="hubbert-${job.id}.pdf"`,
+      "content-disposition": `attachment; filename="hubberty-${job.id}.pdf"`,
     },
   });
 }

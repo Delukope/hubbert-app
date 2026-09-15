@@ -33,7 +33,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "hubbert",
+    slug: "hubberty",
     name: "Hubberty",
     domain: "hubberty.se",
     url: "https://hubberty.se",

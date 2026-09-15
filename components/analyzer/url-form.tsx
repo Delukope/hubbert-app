@@ -5,6 +5,7 @@ import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScanTheater } from "@/components/analyzer/scan-theater";
+import { copy } from "@/lib/copy";
 
 type StartResult =
   | { ok: true; id: string; url: string }
@@ -138,7 +139,9 @@ export function UrlForm({
     <>
       {hero ? (
         <div className="mx-auto max-w-3xl">
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">Sajtanalys · hubberty.se</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-ion">
+            {copy.brand.name} · sajtanalys
+          </p>
           <h1 className="display mt-3 text-4xl sm:text-6xl">Klistra in en URL, få en rapport.</h1>
           <p className="mt-4 max-w-xl text-muted">
             Gratis teaser på sajten. Full rapport och PDF när du betalar. Djupanalys startar efter betalning.

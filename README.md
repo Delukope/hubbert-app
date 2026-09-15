@@ -1,7 +1,9 @@
 # Hubberty
 
-Produkt på **[hubberty.se](https://hubberty.se)** (två t + y). Sajtnamn: **Hubberty**.  
+Produkt på **[hubberty.se](https://hubberty.se)** (två t + y). Sajtnamn överallt i UI: **Hubberty**.  
 Ägare: **Konny Pettersson**.
+
+Internt (inte visat): npm-paketet heter `hubbert`, env-nyckeln `HUBBERT_SIGNING_SECRET` är oförändrad så befintlig drift inte går sönder.
 
 Sajtanalys (gratis teaser på sajten → betald full rapport + PDF), hemsidor och appar. Inte WordPress. Inte Divi.
 

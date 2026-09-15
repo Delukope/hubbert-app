@@ -15,7 +15,10 @@ const nextConfig: NextConfig = {
     qualities: [75],
   },
   async redirects() {
-    return [{ source: "/projekt/stampe", destination: "/projekt/hubrix", permanent: true }];
+    return [
+      { source: "/projekt/hubbert", destination: "/projekt/hubberty", permanent: true },
+      { source: "/projekt/stampe", destination: "/projekt/hubrix", permanent: true },
+    ];
   },
   async headers() {
     return [

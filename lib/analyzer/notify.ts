@@ -5,6 +5,7 @@
 import { isPaid } from "@/lib/analyzer/access";
 import type { ScanJob } from "@/lib/analyzer/types";
 import { teaserPayLink } from "@/lib/security/signed-link";
+import { copy } from "@/lib/copy";
 import { siteUrl } from "@/lib/utils";
 
 export function canEmailFullReport(job: ScanJob) {
@@ -21,7 +22,7 @@ export function teaserNotifyPayload(job: ScanJob) {
   })();
   const score = job.report?.overall;
   return {
-    subject: `Hubberty-teaser: ${host}`,
+    subject: `${copy.brand.name}-teaser: ${host}`,
     text: [
       `Teaser för ${host}${typeof score === "number" ? ` · ${score}/100` : ""}.`,
       "Full rapport och PDF skickas inte förrän betalning är registrerad.",

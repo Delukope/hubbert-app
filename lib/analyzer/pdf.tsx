@@ -2,6 +2,7 @@ import { Document, Page, Text, View, StyleSheet, renderToBuffer } from "@react-p
 import type { ScanJob, ScanIssue } from "@/lib/analyzer/types";
 import { isDeep } from "@/lib/analyzer/access";
 import { formatBytes, formatMs } from "@/lib/utils";
+import { copy } from "@/lib/copy";
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontSize: 10, fontFamily: "Helvetica", color: "#1a1408" },
@@ -35,7 +36,9 @@ function ReportPdf({ job }: { job: ScanJob }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.kicker}>HUBBERTY · {deep ? "DJUPANALYS" : "SNABB ANALYS"}</Text>
+        <Text style={styles.kicker}>
+          {copy.brand.name.toUpperCase()} · {deep ? "DJUPANALYS" : "SNABB ANALYS"}
+        </Text>
         <Text style={styles.h1}>{host}</Text>
         <Text style={styles.muted}>{report.fetchedUrl}</Text>
         <Text style={styles.muted}>{new Date(report.scannedAt).toLocaleString("sv-SE")}</Text>
@@ -70,7 +73,7 @@ function ReportPdf({ job }: { job: ScanJob }) {
           </View>
         ))}
         <Text style={{ marginTop: 18, fontSize: 8, color: "#8a8378" }}>
-          Hubberty-analys. Inte en juridisk eller pentest-rapport. hubberty.se
+          {copy.brand.name}-analys. Inte en juridisk eller pentest-rapport. {copy.brand.domain}
         </Text>
       </Page>
     </Document>
