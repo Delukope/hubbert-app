@@ -34,7 +34,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projekt/
         ← Alla projekt
       </Link>
       <div className="mt-8 overflow-hidden border border-line">
-        <ProjectCover project={project} className="h-48" />
+        <ProjectCover project={project} variant="hero" className="h-52 sm:h-56" />
       </div>
       <div className="mt-8 flex flex-wrap gap-2">
         {project.domain ? <Badge>{project.domain}</Badge> : <Badge>App</Badge>}

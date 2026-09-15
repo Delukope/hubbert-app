@@ -65,9 +65,10 @@ Redigera `lib/projects.ts`. Live: Hubberty (hubberty.se), Akalasi. Före/efter-s
 
 ## Bilder
 
-- LIVE-foton saknas tills vidare — lägg filer i `public/projects/` (`hubberty.jpg` / `akalasi.jpg`, eller `.png`/`.webp`). Tills dess: gradient + domän, inga fejkade skärmdumpar.
+- LIVE-foton saknas tills vidare — lägg skärmdumpar i `public/projects/` (`hubberty.jpg`, eller `.png`/`.webp`). Tills dess: gradient + domän.
+- Akalasi LIVE-kort använder officiella logotyper i `public/brands/akalasi/` (horisontell på breda kort, symbol som thumb, tagline på projektsidan). Script-wordmark sparad men inte i UI.
 - Klient före/efter: `public/cases/...` — placeholders tills omskrivningen är klar.
-- Hubrix-logotyper: `public/hubrix/logo-vit.png` (mörk UI), `public/hubrix/logo.png` (färg), `public/hubrix/symbol.png`. Används bara på Hubrix-kortet, aldrig som Hubberty-sajtlogo eller favicon.
+- Hubrix-logotyper: `public/hubrix/` — bara på Hubrix-kortet.
 
 ## Licens
 

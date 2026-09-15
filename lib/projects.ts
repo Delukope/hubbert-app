@@ -21,7 +21,9 @@ export type Project = {
   callout?: string;
   caseStudy?: CaseStudySlot;
   coverSrc?: string;
+  coverSrcCompact?: string;
   coverFit?: "cover" | "contain";
+  heroSrc?: string;
   summary: string;
   problem: string;
   approach: string;
@@ -67,7 +69,10 @@ export const projects: Project[] = [
     featured: true,
     kind: "site",
     status: "live",
-    coverSrc: "/projects/akalasi.jpg",
+    coverSrc: "/brands/akalasi/logo-horizontal.png",
+    coverSrcCompact: "/brands/akalasi/symbol-a.png",
+    coverFit: "contain",
+    heroSrc: "/brands/akalasi/logo-tagline.png",
     summary:
       "Kunskaps- och hjälpsajt på akalasi.se. Probono: först täcka kostnaderna, därefter överskott till människor som behöver det.",
     problem:
@@ -76,8 +81,8 @@ export const projects: Project[] = [
       "Tydlig struktur för artiklar och hjälpvägar, mätbar SEO-hygien och en sajt som Konny styr och förbättrar löpande.",
     outcome:
       "Ett levande uppdrag. Målet är att sajten bär sig, och att det som blir över går till människor i nöd.",
-    accent: "#e8c07a",
-    accentTo: "#ff8a5b",
+    accent: "#2ec4b6",
+    accentTo: "#7ff5ea",
     pattern: "orbit",
   },
   {

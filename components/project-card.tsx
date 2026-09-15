@@ -117,26 +117,32 @@ export async function ProjectCover({
   project,
   featured,
   className,
+  variant = "card",
 }: {
   project: Project;
   featured?: boolean;
   className?: string;
+  variant?: "card" | "hero";
 }) {
-  const cover = await resolvePublicCover(project.coverSrc);
+  const compact = variant === "card" && !featured && project.coverSrcCompact;
+  const preferred =
+    variant === "hero" ? (project.heroSrc ?? project.coverSrc) : compact ? project.coverSrcCompact : project.coverSrc;
+  const cover = (await resolvePublicCover(preferred)) ?? (await resolvePublicCover(project.coverSrc));
+  const fitContain = project.coverFit === "contain" || Boolean(preferred?.includes("/brands/") || preferred?.includes("/hubrix/"));
   return (
     <div
       className={cn("relative overflow-hidden", className ?? "h-40")}
       style={{ background: "#0c0e14" }}
     >
       {cover ? (
-        <div className={cn("absolute inset-0", project.coverFit === "contain" && "inset-5")}>
+        <div className={cn("absolute inset-0", fitContain && "inset-5 sm:inset-6")}>
           <Image
             src={cover}
             alt={project.name}
             fill
-            sizes={featured ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 50vw, 100vw"}
-            className={project.coverFit === "contain" ? "object-contain" : "object-cover"}
-            priority={featured}
+            sizes={featured || variant === "hero" ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
+            className={fitContain ? "object-contain" : "object-cover"}
+            priority={featured || variant === "hero"}
           />
         </div>
       ) : project.coverSrc ? (
