@@ -39,9 +39,6 @@ export function SiteHeader() {
             priority
           />
           <span className="display text-xl leading-none tracking-tight">{copy.brand.name}</span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ion sm:inline">
-            {copy.brand.domain}
-          </span>
         </Link>
         <nav className="hidden items-center gap-0 md:flex" aria-label="Huvudnavigation">
           {links.map((l) => {

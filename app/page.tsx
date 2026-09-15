@@ -54,10 +54,9 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
+        <div className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-2">
           {[
             ["/tjanster", "Hemsidor", "Nya sajter och omskrivningar."],
-            ["/projekt/hubberty-app", "Hubberty", "Familjenav under utveckling."],
             ["/projekt/hubrix", "Hubrix", "Kommande stämpelklocka för tid och projekt."],
           ].map(([href, title, lead]) => (
             <Link key={href} href={href} className="bg-bg p-6 transition-colors hover:bg-white/3">
